@@ -19,6 +19,7 @@ mongoose
 app.use(bodyParser.json());
 
 // Define API routes here
+/************************************   GET ******************************/
 
 // GET /api/events route to fetch events filtered by region
 app.get('/api/events', async (req, res) => {
@@ -67,6 +68,63 @@ app.get('/api/organizers/:id', async (req, res) => {
     }
 });
 
+// GET /api/events/owner/:ownerId route to fetch events by ownerOrganizer
+app.get('/api/events/owner/:ownerId', async (req, res) => {
+    const ownerId = req.params.ownerId;
+
+    try {
+        const eventsByOwner = await Events.find({ ownerOrganizer: ownerId });
+        res.status(200).json(eventsByOwner);
+    } catch (error) {
+        console.error('Error fetching events by ownerOrganizer:', error);
+        res.status(500).json({ message: 'Error fetching events by ownerOrganizer' });
+    }
+});
+
+
+
+/*********************************  POST *****************************************/
+
+// POST /api/events route to create a new event
+app.post('/api/events', async (req, res) => {
+    const eventData = req.body;
+
+    try {
+        const newEvent = new Events(eventData);
+        await newEvent.save();
+        res.status(201).json(newEvent);
+    } catch (error) {
+        console.error('Error creating event:', error);
+        res.status(500).json({ message: 'Error creating event' });
+    }
+});
+
+
+/*********************************  PUT *****************************************/
+
+
+// PUT /api/events/:eventId route to update an existing event
+app.put('/api/events/:eventId', async (req, res) => {
+    const eventId = req.params.eventId;
+    const updatedEventData = req.body;
+
+    try {
+        const eventToUpdate = await Events.findById(eventId);
+        if (!eventToUpdate) {
+            res.status(404).json({ message: 'Event not found' });
+            return;
+        }
+
+        Object.assign(eventToUpdate, updatedEventData);
+        await eventToUpdate.save();
+        res.status(200).json(eventToUpdate);
+    } catch (error) {
+        console.error('Error updating event:', error);
+        res.status(500).json({ message: 'Error updating event' });
+    }
+});
+
+/***************************************  listen  **********************/
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
