@@ -1,5 +1,5 @@
 const connectDB = require('../db');
-const Events = require('./events');
+const Events = require('../models/events');
 
 // Replace the example values with your own
 const testEvents = [
@@ -10,6 +10,7 @@ const testEvents = [
         category: 'Practica',
         region: 'Boston',
         ownerOrganizer: '60a63c232fcd683cb4d9f27e', // Example ObjectId - replace with a valid ObjectId
+        eventOrganizer: '60a63c232fcd683cb4d9f27e', // Example ObjectId - replace with a valid ObjectId
         expiresAt: new Date('2023-11-01T12:00:00'),
     },
     {
@@ -19,6 +20,7 @@ const testEvents = [
         category: 'Practica',
         region: 'Boston',
         ownerOrganizer: '60a63c232fcd683cb4d9f27f', // Example ObjectId - replace with a valid ObjectId
+        eventOrganizer: '60a63c232fcd683cb4d9f27e', // Example ObjectId - replace with a valid ObjectId
         expiresAt: new Date('2023-11-02T16:00:00'),
     },
     {
@@ -28,6 +30,7 @@ const testEvents = [
         category: 'Milonga',
         region: 'Boston',
         ownerOrganizer: '60a63c232fcd683cb4d9f27f', // Example ObjectId - replace with a valid ObjectId
+        eventOrganizer: '60a63c232fcd683cb4d9f27e', // Example ObjectId - replace with a valid ObjectId
         expiresAt: new Date('2023-11-02T16:00:00'),
     }, {
         title: 'Test Event 2',
@@ -36,6 +39,7 @@ const testEvents = [
         category: 'Milonga',
         region: 'Boston',
         ownerOrganizer: '60a63c232fcd683cb4d9f27f', // Example ObjectId - replace with a valid ObjectId
+        eventOrganizer: '60a63c232fcd683cb4d9f27e', // Example ObjectId - replace with a valid ObjectId
         expiresAt: new Date('2023-11-02T16:00:00'),
     }, {
         title: 'Test Event 2',
@@ -44,6 +48,7 @@ const testEvents = [
         category: 'Festival',
         region: 'Boston',
         ownerOrganizer: '60a63c232fcd683cb4d9f27f', // Example ObjectId - replace with a valid ObjectId
+        eventOrganizer: '60a63c232fcd683cb4d9f27e', // Example ObjectId - replace with a valid ObjectId
         expiresAt: new Date('2023-11-02T16:00:00'),
     },
 ];
@@ -52,7 +57,7 @@ const seedEventsToDatabase = async () => {
     await connectDB();
 
     try {
-        await Event.insertMany(testEvents);
+        await Events.insertMany(testEvents);
         console.log('Test events added successfully');
         process.exit();
     } catch (error) {

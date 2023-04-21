@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const eventsSchema = new mongoose.Schema({
+const eventSchema = new mongoose.Schema({
     title: { type: String, required: true },
-    standardsTitle{ type: String, required: false },
+    standardsTitle: { type: String, required: false },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
     category: { type: String, required: true },
@@ -10,8 +10,6 @@ const eventsSchema = new mongoose.Schema({
     region: { type: String, required: true },
     ownerOrganizer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     eventOrganizer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    category_alternate: { type: String, required: false },
-
     expiresAt: { type: Date, required: true },
 });
 
