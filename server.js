@@ -3,9 +3,12 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const Events = require('./models/events');
 const app = express();
 const cors = require('cors');
+
+const Events = require('./models/events');
+const Categories = require('./models/categories');
+const Organizers = require('./models/organizers');
 
 
 // Connect to MongoDB
@@ -57,6 +60,18 @@ app.get('/api/events/:id', async (req, res) => {
     }
 });
 
+
+app.get('/api/organizers', async (req, res) => {
+    try {
+        const organizers = await Organizers.find();
+
+        res.status(200).json(organizers);
+    } catch (error) {
+        console.error('Error fetching organizers:', error);
+        res.status(500).json({ message: 'Error fetching organizers' });
+    }
+});
+
 app.get('/api/organizers/:id', async (req, res) => {
     const organizerId = req.params.id;
 
@@ -86,6 +101,16 @@ app.get('/api/events/owner/:ownerId', async (req, res) => {
     }
 });
 
+app.get('/api/categories', async (req, res) => {
+    try {
+        const categories = await Categories.find();
+
+        res.status(200).json(categories);
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        res.status(500).json({ message: 'Error fetching categories' });
+    }
+});
 
 
 /*********************************  POST *****************************************/
