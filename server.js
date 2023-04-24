@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Events = require('./models/events');
 const app = express();
+const cors = require('cors');
+
 
 // Connect to MongoDB
 mongoose
@@ -17,6 +19,9 @@ mongoose
 
 // Middleware for parsing JSON request bodies
 app.use(bodyParser.json());
+
+app.use(cors());
+
 
 // Define API routes here
 /************************************   GET ******************************/
