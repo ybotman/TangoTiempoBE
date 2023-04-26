@@ -9,6 +9,8 @@ const cors = require('cors');
 const Events = require('./models/events');
 const Categories = require('./models/categories');
 const Organizers = require('./models/organizers');
+const Regions = require('./models/regions');
+
 
 
 // Connect to MongoDB
@@ -109,6 +111,16 @@ app.get('/api/categories', async (req, res) => {
     } catch (error) {
         console.error('Error fetching categories:', error);
         res.status(500).json({ message: 'Error fetching categories' });
+    }
+});
+
+app.get('/api/regions', async (req, res) => {
+    try {
+        const regions = await Regions.find();
+        res.status(200).json(regions);
+    } catch (error) {
+        console.error('Error fetching regions:', error);
+        res.status(500).json({ message: 'Error fetching regions' });
     }
 });
 
