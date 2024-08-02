@@ -1,3 +1,4 @@
+// checkpoint to see it pushing to github (prep to pull into azure)
 require('dotenv').config();
 
 const express = require('express');
@@ -5,11 +6,20 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
+const connectDB = require('./db');
 
 const Events = require('./models/events');
 const Categories = require('./models/categories');
 const Organizers = require('./models/organizers');
 const Regions = require('./models/regions');
+
+
+// Connect to MongoDB
+connectDB();
+
+// Middleware for parsing JSON request bodies
+app.use(bodyParser.json());
+app.use(cors());
 
 
 
