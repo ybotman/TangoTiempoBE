@@ -14,13 +14,8 @@ const Organizers = require('./models/organizers');
 const Regions = require('./models/regions');
 
 
-// Connect to MongoDB
-connectDB();
-
-// Middleware for parsing JSON request bodies
-app.use(bodyParser.json());
-app.use(cors());
-
+// Connect to MongoDB  I had to do this once, and it worked but removed bc mongoos.connect.,.
+//connectDB();
 
 
 // Connect to MongoDB
@@ -32,9 +27,9 @@ mongoose
     .then(() => console.log('MongoDB connected...'))
     .catch((err) => console.log(`MongoDB connection error: ${err}`));
 
+
 // Middleware for parsing JSON request bodies
 app.use(bodyParser.json());
-
 app.use(cors());
 
 
