@@ -1,4 +1,3 @@
-The Back end node app. Not known if this works.
+#  Not yet working with FE but works local#
 
-This hopes to run in azure app and get from atlas mongo
-
+# Attempting to get to wrok incloud.  Not yet!
