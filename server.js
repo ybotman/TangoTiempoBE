@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
-const connectDB = require('./db');
+//const connectDB = require('./db');
 
 
 const Events = require('./models/events');
