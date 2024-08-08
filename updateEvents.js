@@ -1,4 +1,3 @@
-
 console.log('mongoose...');
 const mongoose = require('mongoose');
 
@@ -57,11 +56,11 @@ const insertEvents = async () => {
                 categoryFirst: "Milonga",
                 categorySecond: "Practica",
                 categoryThird: "Workshop",
-                ownerOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
-                eventOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
-                altOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be37"),
+                ownerOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
+                eventOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
+                altOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be37"),
                 eventImage: "https://example.com/image.jpg",
-                locationID: mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
+                locationID: new mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
                 recurrenceRule: "FREQ=WEEKLY;BYDAY=MO",
                 active: true,
                 featured: false,

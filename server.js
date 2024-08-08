@@ -1,4 +1,3 @@
-// checkpoint to see it pushing to github (prep to pull into azure)
 require('dotenv').config();
 
 const express = require('express');
@@ -6,19 +5,12 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
-//const connectDB = require('./db');
-
 
 const Events = require('./models/events');
 const Categories = require('./models/categories');
 const Organizers = require('./models/organizers');
 const Regions = require('./models/regions');
 const Locations = require('./models/locations');
-
-
-// Connect to MongoDB  I had to do this once, and it worked sbut removed bc mongoos.connect.,.
-//connectDB();
-
 
 // Connect to MongoDB
 mongoose
@@ -29,11 +21,9 @@ mongoose
     .then(() => console.log('MongoDB connected...'))
     .catch((err) => console.log(`MongoDB connection error: ${err}`));
 
-
 // Middleware for parsing JSON request bodies
 app.use(bodyParser.json());
 app.use(cors());
-
 
 // Define API routes here
 /************************************   GET ******************************/
@@ -68,7 +58,6 @@ app.get('/api/events/:id', async (req, res) => {
 app.get('/api/organizers', async (req, res) => {
     try {
         const organizers = await Organizers.find();
-
         res.status(200).json(organizers);
     } catch (error) {
         console.error('Error fetching organizers:', error);
@@ -108,7 +97,6 @@ app.get('/api/events/owner/:ownerId', async (req, res) => {
 app.get('/api/categories', async (req, res) => {
     try {
         const categories = await Categories.find();
-
         res.status(200).json(categories);
     } catch (error) {
         console.error('Error fetching categories:', error);
@@ -184,9 +172,7 @@ app.post('/api/events', async (req, res) => {
     }
 });
 
-
 /*********************************  PUT *****************************************/
-
 
 // PUT /api/events/:eventId route to update an existing event
 app.put('/api/events/:eventId', async (req, res) => {
@@ -208,7 +194,6 @@ app.put('/api/events/:eventId', async (req, res) => {
         res.status(500).json({ message: 'Error updating event' });
     }
 });
-
 
 // PUT /api/locations/:id route to update an existing location
 app.put('/api/locations/:id', async (req, res) => {
@@ -236,4 +221,3 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
