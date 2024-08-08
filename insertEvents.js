@@ -1,3 +1,4 @@
+/*
 console.log('mongoose...');
 const mongoose = require('mongoose');
 
@@ -56,11 +57,11 @@ const insertEvents = async () => {
                 categoryFirst: "Milonga",
                 categorySecond: "Practica",
                 categoryThird: "Workshop",
-                ownerOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
-                eventOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
-                altOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be37"),
+                ownerOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
+                eventOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
+                altOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
                 eventImage: "https://example.com/image.jpg",
-                locationID: mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
+                locationID: new mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
                 recurrenceRule: "FREQ=WEEKLY;BYDAY=MO",
                 active: true,
                 featured: false,
@@ -76,11 +77,11 @@ const insertEvents = async () => {
                 categoryFirst: "Milonga",
                 categorySecond: "Practica",
                 categoryThird: "Workshop",
-                ownerOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
-                eventOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
-                altOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be37"),
+                ownerOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
+                eventOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
+                altOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be37"),
                 eventImage: "https://example.com/image2.jpg",
-                locationID: mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
+                locationID: new mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
                 recurrenceRule: "FREQ=WEEKLY;BYDAY=FR",
                 active: true,
                 featured: false,
@@ -96,11 +97,11 @@ const insertEvents = async () => {
                 categoryFirst: "Workshop",
                 categorySecond: "Class",
                 categoryThird: "Milonga",
-                ownerOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
-                eventOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
-                altOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be37"),
+                ownerOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
+                eventOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
+                altOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
                 eventImage: "https://example.com/image3.jpg",
-                locationID: mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
+                locationID: new mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
                 recurrenceRule: "",
                 active: true,
                 featured: true,
@@ -116,11 +117,11 @@ const insertEvents = async () => {
                 categoryFirst: "Festival",
                 categorySecond: "Milonga",
                 categoryThird: "Class",
-                ownerOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
-                eventOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
-                altOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be37"),
+                ownerOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
+                eventOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
+                altOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
                 eventImage: "https://example.com/image4.jpg",
-                locationID: mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
+                locationID: new mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
                 recurrenceRule: "",
                 active: true,
                 featured: true,
@@ -136,11 +137,11 @@ const insertEvents = async () => {
                 categoryFirst: "Practica",
                 categorySecond: "Milonga",
                 categoryThird: "Class",
-                ownerOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
-                eventOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
-                altOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be37"),
+                ownerOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
+                eventOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
+                altOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
                 eventImage: "https://example.com/image5.jpg",
-                locationID: mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
+                locationID: new mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
                 recurrenceRule: "FREQ=DAILY;BYDAY=TH",
                 active: true,
                 featured: false,
@@ -156,11 +157,11 @@ const insertEvents = async () => {
                 categoryFirst: "Milonga",
                 categorySecond: "Festival",
                 categoryThird: "Practica",
-                ownerOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
-                eventOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
-                altOrganizerID: mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be37"),
+                ownerOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
+                eventOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
+                altOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
                 eventImage: "https://example.com/image6.jpg",
-                locationID: mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
+                locationID: new mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
                 recurrenceRule: "FREQ=MONTHLY;BYDAY=1TU",
                 active: true,
                 featured: true,
@@ -178,6 +179,64 @@ const insertEvents = async () => {
         console.log('Events inserted successfully');
     } catch (error) {
         console.error('Error inserting events:', error);
+    } finally {
+        mongoose.connection.close();
+        console.log('MongoDB connection closed');
+    }
+};
+*/
+//******************** */
+const mongoose = require('mongoose');
+require('dotenv').config(); // Load environment variables from .env
+
+const mongoURI = process.env.MONGODB_URI; // Ensure this matches your .env file
+
+console.log('Connecting to MongoDB...');
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('MongoDB connected');
+        updateEvents();
+    })
+    .catch(err => {
+        console.log('Error connecting to MongoDB:', err);
+    });
+
+// Define the schema for events
+const eventSchema = new mongoose.Schema({
+    title: String,
+    standardsTitle: String,
+    eventDescription: String,
+    startDate: Date,
+    endDate: Date,
+    categoryFirst: String,
+    categorySecond: String,
+    categoryThird: String,
+    ownerOrganizerID: mongoose.Schema.Types.ObjectId,
+    eventOrganizerID: mongoose.Schema.Types.ObjectId,
+    altOrganizerID: mongoose.Schema.Types.ObjectId,
+    eventImage: String,
+    locationID: mongoose.Schema.Types.ObjectId,
+    recurrenceRule: String,
+    active: Boolean,
+    featured: Boolean,
+    cost: String,
+    expiresAt: Date
+});
+
+// Create the model
+const Event = mongoose.model('Event', eventSchema);
+
+// Function to update events
+const updateEvents = async () => {
+    try {
+        console.log('Updating events...');
+        const result = await Event.updateMany(
+            { recurrenceRule: { $exists: true } },
+            { $set: { recurrenceRule: null } }
+        );
+        console.log('Events updated successfully', result);
+    } catch (error) {
+        console.error('Error updating events:', error);
     } finally {
         mongoose.connection.close();
         console.log('MongoDB connection closed');
