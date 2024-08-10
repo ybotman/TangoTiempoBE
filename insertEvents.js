@@ -49,51 +49,45 @@ const insertEvents = async () => {
         // Insert new events
         const newEvents = [
             {
-                title: "Tango Extravaganza",
-                standardsTitle: "Tango Extravaganza",
+                title: "Tango2 Extravaganza",
+                standardsTitle: "Tang2o Extravaganza",
                 eventDescription: "An amazing tango event.",
-                startDate: new Date("2024-09-15T20:00:00.000Z"),
-                endDate: new Date("2024-09-15T23:00:00.000Z"),
+                startDate: new Date("2024-10-15T20:00:00.000Z"),
+                endDate: new Date("2024-10-15T23:00:00.000Z"),
                 categoryFirst: "Milonga",
-                categorySecond: "Practica",
-                categoryThird: "Workshop",
                 ownerOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
                 eventOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
                 altOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
                 eventImage: "https://example.com/image.jpg",
                 locationID: new mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
-                recurrenceRule: "FREQ=WEEKLY;BYDAY=MO",
                 active: true,
                 featured: false,
                 cost: "Free",
                 expiresAt: new Date("2026-09-16T00:00:00.000Z")
             },
             {
-                title: "Tango Night",
-                standardsTitle: "Tango Night",
+                title: "Tango Class Night2",
+                standardsTitle: "TangoClass Nigh2t",
                 eventDescription: "A night full of tango.",
-                startDate: new Date("2024-08-01T20:00:00.000Z"),
-                endDate: new Date("2024-08-01T23:00:00.000Z"),
-                categoryFirst: "Milonga",
-                categorySecond: "Practica",
-                categoryThird: "Workshop",
+                startDate: new Date("2024-10-01T20:00:00.000Z"),
+                endDate: new Date("2024-10-01T23:00:00.000Z"),
+                categoryFirst: "Class",
                 ownerOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
                 eventOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be35"),
                 altOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be37"),
                 eventImage: "https://example.com/image2.jpg",
                 locationID: new mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
-                recurrenceRule: "FREQ=WEEKLY;BYDAY=FR",
                 active: true,
                 featured: false,
                 cost: "10 USD",
                 expiresAt: new Date("2025-08-02T00:00:00.000Z")
             },
             {
-                title: "Tango Workshop",
-                standardsTitle: "Tango Workshop",
+                title: "Tango2 Workshop",
+                standardsTitle: "Tango2 Workshop",
                 eventDescription: "A workshop to improve your tango skills.",
-                startDate: new Date("2024-08-05T18:00:00.000Z"),
-                endDate: new Date("2024-08-05T21:00:00.000Z"),
+                startDate: new Date("2024-10-03T18:00:00.000Z"),
+                endDate: new Date("2024-10-03T21:00:00.000Z"),
                 categoryFirst: "Workshop",
                 categorySecond: "Class",
                 categoryThird: "Milonga",
@@ -109,11 +103,11 @@ const insertEvents = async () => {
                 expiresAt: new Date("2025-08-06T00:00:00.000Z")
             },
             {
-                title: "Tango Festival",
-                standardsTitle: "Tango Festival",
-                eventDescription: "A grand festival celebrating tango.",
-                startDate: new Date("2024-08-10T19:00:00.000Z"),
-                endDate: new Date("2024-08-10T22:00:00.000Z"),
+                title: "LeTango Festival",
+                standardsTitle: "LETango Festival",
+                eventDescription: "Le grand festival celebrating tango.",
+                startDate: new Date("2024-11-1T19:00:00.000Z"),
+                endDate: new Date("2024-11-3T22:00:00.000Z"),
                 categoryFirst: "Festival",
                 categorySecond: "Milonga",
                 categoryThird: "Class",
@@ -129,11 +123,11 @@ const insertEvents = async () => {
                 expiresAt: new Date("2025-08-11T00:00:00.000Z")
             },
             {
-                title: "Tango Practice",
-                standardsTitle: "Tango Practice",
+                title: "Tango Practice2",
+                standardsTitle: "Tango Practice2",
                 eventDescription: "Practice your tango moves.",
-                startDate: new Date("2024-08-15T20:00:00.000Z"),
-                endDate: new Date("2024-08-15T23:00:00.000Z"),
+                startDate: new Date("2024-10-15T20:00:00.000Z"),
+                endDate: new Date("2024-10-15T23:00:00.000Z"),
                 categoryFirst: "Practica",
                 categorySecond: "Milonga",
                 categoryThird: "Class",
@@ -142,19 +136,18 @@ const insertEvents = async () => {
                 altOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
                 eventImage: "https://example.com/image5.jpg",
                 locationID: new mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
-                recurrenceRule: "FREQ=DAILY;BYDAY=TH",
                 active: true,
                 featured: false,
                 cost: "5 USD",
                 expiresAt: new Date("2025-08-16T00:00:00.000Z")
             },
             {
-                title: "Tango Night Out",
-                standardsTitle: "Tango Night Out",
+                title: "Tango Deay Out",
+                standardsTitle: "Tango Deay Out",
                 eventDescription: "A night out with tango music and dancing.",
-                startDate: new Date("2024-08-20T20:00:00.000Z"),
-                endDate: new Date("2024-08-20T23:00:00.000Z"),
-                categoryFirst: "Milonga",
+                startDate: new Date("2024-10-12T20:00:00.000Z"),
+                endDate: new Date("2024-10-12T23:00:00.000Z"),
+                categoryFirst: "Practica",
                 categorySecond: "Festival",
                 categoryThird: "Practica",
                 ownerOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
@@ -162,7 +155,6 @@ const insertEvents = async () => {
                 altOrganizerID: new mongoose.Types.ObjectId("6442ccb5f88a6c48aa30be36"),
                 eventImage: "https://example.com/image6.jpg",
                 locationID: new mongoose.Types.ObjectId("6449ee6895174c52123afd4c"),
-                recurrenceRule: "FREQ=MONTHLY;BYDAY=1TU",
                 active: true,
                 featured: true,
                 cost: "15 USD",
@@ -184,8 +176,10 @@ const insertEvents = async () => {
         console.log('MongoDB connection closed');
     }
 };
+
 */
-//******************** */
+
+
 const mongoose = require('mongoose');
 require('dotenv').config(); // Load environment variables from .env
 
