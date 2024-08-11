@@ -81,6 +81,16 @@ app.get('/api/organizers/:id', async (req, res) => {
     }
 });
 
+app.get('/api/organizersActive', async (req, res) => {
+    try {
+        const activeOrganizers = await Organizers.find({ isActive: true });
+        res.status(200).json(activeOrganizers);
+    } catch (error) {
+        console.error('Error fetching active organizers:', error);
+        res.status(500).json({ message: 'Error fetching active organizers' });
+    }
+});
+
 // GET /api/events/owner/:ownerId route to fetch events by ownerOrganizer
 app.get('/api/events/owner/:ownerId', async (req, res) => {
     const ownerId = req.params.ownerId;
