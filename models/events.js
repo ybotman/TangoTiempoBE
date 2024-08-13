@@ -18,6 +18,7 @@ const eventSchema = new mongoose.Schema({
     active: { type: Boolean, required: true },
     featured: { type: Boolean, required: false },
     cost: { type: String, required: false },
+    region: { type: String, required: true },
     expiresAt: { type: Date, required: true }
 });
 
