@@ -182,6 +182,20 @@ app.post('/api/events', async (req, res) => {
     }
 });
 
+// POST /api/organizers route to create a new organizer
+app.post('/api/organizers', async (req, res) => {
+    const organizerData = req.body;
+
+    try {
+        const newOrganizer = new Organizers(organizerData);
+        await newOrganizer.save();
+        res.status(201).json(newOrganizer);
+    } catch (error) {
+        console.error('Error creating organizer:', error);
+        res.status(500).json({ message: 'Error creating organizer' });
+    }
+});
+
 /*********************************  PUT *****************************************/
 
 // PUT /api/events/:eventId route to update an existing event
@@ -225,6 +239,29 @@ app.put('/api/locations/:id', async (req, res) => {
         res.status(500).json({ message: 'Error updating location' });
     }
 });
+
+// PUT /api/organizers/:id route to update an existing organizer
+app.put('/api/organizers/:id', async (req, res) => {
+    const organizerId = req.params.id;
+    const updatedOrganizerData = req.body;
+
+    try {
+        const organizerToUpdate = await Organizers.findById(organizerId);
+        if (!organizerToUpdate) {
+            res.status(404).json({ message: 'Organizer not found' });
+            return;
+        }
+
+        Object.assign(organizerToUpdate, updatedOrganizerData);
+        await organizerToUpdate.save();
+        res.status(200).json(organizerToUpdate);
+    } catch (error) {
+        console.error('Error updating organizer:', error);
+        res.status(500).json({ message: 'Error updating organizer' });
+    }
+});
+
+
 
 /***************************************  listen  **********************/
 const PORT = process.env.PORT || 3001;
