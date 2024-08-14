@@ -28,19 +28,18 @@ app.use(cors());
 // Define API routes here
 /************************************   GET ******************************/
 
-
-// GET /api/events route to fetch all events
-/* app.get('/api/events', async (req, res) => {
+app.get('/api/eventsAll', async (req, res) => {
     try {
-        const events = await Events.find();
+
+        // Find events based on the region
+        const events = await Events.find()
+
         res.status(200).json(events);
     } catch (error) {
         console.error('Error fetching events:', error);
         res.status(500).json({ message: 'Error fetching events' });
     }
 });
-*/
-// GET /api/events route to fetch all events
 app.get('/api/events', async (req, res) => {
     try {
         // Get the region from the request query, default to "UNK"

@@ -9,6 +9,7 @@ const eventSchema = new mongoose.Schema({
     categoryFirst: { type: String, required: true },
     categorySecond: { type: String, required: false },
     categoryThird: { type: String, required: false },
+    region: { type: String, required: true },
     ownerOrganizerID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     eventOrganizerID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     altOrganizerID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },
