@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
-
 const Events = require('./models/events');
 const Categories = require('./models/categories');
 const Organizers = require('./models/organizers');
@@ -14,10 +13,7 @@ const Locations = require('./models/locations');
 
 // Connect to MongoDB
 mongoose
-    .connect(process.env.MONGODB_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
+    .connect(process.env.MONGODB_URI)
     .then(() => console.log('MongoDB connected...'))
     .catch((err) => console.log(`MongoDB connection error: ${err}`));
 
@@ -25,13 +21,93 @@ mongoose
 app.use(bodyParser.json());
 app.use(cors());
 
-// Define API routes here
-/************************************   GET ******************************/
 
-// GET /api/events route to fetch all events
+/*******************************
+Define API routes here
+/api
+├── /events
+│   ├── GET /api/events                   # Fetch events filtered by region (default to 'UNK')
+│   ├── GET /api/eventsAll                # Fetch all events (no filters)
+│   ├── GET /api/events/:id               # Fetch a single event by its ID
+│   ├── GET /api/events/owner/:ownerId    # Fetch all events created by a specific organizer
+│   ├── POST /api/events                  # Create a new event
+│   └── PUT /api/events/:eventId          # Update an event by its ID
+│   
+├── /organizers
+│   ├── GET /api/organizers               # Fetch all organizers
+│   ├── GET /api/organizersActive         # Fetch all active organizers
+│   └── GET /api/organizers/:id           # Fetch an organizer by its ID
+│   
+├── /regions
+│   ├── GET /api/regions                  # Fetch all regions
+│   
+├── /locations
+│   ├── GET /api/locations                # Fetch all locations
+│   ├── GET /api/locations/:id            # Fetch a location by its ID
+│   ├── POST /api/locations               # Create a new location
+│   └── PUT /api/locations/:id            # Update a location by its ID
+│   
+└── /miscellaneous
+    ├── GET /api/categories               # Fetch all event categories
+    └── GET /api/tags                     # Fetch all event tags
+ ******************************/
+
+
+/************************************ EVENTS ******************************/
+
+app.get('/api/eventsAll', async (req, res) => {
+    try {
+
+        // Find events based on the region
+        const events = await Events.find()
+
+        res.status(200).json(events);
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        res.status(500).json({ message: 'Error fetching events' });
+    }
+});
+
+/* will be retured */
 app.get('/api/events', async (req, res) => {
     try {
-        const events = await Events.find();
+        // Get the region from the request query, default to "UNK"
+        const region = req.query.region || 'UNK';
+
+        // Find events based on the region
+        const events = await Events.find({ region });
+
+        res.status(200).json(events);
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        res.status(500).json({ message: 'Error fetching events' });
+    }
+});
+
+app.get('/api/eventsRegion', async (req, res) => {
+    try {
+        const { region, start, end } = req.query;
+
+        if (!region) {
+            return res.status(400).json({ message: 'Region is required' });
+        }
+
+        if (!start || !end) {
+            return res.status(400).json({ message: 'Start and end dates are required' });
+        }
+
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+
+        const query = {
+            startDate: { $gte: startDate, $lte: endDate },
+            region: region,
+        };
+
+        const events = await Events.find(query)
+            .sort({ startDate: 1 }) // Sort by start date in ascending order
+            .exec(); // Execute the query
+
         res.status(200).json(events);
     } catch (error) {
         console.error('Error fetching events:', error);
@@ -55,6 +131,127 @@ app.get('/api/events/:id', async (req, res) => {
     }
 });
 
+app.get('/api/events/owner/:ownerId', async (req, res) => {
+    const ownerId = req.params.ownerId;
+
+    try {
+        const eventsByOwner = await Events.find({ ownerOrganizer: ownerId });
+        res.status(200).json(eventsByOwner);
+    } catch (error) {
+        console.error('Error fetching events by ownerOrganizer:', error);
+        res.status(500).json({ message: 'Error fetching events by ownerOrganizer' });
+    }
+});
+
+
+app.put('/api/events/:eventId', async (req, res) => {
+    const eventId = req.params.eventId;
+    const updatedEventData = req.body;
+
+    try {
+        const eventToUpdate = await Events.findById(eventId);
+        if (!eventToUpdate) {
+            res.status(404).json({ message: 'Event not found' });
+            return;
+        }
+
+        Object.assign(eventToUpdate, updatedEventData);
+        await eventToUpdate.save();
+        res.status(200).json(eventToUpdate);
+    } catch (error) {
+        console.error('Error updating event:', error);
+        res.status(500).json({ message: 'Error updating event' });
+    }
+});
+
+app.post('/api/events', async (req, res) => {
+    const eventData = req.body;
+
+    try {
+        const newEvent = new Events(eventData);
+        await newEvent.save();
+        res.status(201).json(newEvent);
+    } catch (error) {
+        console.error('Error creating event:', error);
+        res.status(500).json({ message: 'Error creating event' });
+    }
+});
+
+
+
+/************************************ CATEGORIES ******************************/
+
+app.get('/api/categories', async (req, res) => {
+    try {
+        const categories = await Categories.find();
+        res.status(200).json(categories);
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        res.status(500).json({ message: 'Error fetching categories' });
+    }
+});
+
+/************************************ REGIONS ******************************/
+
+app.get('/api/regions', async (req, res) => {
+    try {
+        const regions = await Regions.find();
+        res.status(200).json(regions);
+    } catch (error) {
+        console.error('Error fetching regions:', error);
+        res.status(500).json({ message: 'Error fetching regions' });
+    }
+});
+
+/************************************ LOCATIONS ******************************/
+
+// GET /api/locations route to fetch all locations
+app.get('/api/locations', async (req, res) => {
+    try {
+        const locations = await Locations.find();
+        res.status(200).json(locations);
+    } catch (error) {
+        console.error('Error fetching locations:', error);
+        res.status(500).json({ message: 'Error fetching locations' });
+    }
+});
+
+
+// POST /api/locations route to create a new location
+app.post('/api/locations', async (req, res) => {
+    const locationData = req.body;
+
+    try {
+        const newLocation = new Locations(locationData);
+        await newLocation.save();
+        res.status(201).json(newLocation);
+    } catch (error) {
+        console.error('Error creating location:', error);
+        res.status(500).json({ message: 'Error creating location' });
+    }
+});
+
+app.put('/api/locations/:id', async (req, res) => {
+    const locationId = req.params.id;
+    const updatedLocationData = req.body;
+
+    try {
+        const locationToUpdate = await Locations.findById(locationId);
+        if (!locationToUpdate) {
+            res.status(404).json({ message: 'Location not found' });
+            return;
+        }
+
+        Object.assign(locationToUpdate, updatedLocationData);
+        await locationToUpdate.save();
+        res.status(200).json(locationToUpdate);
+    } catch (error) {
+        console.error('Error updating location:', error);
+        res.status(500).json({ message: 'Error updating location' });
+    }
+});
+
+/************************************ ORGANIZERS ******************************/
 app.get('/api/organizers', async (req, res) => {
     try {
         const organizers = await Organizers.find();
@@ -90,39 +287,8 @@ app.get('/api/organizersActive', async (req, res) => {
         res.status(500).json({ message: 'Error fetching active organizers' });
     }
 });
+/*************************************************************************/
 
-// GET /api/events/owner/:ownerId route to fetch events by ownerOrganizer
-app.get('/api/events/owner/:ownerId', async (req, res) => {
-    const ownerId = req.params.ownerId;
-
-    try {
-        const eventsByOwner = await Events.find({ ownerOrganizer: ownerId });
-        res.status(200).json(eventsByOwner);
-    } catch (error) {
-        console.error('Error fetching events by ownerOrganizer:', error);
-        res.status(500).json({ message: 'Error fetching events by ownerOrganizer' });
-    }
-});
-
-app.get('/api/categories', async (req, res) => {
-    try {
-        const categories = await Categories.find();
-        res.status(200).json(categories);
-    } catch (error) {
-        console.error('Error fetching categories:', error);
-        res.status(500).json({ message: 'Error fetching categories' });
-    }
-});
-
-app.get('/api/regions', async (req, res) => {
-    try {
-        const regions = await Regions.find();
-        res.status(200).json(regions);
-    } catch (error) {
-        console.error('Error fetching regions:', error);
-        res.status(500).json({ message: 'Error fetching regions' });
-    }
-});
 
 // GET /api/locations route to fetch all locations
 app.get('/api/locations', async (req, res) => {
@@ -151,94 +317,8 @@ app.get('/api/locations/:id', async (req, res) => {
         res.status(500).json({ message: 'Error fetching location by ID' });
     }
 });
+/*************************************************************/
 
-/*********************************  POST *****************************************/
-
-// POST /api/locations route to create a new location
-app.post('/api/locations', async (req, res) => {
-    const locationData = req.body;
-
-    try {
-        const newLocation = new Locations(locationData);
-        await newLocation.save();
-        res.status(201).json(newLocation);
-    } catch (error) {
-        console.error('Error creating location:', error);
-        res.status(500).json({ message: 'Error creating location' });
-    }
-});
-
-// POST /api/events route to create a new event
-app.post('/api/events', async (req, res) => {
-    const eventData = req.body;
-
-    try {
-        const newEvent = new Events(eventData);
-        await newEvent.save();
-        res.status(201).json(newEvent);
-    } catch (error) {
-        console.error('Error creating event:', error);
-        res.status(500).json({ message: 'Error creating event' });
-    }
-});
-
-// POST /api/organizers route to create a new organizer
-app.post('/api/organizers', async (req, res) => {
-    const organizerData = req.body;
-
-    try {
-        const newOrganizer = new Organizers(organizerData);
-        await newOrganizer.save();
-        res.status(201).json(newOrganizer);
-    } catch (error) {
-        console.error('Error creating organizer:', error);
-        res.status(500).json({ message: 'Error creating organizer' });
-    }
-});
-
-/*********************************  PUT *****************************************/
-
-// PUT /api/events/:eventId route to update an existing event
-app.put('/api/events/:eventId', async (req, res) => {
-    const eventId = req.params.eventId;
-    const updatedEventData = req.body;
-
-    try {
-        const eventToUpdate = await Events.findById(eventId);
-        if (!eventToUpdate) {
-            res.status(404).json({ message: 'Event not found' });
-            return;
-        }
-
-        Object.assign(eventToUpdate, updatedEventData);
-        await eventToUpdate.save();
-        res.status(200).json(eventToUpdate);
-    } catch (error) {
-        console.error('Error updating event:', error);
-        res.status(500).json({ message: 'Error updating event' });
-    }
-});
-
-// PUT /api/locations/:id route to update an existing location
-app.put('/api/locations/:id', async (req, res) => {
-    const locationId = req.params.id;
-    const updatedLocationData = req.body;
-
-    try {
-        const locationToUpdate = await Locations.findById(locationId);
-        if (!locationToUpdate) {
-            res.status(404).json({ message: 'Location not found' });
-            return;
-        }
-
-        Object.assign(locationToUpdate, updatedLocationData);
-        await locationToUpdate.save();
-        res.status(200).json(locationToUpdate);
-    } catch (error) {
-        console.error('Error updating location:', error);
-        res.status(500).json({ message: 'Error updating location' });
-    }
-});
 
 // PUT /api/organizers/:id route to update an existing organizer
 app.put('/api/organizers/:id', async (req, res) => {
