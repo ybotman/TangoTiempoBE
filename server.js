@@ -23,34 +23,6 @@ app.use(cors());
 
 
 /*******************************
-Define API routes here
-/api
-├── /events
-│   ├── GET /api/events                   # Fetch events filtered by region (default to 'UNK')
-│   ├── GET /api/eventsAll                # Fetch all events (no filters)
-│   ├── GET /api/events/:id               # Fetch a single event by its ID
-│   ├── GET /api/events/owner/:ownerId    # Fetch all events created by a specific organizer
-│   ├── POST /api/events                  # Create a new event
-│   └── PUT /api/events/:eventId          # Update an event by its ID
-│   
-├── /organizers
-│   ├── GET /api/organizers               # Fetch all organizers
-│   ├── GET /api/organizersActive         # Fetch all active organizers
-│   └── GET /api/organizers/:id           # Fetch an organizer by its ID
-│   
-├── /regions
-│   ├── GET /api/regions                  # Fetch all regions
-│   
-├── /locations
-│   ├── GET /api/locations                # Fetch all locations
-│   ├── GET /api/locations/:id            # Fetch a location by its ID
-│   ├── POST /api/locations               # Create a new location
-│   └── PUT /api/locations/:id            # Update a location by its ID
-│   
-└── /miscellaneous
-    ├── GET /api/categories               # Fetch all event categories
-    └── GET /api/tags                     # Fetch all event tags
- ******************************/
 
 
 /************************************ EVENTS ******************************/
@@ -164,8 +136,15 @@ app.put('/api/events/:eventId', async (req, res) => {
     }
 });
 
-app.post('/api/events', async (req, res) => {
+app.post('/api/createEvent', async (req, res) => {
     const eventData = req.body;
+
+    // Ensure required fields are provided
+    if (!eventData.title || !eventData.startDate || !eventData.endDate || !eventData.ownerOrganizerID) {
+        return res.status(400).json({ message: 'Title, Start Date, End Date, and Organizer ID are required' });
+    }
+
+    // Additional validation can be added here as needed
 
     try {
         const newEvent = new Events(eventData);
@@ -176,8 +155,6 @@ app.post('/api/events', async (req, res) => {
         res.status(500).json({ message: 'Error creating event' });
     }
 });
-
-
 
 /************************************ CATEGORIES ******************************/
 
