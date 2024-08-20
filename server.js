@@ -23,34 +23,6 @@ app.use(cors());
 
 
 /*******************************
-Define API routes here
-/api
-├── /events
-│   ├── GET /api/events                   # Fetch events filtered by region (default to 'UNK')
-│   ├── GET /api/eventsAll                # Fetch all events (no filters)
-│   ├── GET /api/events/:id               # Fetch a single event by its ID
-│   ├── GET /api/events/owner/:ownerId    # Fetch all events created by a specific organizer
-│   ├── POST /api/events                  # Create a new event
-│   └── PUT /api/events/:eventId          # Update an event by its ID
-│   
-├── /organizers
-│   ├── GET /api/organizers               # Fetch all organizers
-│   ├── GET /api/organizersActive         # Fetch all active organizers
-│   └── GET /api/organizers/:id           # Fetch an organizer by its ID
-│   
-├── /regions
-│   ├── GET /api/regions                  # Fetch all regions
-│   
-├── /locations
-│   ├── GET /api/locations                # Fetch all locations
-│   ├── GET /api/locations/:id            # Fetch a location by its ID
-│   ├── POST /api/locations               # Create a new location
-│   └── PUT /api/locations/:id            # Update a location by its ID
-│   
-└── /miscellaneous
-    ├── GET /api/categories               # Fetch all event categories
-    └── GET /api/tags                     # Fetch all event tags
- ******************************/
 
 
 /************************************ EVENTS ******************************/
@@ -109,6 +81,7 @@ app.get('/api/eventsRegion', async (req, res) => {
             .exec(); // Execute the query
 
         res.status(200).json(events);
+        console.log('app.get:api/eventsRegion, status(200)')
     } catch (error) {
         console.error('Error fetching events:', error);
         res.status(500).json({ message: 'Error fetching events' });
@@ -122,6 +95,7 @@ app.get('/api/events/:id', async (req, res) => {
         const event = await Events.findById(eventId);
         if (event) {
             res.status(200).json(event);
+            console.log('/api/events/:id, status(200)');
         } else {
             res.status(404).json({ message: 'Event not found' });
         }
@@ -137,6 +111,7 @@ app.get('/api/events/owner/:ownerId', async (req, res) => {
     try {
         const eventsByOwner = await Events.find({ ownerOrganizer: ownerId });
         res.status(200).json(eventsByOwner);
+        console.log('/api/events/owner/:ownerId, status(200)');
     } catch (error) {
         console.error('Error fetching events by ownerOrganizer:', error);
         res.status(500).json({ message: 'Error fetching events by ownerOrganizer' });
@@ -164,20 +139,24 @@ app.put('/api/events/:eventId', async (req, res) => {
     }
 });
 
-app.post('/api/events', async (req, res) => {
+app.post('/api/createEvent', async (req, res) => {
     const eventData = req.body;
+    console.log('app.post: /api/createEvent : Received data:', req.body);
+    // Ensure required fields are provided
+    if (!eventData.title || !eventData.startDate || !eventData.endDate || !eventData.ownerOrganizerID) {
+        return res.status(400).json({ message: 'Title, Start Date, End Date, and Organizer ID are required' });
+    }
 
     try {
         const newEvent = new Events(eventData);
         await newEvent.save();
         res.status(201).json(newEvent);
+        console.log('POST /api/createEvent, status(200)');
     } catch (error) {
         console.error('Error creating event:', error);
         res.status(500).json({ message: 'Error creating event' });
     }
 });
-
-
 
 /************************************ CATEGORIES ******************************/
 
