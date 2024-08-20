@@ -170,6 +170,29 @@ app.get('/api/categories', async (req, res) => {
     }
 });
 
+// POST /api/categories route to create a new category
+app.post('/api/categories', async (req, res) => {
+    const { CategoryName, CategoryCode } = req.body;
+
+    // Validate required fields
+    if (!CategoryName || !CategoryCode) {
+        return res.status(400).json({ message: 'CategoryName and CategoryCode are required' });
+    }
+
+    try {
+        // Create a new category document
+        const newCategory = new Categories({ CategoryName, CategoryCode });
+        await newCategory.save();
+
+        // Send the newly created category as a response
+        res.status(201).json(newCategory);
+        console.log('POST /api/categories, status(201)');
+    } catch (error) {
+        console.error('Error creating category:', error);
+        res.status(500).json({ message: 'Error creating category' });
+    }
+});
+
 /************************************ REGIONS ******************************/
 
 app.get('/api/regions', async (req, res) => {

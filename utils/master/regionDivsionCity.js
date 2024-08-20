@@ -1,0 +1,105 @@
+{
+    "regions": [
+        {
+            "regionName": "Northeast",
+            "divisions": [
+                {
+                    "divisionName": "New England",
+                    "states": ["Maine", "New Hampshire", "Vermont", "Massachusetts", "Rhode Island", "Connecticut"],
+                    "majorCities": [
+                        { "cityName": "Boston", "latitude": 42.3601, "longitude": -71.0589 },
+                        { "cityName": "Providence", "latitude": 41.8240, "longitude": -71.4128 },
+                        { "cityName": "Hartford", "latitude": 41.7658, "longitude": -72.6734 }
+                    ]
+                },
+                {
+                    "divisionName": "Middle Atlantic",
+                    "states": ["New York", "New Jersey", "Pennsylvania"],
+                    "majorCities": [
+                        { "cityName": "New York City", "latitude": 40.7128, "longitude": -74.0060 },
+                        { "cityName": "Philadelphia", "latitude": 39.9526, "longitude": -75.1652 },
+                        { "cityName": "Newark", "latitude": 40.7357, "longitude": -74.1724 }
+                    ]
+                }
+            ]
+        },
+        {
+            "regionName": "Midwest",
+            "divisions": [
+                {
+                    "divisionName": "East North Central",
+                    "states": ["Ohio", "Indiana", "Illinois", "Michigan", "Wisconsin"],
+                    "majorCities": [
+                        { "cityName": "Chicago", "latitude": 41.8781, "longitude": -87.6298 },
+                        { "cityName": "Detroit", "latitude": 42.3314, "longitude": -83.0458 },
+                        { "cityName": "Cleveland", "latitude": 41.4993, "longitude": -81.6944 }
+                    ]
+                },
+                {
+                    "divisionName": "West North Central",
+                    "states": ["Minnesota", "Iowa", "Missouri", "North Dakota", "South Dakota", "Nebraska", "Kansas"],
+                    "majorCities": [
+                        { "cityName": "Minneapolis", "latitude": 44.9778, "longitude": -93.2650 },
+                        { "cityName": "Kansas City", "latitude": 39.0997, "longitude": -94.5786 },
+                        { "cityName": "St. Louis", "latitude": 38.6270, "longitude": -90.1994 }
+                    ]
+                }
+            ]
+        },
+        {
+            "regionName": "South",
+            "divisions": [
+                {
+                    "divisionName": "South Atlantic",
+                    "states": ["Delaware", "Maryland", "District of Columbia", "Virginia", "West Virginia", "North Carolina", "South Carolina", "Georgia", "Florida"],
+                    "majorCities": [
+                        { "cityName": "Atlanta", "latitude": 33.7490, "longitude": -84.3880 },
+                        { "cityName": "Miami", "latitude": 25.7617, "longitude": -80.1918 },
+                        { "cityName": "Washington, D.C.", "latitude": 38.9072, "longitude": -77.0369 }
+                    ]
+                },
+                {
+                    "divisionName": "East South Central",
+                    "states": ["Kentucky", "Tennessee", "Alabama", "Mississippi"],
+                    "majorCities": [
+                        { "cityName": "Nashville", "latitude": 36.1627, "longitude": -86.7816 },
+                        { "cityName": "Birmingham", "latitude": 33.5186, "longitude": -86.8104 },
+                        { "cityName": "Louisville", "latitude": 38.2527, "longitude": -85.7585 }
+                    ]
+                },
+                {
+                    "divisionName": "West South Central",
+                    "states": ["Arkansas", "Louisiana", "Oklahoma", "Texas"],
+                    "majorCities": [
+                        { "cityName": "Houston", "latitude": 29.7604, "longitude": -95.3698 },
+                        { "cityName": "Dallas", "latitude": 32.7767, "longitude": -96.7970 },
+                        { "cityName": "New Orleans", "latitude": 29.9511, "longitude": -90.0715 }
+                    ]
+                }
+            ]
+        },
+        {
+            "regionName": "West",
+            "divisions": [
+                {
+                    "divisionName": "Mountain",
+                    "states": ["Montana", "Idaho", "Wyoming", "Colorado", "New Mexico", "Arizona", "Utah", "Nevada"],
+                    "majorCities": [
+                        { "cityName": "Denver", "latitude": 39.7392, "longitude": -104.9903 },
+                        { "cityName": "Phoenix", "latitude": 33.4484, "longitude": -112.0740 },
+                        { "cityName": "Salt Lake City", "latitude": 40.7608, "longitude": -111.8910 }
+                    ]
+                },
+                {
+                    "divisionName": "Pacific",
+                    "states": ["Washington", "Oregon", "California", "Alaska", "Hawaii"],
+                    "majorCities": [
+                        { "cityName": "Los Angeles", "latitude": 34.0522, "longitude": -118.2437 },
+                        { "cityName": "San Francisco", "latitude": 37.7749, "longitude": -122.4194 },
+                        { "cityName": "Seattle", "latitude": 47.6062, "longitude": -122.3321 }
+                    ]
+                }
+            ]
+        }
+    ]
+}
