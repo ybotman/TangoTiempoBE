@@ -15,6 +15,9 @@ const eventSchema = new mongoose.Schema({
     grantedOrganizerID: { type: mongoose.Schema.Types.ObjectId, ref: 'Organizers', required: false },
     alternateOrganizerID: { type: mongoose.Schema.Types.ObjectId, ref: 'Organizers', required: false },
     ownerOrganizerName: { type: String, required: true },
+    calculatedRegionName: { type: String, required: false },
+    calculatedDivisionName: { type: String, required: false },
+    calculatedCityName: { type: String, required: false },
     eventImage: { type: String, required: false },
     locationID: { type: mongoose.Schema.Types.ObjectId, ref: 'Location', required: false },
     locationName: { type: String, required: false },
@@ -31,7 +34,7 @@ eventSchema.index({ startDate: 1, endDate: 1 });
 eventSchema.index({ regionName: 1 });
 eventSchema.index({ ownerOrganizerID: 1 });
 eventSchema.index({ grantedOrganizerID: 1 });
-eventSchema.index({ altOrganizerID: 1 });
+eventSchema.index({ alternateOrganizerID: 1 });
 
 const Events = mongoose.model('Events', eventSchema);
 

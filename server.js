@@ -267,16 +267,16 @@ app.get('/api/categories', async (req, res) => {
 
 // POST CATEGORIES
 app.post('/api/categories', async (req, res) => {
-    const { CategoryName, CategoryCode } = req.body;
+    const { categoryName, categoryName } = req.body;
 
     // Validate required fields
-    if (!CategoryName || !CategoryCode) {
-        return res.status(400).json({ message: 'CategoryName and CategoryCode are required' });
+    if (!categoryName || !categoryName) {
+        return res.status(400).json({ message: 'categoryName and categoryName are required' });
     }
 
     try {
         // Create a new category document
-        const newCategory = new Categories({ CategoryName, CategoryCode });
+        const newCategory = new Categories({ categoryName, categoryName });
         await newCategory.save();
 
         // Send the newly created category as a response
