@@ -160,6 +160,8 @@ app.post('/api/createEvent', async (req, res) => {
 
 /************************************ CATEGORIES ******************************/
 
+
+//  GET CATEGORIES
 app.get('/api/categories', async (req, res) => {
     try {
         const categories = await Categories.find();
@@ -170,7 +172,7 @@ app.get('/api/categories', async (req, res) => {
     }
 });
 
-// POST /api/categories route to create a new category
+// POST CATEGORIES
 app.post('/api/categories', async (req, res) => {
     const { CategoryName, CategoryCode } = req.body;
 
@@ -195,6 +197,7 @@ app.post('/api/categories', async (req, res) => {
 
 /************************************ REGIONS ******************************/
 
+// GET REGIONS
 app.get('/api/regions', async (req, res) => {
     try {
         const regions = await Regions.find();
@@ -202,6 +205,67 @@ app.get('/api/regions', async (req, res) => {
     } catch (error) {
         console.error('Error fetching regions:', error);
         res.status(500).json({ message: 'Error fetching regions' });
+    }
+});
+
+// GET Active Regions
+app.get('/api/activeRegions', async (req, res) => {
+    try {
+        const activeRegions = await Regions.find({ active: true });
+        res.status(200).json(activeRegions);
+    } catch (error) {
+        console.error('Error fetching active regions:', error);
+        res.status(500).json({ message: 'Error fetching active regions' });
+    }
+});
+
+// GET Active Divisions
+app.get('/api/activeDivisions', async (req, res) => {
+    try {
+        const activeDivisions = await Regions.aggregate([
+            { $unwind: "$divisions" },
+            { $match: { "divisions.active": true } },
+            {
+                $project: {
+                    _id: 0,
+                    regionName: 1,
+                    regionCode: 1,
+                    divisionName: "$divisions.divisionName",
+                    states: "$divisions.states",
+                    majorCities: "$divisions.majorCities"
+                }
+            }
+        ]);
+        res.status(200).json(activeDivisions);
+    } catch (error) {
+        console.error('Error fetching active divisions:', error);
+        res.status(500).json({ message: 'Error fetching active divisions' });
+    }
+});
+
+// GET Active Cities
+app.get('/api/activeCities', async (req, res) => {
+    try {
+        const activeCities = await Regions.aggregate([
+            { $unwind: "$divisions" },
+            { $unwind: "$divisions.majorCities" },
+            { $match: { "divisions.majorCities.active": true } },
+            {
+                $project: {
+                    _id: 0,
+                    regionName: 1,
+                    regionCode: 1,
+                    divisionName: "$divisions.divisionName",
+                    cityName: "$divisions.majorCities.cityName",
+                    latitude: "$divisions.majorCities.latitude",
+                    longitude: "$divisions.majorCities.longitude"
+                }
+            }
+        ]);
+        res.status(200).json(activeCities);
+    } catch (error) {
+        console.error('Error fetching active cities:', error);
+        res.status(500).json({ message: 'Error fetching active cities' });
     }
 });
 
