@@ -59,4 +59,4 @@ jobs:
           app-name: 'TangoTiempoBE'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2FFB0B50A00A4E9D8296555D653FBD80 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A39BC6A5209E47E6ABA68B1CC543378E }}
