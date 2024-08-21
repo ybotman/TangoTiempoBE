@@ -27,64 +27,146 @@ app.use(cors());
 
 /************************************ EVENTS ******************************/
 
+//Get Events All
 app.get('/api/eventsAll', async (req, res) => {
     try {
+        const { start, end, active } = req.query;
 
-        // Find events based on the region
-        const events = await Events.find()
-
-        res.status(200).json(events);
-    } catch (error) {
-        console.error('Error fetching events:', error);
-        res.status(500).json({ message: 'Error fetching events' });
-    }
-});
-
-/* will be retured */
-app.get('/api/events', async (req, res) => {
-    try {
-        // Get the region from the request query, default to "UNK"
-        const region = req.query.region || 'UNK';
-
-        // Find events based on the region
-        const events = await Events.find({ region });
-
-        res.status(200).json(events);
-    } catch (error) {
-        console.error('Error fetching events:', error);
-        res.status(500).json({ message: 'Error fetching events' });
-    }
-});
-
-app.get('/api/eventsRegion', async (req, res) => {
-    try {
-        const { region, start, end } = req.query;
-
-        if (!region) {
-            return res.status(400).json({ message: 'Region is required' });
-        }
-
-        if (!start || !end) {
-            return res.status(400).json({ message: 'Start and end dates are required' });
+        // Validate that all required query parameters are provided
+        if (!start || !end || active === undefined) {
+            return res.status(400).json({ message: 'Start date, end date, and active status are required' });
         }
 
         const startDate = new Date(start);
         const endDate = new Date(end);
+        const isActive = active === 'true';  // Convert string to boolean
+
+        // Query for events based on start date, end date, and active status
+        const events = await Events.find({
+            startDate: { $gte: startDate, $lte: endDate },
+            active: isActive
+        });
+
+        res.status(200).json(events);
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        res.status(500).json({ message: 'Error fetching events' });
+    }
+});
+
+// get events retire?
+app.get('/api/events', async (req, res) => {
+    try {
+        const { region, start, end, active } = req.query;
+
+        if (!start || !end || active === undefined || !region) {
+            return res.status(400).json({ message: 'Region, start date, end date, and active status are required' });
+        }
+
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        const isActive = active === 'true';
+
+        const events = await Events.find({
+            region,
+            startDate: { $gte: startDate, $lte: endDate },
+            active: isActive
+        });
+
+        res.status(200).json(events);
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        res.status(500).json({ message: 'Error fetching events' });
+    }
+});
+
+//get eventsRegion
+app.get('/api/eventsRegion', async (req, res) => {
+    try {
+        const { region, start, end, active } = req.query;
+
+        if (!region || !start || !end || active === undefined) {
+            return res.status(400).json({ message: 'Region, start date, end date, and active status are required' });
+        }
+
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        const isActive = active === 'true';
 
         const query = {
+            region,
             startDate: { $gte: startDate, $lte: endDate },
-            region: region,
+            active: isActive
         };
 
-        const events = await Events.find(query)
-            .sort({ startDate: 1 }) // Sort by start date in ascending order
-            .exec(); // Execute the query
+        const events = await Events.find(query).sort({ startDate: 1 });
 
         res.status(200).json(events);
         console.log('app.get:api/eventsRegion, status(200)')
     } catch (error) {
         console.error('Error fetching events:', error);
         res.status(500).json({ message: 'Error fetching events' });
+    }
+});
+
+//get eventsCity
+app.get('/api/eventsCity', async (req, res) => {
+    try {
+        const { region, city, start, end, active, division } = req.query;
+
+        if (!region || !city || !start || !end || active === undefined) {
+            return res.status(400).json({ message: 'Region, city, start date, end date, and active status are required' });
+        }
+
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        const isActive = active === 'true';
+
+        const query = {
+            region,
+            'majorCities.cityName': city,
+            startDate: { $gte: startDate, $lte: endDate },
+            active: isActive
+        };
+
+        if (division) {
+            query.division = division;
+        }
+
+        const events = await Events.find(query);
+
+        res.status(200).json(events);
+    } catch (error) {
+        console.error('Error fetching events by city:', error);
+        res.status(500).json({ message: 'Error fetching events by city' });
+    }
+});
+
+app.get('/api/eventsDivision', async (req, res) => {
+    try {
+        const { region, division, start, end, active } = req.query;
+
+        // Validate that all required query parameters are provided
+        if (!region || !division || !start || !end || active === undefined) {
+            return res.status(400).json({ message: 'Region, division, start date, end date, and active status are required' });
+        }
+
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        const isActive = active === 'true';
+
+        // Query for events based on the region, division, date range, and active status
+        const events = await Events.find({
+            region,
+            division,
+            startDate: { $gte: startDate, $lte: endDate },
+            active: isActive
+        });
+
+        res.status(200).json(events);
+    } catch (error) {
+        console.error('Error fetching events by division:', error);
+        res.status(500).json({ message: 'Error fetching events by division' });
     }
 });
 
@@ -105,16 +187,26 @@ app.get('/api/events/:id', async (req, res) => {
     }
 });
 
+
+//get events for owner (all granted)
+
 app.get('/api/events/owner/:ownerId', async (req, res) => {
     const ownerId = req.params.ownerId;
 
     try {
-        const eventsByOwner = await Events.find({ ownerOrganizer: ownerId });
+        const eventsByOwner = await Events.find({
+            $or: [
+                { ownerOrganizerID: ownerId },
+                { grantedOrganizerID: ownerId },
+                { alternateOrganizerID: ownerId }
+            ]
+        });
+
         res.status(200).json(eventsByOwner);
         console.log('/api/events/owner/:ownerId, status(200)');
     } catch (error) {
         console.error('Error fetching events by ownerOrganizer:', error);
-        res.status(500).json({ message: 'Error fetching events by ownerOrganizer' });
+        res.status(500).json({ message: 'Error fetching events by organizer' });
     }
 });
 
@@ -138,6 +230,7 @@ app.put('/api/events/:eventId', async (req, res) => {
         res.status(500).json({ message: 'Error updating event' });
     }
 });
+
 
 app.post('/api/createEvent', async (req, res) => {
     const eventData = req.body;
