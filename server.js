@@ -57,9 +57,9 @@ app.get('/api/eventsAll', async (req, res) => {
 // get events retire?
 app.get('/api/events', async (req, res) => {
     try {
-        const { region, start, end, active } = req.query;
+        const { calcuatedRegion, start, end, active } = req.query;
 
-        if (!start || !end || active === undefined || !region) {
+        if (!start || !end || active === undefined || !calcuatedRegion) {
             return res.status(400).json({ message: 'Region, start date, end date, and active status are required' });
         }
 
@@ -68,7 +68,7 @@ app.get('/api/events', async (req, res) => {
         const isActive = active === 'true';
 
         const events = await Events.find({
-            region,
+            calcuatedRegion,
             startDate: { $gte: startDate, $lte: endDate },
             active: isActive
         });
@@ -83,9 +83,9 @@ app.get('/api/events', async (req, res) => {
 //get eventsRegion
 app.get('/api/eventsRegion', async (req, res) => {
     try {
-        const { region, start, end, active } = req.query;
+        const { calcuatedRegion, start, end, active } = req.query;
 
-        if (!region || !start || !end || active === undefined) {
+        if (!calcuatedRegion || !start || !end || active === undefined) {
             return res.status(400).json({ message: 'Region, start date, end date, and active status are required' });
         }
 
@@ -94,7 +94,7 @@ app.get('/api/eventsRegion', async (req, res) => {
         const isActive = active === 'true';
 
         const query = {
-            region,
+            calcuatedRegion,
             startDate: { $gte: startDate, $lte: endDate },
             active: isActive
         };
@@ -112,9 +112,9 @@ app.get('/api/eventsRegion', async (req, res) => {
 //get eventsCity
 app.get('/api/eventsCity', async (req, res) => {
     try {
-        const { region, city, start, end, active, division } = req.query;
+        const { calcuatedRegion, city, start, end, active, division } = req.query;
 
-        if (!region || !city || !start || !end || active === undefined) {
+        if (!calcuatedRegion || !city || !start || !end || active === undefined) {
             return res.status(400).json({ message: 'Region, city, start date, end date, and active status are required' });
         }
 
@@ -123,7 +123,7 @@ app.get('/api/eventsCity', async (req, res) => {
         const isActive = active === 'true';
 
         const query = {
-            region,
+            calcuatedRegion,
             'majorCities.cityName': city,
             startDate: { $gte: startDate, $lte: endDate },
             active: isActive
@@ -147,7 +147,7 @@ app.get('/api/eventsDivision', async (req, res) => {
         const { region, division, start, end, active } = req.query;
 
         // Validate that all required query parameters are provided
-        if (!region || !division || !start || !end || active === undefined) {
+        if (!calcuatedRegion || !division || !start || !end || active === undefined) {
             return res.status(400).json({ message: 'Region, division, start date, end date, and active status are required' });
         }
 
@@ -157,7 +157,7 @@ app.get('/api/eventsDivision', async (req, res) => {
 
         // Query for events based on the region, division, date range, and active status
         const events = await Events.find({
-            region,
+            calcuatedRegion,
             division,
             startDate: { $gte: startDate, $lte: endDate },
             active: isActive
@@ -265,28 +265,6 @@ app.get('/api/categories', async (req, res) => {
     }
 });
 
-// POST CATEGORIES
-app.post('/api/categories', async (req, res) => {
-    const { categoryName, categoryName } = req.body;
-
-    // Validate required fields
-    if (!categoryName || !categoryName) {
-        return res.status(400).json({ message: 'categoryName and categoryName are required' });
-    }
-
-    try {
-        // Create a new category document
-        const newCategory = new Categories({ categoryName, categoryName });
-        await newCategory.save();
-
-        // Send the newly created category as a response
-        res.status(201).json(newCategory);
-        console.log('POST /api/categories, status(201)');
-    } catch (error) {
-        console.error('Error creating category:', error);
-        res.status(500).json({ message: 'Error creating category' });
-    }
-});
 
 /************************************ REGIONS ******************************/
 
