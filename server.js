@@ -17,9 +17,23 @@ mongoose
     .then(() => console.log('MongoDB connected...'))
     .catch((err) => console.log(`MongoDB connection error: ${err}`));
 
+
+/* previous cors
 // Middleware for parsing JSON request bodies
 app.use(bodyParser.json());
 app.use(cors());
+*/
+
+// Middleware for parsing JSON request bodies
+app.use(bodyParser.json());
+
+// CORS setup
+const allowedOrigins = ['https://proud-mud-0788d6f0f.5.azurestaticapps.net'];
+app.use(cors({
+    origin: allowedOrigins,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Allow cookies to be sent if needed
+}));
 
 
 /*******************************
