@@ -68,6 +68,46 @@ app.get('/api/eventsAll', async (req, res) => {
     }
 });
 
+// get events by calculated locations (region, division, city)
+app.get('/api/eventsByCalcuatedLocations', async (req, res) => {
+    try {
+        const { calculatedRegionName, calculatedDivisionName, calculatedCityName, start, end, active } = req.query;
+
+        // Validate required parameters
+        if (!calculatedRegionName || !start || !end || active === undefined) {
+            return res.status(400).json({ message: 'Region, start date, end date, and active status are required' });
+        }
+
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        const isActive = active === 'true';
+
+        // Build the query object based on provided parameters
+        const query = {
+            calculatedRegionName,
+            startDate: { $gte: startDate, $lte: endDate },
+            active: isActive,
+        };
+
+        if (calculatedDivisionName) {
+            query.calculatedDivisionName = calculatedDivisionName;
+        }
+
+        if (calculatedCityName) {
+            query.calculatedCityName = calculatedCityName;
+        }
+
+        // Fetch events based on the constructed query
+        const events = await Events.find(query).sort({ startDate: 1 });
+
+        res.status(200).json(events);
+        console.log('app.get:api/eventsByCalcuatedLocations, status(200)');
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        res.status(500).json({ message: 'Error fetching events' });
+    }
+});
+
 // get events retire?
 app.get('/api/events', async (req, res) => {
     try {
