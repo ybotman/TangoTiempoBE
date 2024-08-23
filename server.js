@@ -18,12 +18,6 @@ mongoose
     .catch((err) => console.log(`MongoDB connection error: ${err}`));
 
 
-/* previous cors
-// Middleware for parsing JSON request bodies
-app.use(bodyParser.json());
-app.use(cors());
-*/
-
 // Middleware for parsing JSON request bodies
 app.use(bodyParser.json());
 
@@ -52,6 +46,21 @@ app.use(cors({
 
 
 /************************************ EVENTS ******************************/
+
+//Get Events All
+app.get('/api/eventsAllAll', async (req, res) => {
+    try {
+
+        // Query for events based on start date, end date, and active status
+        const events = await Events.find({
+        });
+
+        res.status(200).json(events);
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        res.status(500).json({ message: 'Error fetching events' });
+    }
+});
 
 //Get Events All
 app.get('/api/eventsAll', async (req, res) => {
