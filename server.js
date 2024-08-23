@@ -28,13 +28,25 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // CORS setup
-const allowedOrigins = ['https://proud-mud-0788d6f0f.5.azurestaticapps.net'];
+const allowedOrigins = [
+    'https://proud-mud-0788d6f0f.5.azurestaticapps.net', // Production origin
+    'http://localhost:3000' // Local development origin
+];
+
 app.use(cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+        // Allow requests with no origin, like mobile apps or curl requests
+        if (!origin) return callback(null, true);
+
+        if (allowedOrigins.indexOf(origin) === -1) {
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Allow cookies to be sent if needed
 }));
-
 
 /*******************************
 
