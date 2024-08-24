@@ -1,6 +1,34 @@
 const mongoose = require('mongoose');
 
 const locationSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    address_1: { type: String, required: true },
+    address_2: { type: String },
+    address_3: { type: String },
+    state: { type: String, required: true },
+    city: { type: String, required: true },
+    zip: { type: String, required: true },
+    country: { type: String, default: 'USA' },
+    latitude: { type: Number, required: true },
+    longitude: { type: Number, required: true },
+    image: { imageUrl: { type: String } },
+    geolocation: {
+        type: { type: String, default: 'Point' }, // GeoJSON type
+        coordinates: [Number] // Array to store [longitude, latitude]
+    }
+});
+
+// Creating a 2dsphere index to support geospatial queries
+locationSchema.index({ geolocation: '2dsphere' });
+
+const Locations = mongoose.model('Locations', locationSchema);
+module.exports = Locations;
+
+
+
+/* const mongoose = require('mongoose');
+
+const locationSchema = new mongoose.Schema({
     location_name: { type: String, required: true },
     address_1: { type: String, required: true },
     address_2: { type: String },
@@ -11,3 +39,5 @@ const locationSchema = new mongoose.Schema({
 
 const Locations = mongoose.model('Locations', locationSchema);
 module.exports = Locations;
+
+*/
