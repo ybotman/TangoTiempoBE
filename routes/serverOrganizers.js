@@ -3,10 +3,17 @@ const express = require('express');
 const router = express.Router();
 const Organizers = require('../models/organizers');
 
-// GET all organizers
+// GET organizers by activeCalculatedRegion
 router.get('/', async (req, res) => {
+    const { activeCalculatedRegion } = req.query;
+
     try {
-        const organizers = await Organizers.find();
+        if (!activeCalculatedRegion) {
+            return res.status(400).json({ message: 'activeCalculatedRegion is required' });
+        }
+
+        const organizers = await Organizers.find({ calculatedRegionName: activeCalculatedRegion });
+
         res.status(200).json(organizers);
     } catch (error) {
         console.error('Error fetching organizers:', error);
