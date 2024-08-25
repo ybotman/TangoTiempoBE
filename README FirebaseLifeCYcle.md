@@ -37,13 +37,5 @@ Here’s a typical lifecycle for adding a new Firebase authenticated user from y
 
 	•	When the user logs out, the FE should clear any stored user session information and call Firebase to sign out the user.
 
-Backend API Structure
-
-You may structure your BE APIs as follows:
-
-	•	POST /userLogin/api/add: Adds a new user to the UserLogin collection.
-	•	PUT /userLogin/api/update: Updates existing user information.
-	•	GET /userLogin/api/check: Checks if a user already exists in the UserLogin collection.
-	•	DELETE /userLogin/api/delete: (Optional) Allows for removing a user from the UserLogin collection if needed.
 
 This lifecycle ensures that your application keeps track of users in the UserLogin table while leveraging Firebase’s robust authentication system to manage user sessions and roles.
