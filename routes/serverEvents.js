@@ -108,10 +108,10 @@ router.put('/:eventId', async (req, res) => {
     }
 });
 
-// Create a new event
-router.post('/', async (req, res) => {
+// Create a new event with a CRUD endpoint
+router.post('/CRUD', async (req, res) => {
     const eventData = req.body;
-    console.log('app.post: /api/events : Received data:', req.body);
+    console.log('app.post: /api/events/CRUD : Received data:', req.body);
 
     if (!eventData.title || !eventData.startDate || !eventData.endDate || !eventData.ownerOrganizerID) {
         return res.status(400).json({ message: 'Title, Start Date, End Date, and Organizer ID are required' });
