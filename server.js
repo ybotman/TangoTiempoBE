@@ -51,7 +51,7 @@ app.use('/api/organizers', organizerRoutes);
 app.use('/api/regions', regionRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/locations', locationRoutes);
-app.use('/api/userslogin', userLoginRoutes);
+app.use('/api/userlogin', userLoginRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 3001;
