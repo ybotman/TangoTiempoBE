@@ -13,16 +13,16 @@ Here’s a typical lifecycle for adding a new Firebase authenticated user from y
 3. Check for Existing User
 
 	•	The FE sends the Firebase user information (particularly the uid) to your backend (BE) to check if the user already exists in the UserLogin table.
-	•	The BE API (/userLogin/api/check) checks the UserLogin collection for an entry with the firebaseUserId matching the user’s uid.
+	•	The BE API (/userLogins/api/check) checks the UserLogin collection for an entry with the firebaseUserId matching the user’s uid.
 
 4. Insert or Update User in UserLogin
 
 	•	New User:
 	•	If the user does not exist, the BE will create a new entry in the UserLogin table with the relevant details (e.g., firebaseUserId, authType, etc.).
-	•	API Endpoint: POST /userLogin/api/add
+	•	API Endpoint: POST /userLogins/api/add
 	•	Existing User:
 	•	If the user exists, you may update their information, such as last login time or any other relevant details.
-	•	API Endpoint: PUT /userLogin/api/update
+	•	API Endpoint: PUT /userLogins/api/update
 
 5. Return User Data to Frontend
 

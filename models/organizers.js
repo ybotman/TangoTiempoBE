@@ -14,6 +14,7 @@ const organizerSchema = new mongoose.Schema({
     publicEmail: { type: String },
     loginId: { type: String },
     activeFlag: { type: Boolean, required: true, default: true },
+    updatedAt: { type: Date, default: Date.now },
     lastActivity: { type: Date, default: Date.now }, // Last activity timestamp
     paymentTier: {
         type: String,
@@ -23,6 +24,13 @@ const organizerSchema = new mongoose.Schema({
     }, // Payment tier for advertising
     paidBool: { type: Boolean, default: false } // Whether the organizer has paid for services
 });
+
+// Middleware to update the `updatedAt` field
+organizerSchema.pre('save', function (next) {
+    this.updatedAt = Date.now();
+    next();
+});
+
 
 const Organizers = mongoose.model('Organizers', organizerSchema);
 module.exports = Organizers;

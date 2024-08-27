@@ -1,98 +1,91 @@
 // routes/serverUserLogin.js
 const express = require('express');
 const router = express.Router();
-const UserLogin = require('../models/userLogin');
+const UserLogin = require('../models/userLogins');
+const getFirebaseUserInfo = require('../utils/firebaseUserInfo');
 
-// GET user by Firebase User ID
-router.get('/firebase/:firebaseUserId', async (req, res) => {
-    const firebaseUserId = req.params.firebaseUserId;
-
+// GET /api/userlogins/all - Fetch all user logins with roles and organizer info populated
+router.get('/all', async (req, res) => {
     try {
-        const user = await UserLogin.findOne({ firebaseUserId });
-        if (user) {
-            res.status(200).json(user);
-        } else {
-            res.status(404).json({ message: 'User not found' });
+        const userLogins = await UserLogin.find()
+            .populate({ path: 'localOrganizerInfo.organizerId', select: 'name', strictPopulate: false })
+            .exec();
+        res.status(200).json(userLogins);
+    } catch (error) {
+        console.error('Error fetching all user logins:', error);
+        res.status(500).json({ message: 'Error fetching user logins' });
+    }
+});
+
+// GET /api/userlogin/active - Fetch active user logins
+router.get('/active', async (req, res) => {
+    try {
+        const activeUserLogins = await UserLogins.find({ active: true })  // Assuming there's an 'active' field
+            .populate('organizerId', 'name');  // Corrected path for population
+        res.status(200).json(activeUserLogins);
+    } catch (error) {
+        console.error('Error fetching active user logins:', error);
+        res.status(500).json({ message: 'Error fetching active user logins' });
+    }
+});
+
+// GET /api/userlogin/firebase/:firebaseId - Fetch user login by Firebase ID
+router.get('/firebase/:firebaseId', async (req, res) => {
+    const { firebaseId } = req.params;
+    try {
+        const userLogins = await UserLogin.findOne({ firebaseUserId: firebaseId })
+            .populate('roles', 'roleName')
+            .populate('organizerInfo.organizerId', 'name');
+        if (!userLogins) {
+            return res.status(404).json({ message: 'User login not found' });
         }
+        res.status(200).json(userLogins);
     } catch (error) {
-        console.error('Error fetching user by Firebase User ID:', error);
-        res.status(500).json({ message: 'Error fetching user by Firebase User ID' });
+        console.error('Error fetching user login by Firebase ID:', error);
+        res.status(500).json({ message: 'Error fetching user login by Firebase ID' });
     }
 });
 
-// GET user by standard _id
-router.get('/:id', async (req, res) => {
-    const userId = req.params.id;
+
+
+// POST /api/userlogin/create - Create a new user login (temporary)
+router.post('/create', async (req, res) => {
+    const { firebaseUserId, loginUserName, firstName, lastName, roles, organizerInfo } = req.body;
 
     try {
-        const user = await UserLogin.findById(userId);
-        if (user) {
-            res.status(200).json(user);
-        } else {
-            res.status(404).json({ message: 'User not found' });
+        const newUserLogin = new UserLogin({
+            firebaseUserId,
+            namedUserInfo: { loginUserName, firstName, lastName },
+            roles,
+            organizerInfo
+        });
+
+        await newUserLogin.save();
+        res.status(201).json(newUserLogin);
+    } catch (error) {
+        console.error('Error creating user login:', error);
+        res.status(500).json({ message: 'Error creating user login' });
+    }
+});
+
+
+// PUT /api/userlogin/update/:id - Update a user login by ID
+router.put('/update/:id', async (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    try {
+        const updatedUserLogin = await UserLogin.findByIdAndUpdate(id, updateData, { new: true });
+        if (!updatedUserLogin) {
+            return res.status(404).json({ message: 'User login not found' });
         }
+        res.status(200).json(updatedUserLogin);
     } catch (error) {
-        console.error('Error fetching user by ID:', error);
-        res.status(500).json({ message: 'Error fetching user by ID' });
+        console.error('Error updating user login:', error);
+        res.status(500).json({ message: 'Error updating user login' });
     }
 });
 
-// POST (create) a new user
-router.post('/', async (req, res) => {
-    const userData = req.body;
 
-    try {
-        const newUser = new UserLogin(userData);
-        await newUser.save();
-        res.status(201).json(newUser);
-    } catch (error) {
-        console.error('Error creating user:', error);
-        res.status(500).json({ message: 'Error creating user' });
-    }
-});
-
-// PUT (update) a user by Firebase User ID
-router.put('/firebase/:firebaseUserId', async (req, res) => {
-    const firebaseUserId = req.params.firebaseUserId;
-    const updatedUserData = req.body;
-
-    try {
-        const user = await UserLogin.findOneAndUpdate(
-            { firebaseUserId },
-            updatedUserData,
-            { new: true, runValidators: true }
-        );
-        if (user) {
-            res.status(200).json(user);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        console.error('Error updating user by Firebase User ID:', error);
-        res.status(500).json({ message: 'Error updating user by Firebase User ID' });
-    }
-});
-
-// PUT (update) a user by standard _id
-router.put('/:id', async (req, res) => {
-    const userId = req.params.id;
-    const updatedUserData = req.body;
-
-    try {
-        const user = await UserLogin.findByIdAndUpdate(
-            userId,
-            updatedUserData,
-            { new: true, runValidators: true }
-        );
-        if (user) {
-            res.status(200).json(user);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        console.error('Error updating user by ID:', error);
-        res.status(500).json({ message: 'Error updating user by ID' });
-    }
-});
 
 module.exports = router;

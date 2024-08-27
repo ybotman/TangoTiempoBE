@@ -33,7 +33,7 @@
 
 	•	Base Path: /api/regions
 	•	GET /: Fetch all regions.
-	•	GET /activeRegions: Fetch only the active regions.
+	•	GET /active: Fetch only the active regions.
 	•	GET /activeDivisions: Fetch only the active divisions within regions.
 	•	GET /activeCities: Fetch only the active cities within divisions.
 	•	PUT /:id/active: Update the active flag of a region by its _id.

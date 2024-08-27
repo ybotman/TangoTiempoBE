@@ -17,8 +17,8 @@ router.get('/', async (req, res) => {
 // GET active regions
 router.get('/activeRegions', async (req, res) => {
     try {
-        const activeRegions = await Regions.find({ active: true });
-        res.status(200).json(activeRegions);
+        const active = await Regions.find({ active: true });
+        res.status(200).json(active);
     } catch (error) {
         console.error('Error fetching active regions:', error);
         res.status(500).json({ message: 'Error fetching active regions' });

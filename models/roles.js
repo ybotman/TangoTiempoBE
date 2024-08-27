@@ -30,5 +30,5 @@ roleSchema.pre('save', function (next) {
     next();
 });
 
-const Role = mongoose.model('Role', roleSchema);
-module.exports = Role;
+const Roles = mongoose.model('Roles', roleSchema);
+module.exports = Roles;
