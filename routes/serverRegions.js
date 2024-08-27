@@ -75,31 +75,38 @@ router.get('/activeCities', async (req, res) => {
     }
 });
 
-
-// PUT (update) region's active flag by region _id
-router.put('/:id/active', async (req, res) => {
-    const regionId = req.params.id;
+// PUT (update) active flag for a region
+router.put('/region/:regionId/active', async (req, res) => {
+    const { regionId } = req.params;
     const { active } = req.body;
 
     try {
-        const region = await Regions.findByIdAndUpdate(
-            regionId,
-            { active },
-            { new: true }
-        );
-        if (region) {
-            res.status(200).json(region);
-        } else {
-            res.status(404).json({ message: 'Region not found' });
+        const region = await Regions.findById(regionId);
+        if (!region) {
+            return res.status(404).json({ message: 'Region not found' });
         }
+
+        // Update region active flag
+        region.active = active;
+
+        // If deactivating region, deactivate all divisions and cities within it
+        if (!active) {
+            region.divisions.forEach(division => {
+                division.active = false;
+                division.majorCities.forEach(city => city.active = false);
+            });
+        }
+
+        await region.save();
+        res.status(200).json(region);
     } catch (error) {
         console.error('Error updating region active flag:', error);
         res.status(500).json({ message: 'Error updating region active flag' });
     }
 });
 
-// PUT (update) division's active flag by division _id within a specific region
-router.put('/:regionId/division/:divisionId/active', async (req, res) => {
+// PUT (update) active flag for a division within a specific region
+router.put('/region/:regionId/division/:divisionId/active', async (req, res) => {
     const { regionId, divisionId } = req.params;
     const { active } = req.body;
 
@@ -114,18 +121,29 @@ router.put('/:regionId/division/:divisionId/active', async (req, res) => {
             return res.status(404).json({ message: 'Division not found' });
         }
 
+        // Update division active flag
         division.active = active;
-        await region.save();
 
-        res.status(200).json(division);
+        // If activating division, ensure the region is also active
+        if (active && !region.active) {
+            region.active = true;
+        }
+
+        // If deactivating division, deactivate all cities within it
+        if (!active) {
+            division.majorCities.forEach(city => city.active = false);
+        }
+
+        await region.save();
+        res.status(200).json(region);
     } catch (error) {
         console.error('Error updating division active flag:', error);
         res.status(500).json({ message: 'Error updating division active flag' });
     }
 });
 
-// PUT (update) city's active flag by city _id within a specific division in a specific region
-router.put('/:regionId/division/:divisionId/city/:cityId/active', async (req, res) => {
+// PUT (update) active flag for a city within a specific division in a specific region
+router.put('/region/:regionId/division/:divisionId/city/:cityId/active', async (req, res) => {
     const { regionId, divisionId, cityId } = req.params;
     const { active } = req.body;
 
@@ -145,15 +163,27 @@ router.put('/:regionId/division/:divisionId/city/:cityId/active', async (req, re
             return res.status(404).json({ message: 'City not found' });
         }
 
+        // Update city active flag
         city.active = active;
-        await region.save();
 
-        res.status(200).json(city);
+        // If activating city, ensure the division and region are also active
+        if (active) {
+            if (!division.active) {
+                division.active = true;
+            }
+            if (!region.active) {
+                region.active = true;
+            }
+        }
+
+        await region.save();
+        res.status(200).json(region);
     } catch (error) {
         console.error('Error updating city active flag:', error);
         res.status(500).json({ message: 'Error updating city active flag' });
     }
 });
+
 
 
 module.exports = router;

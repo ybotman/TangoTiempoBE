@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const organizerSchema = new mongoose.Schema({
     name: { type: String, required: true },
     shortName: { type: String, required: true },
-    organzierRegion: { type: mongoose.Schema.Types.ObjectId, ref: 'Regions', required: true },
-    regionRole: { type: String, required: true },
+    organizerRegion: { type: mongoose.Schema.Types.ObjectId, ref: 'Regions', required: true },
+    organizerDivision: { type: mongoose.Schema.Types.ObjectId, ref: 'Divisions', required: true },
+    organizerCity: { type: mongoose.Schema.Types.ObjectId, ref: 'Cities', required: true },
+    firebaseUserId: { type: String, required: true, unique: true },
     url: { type: String },
     description: { type: String },
     images: [{ imageUrl: { type: String }, imageType: { type: String } }],

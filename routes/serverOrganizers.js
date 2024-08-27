@@ -3,6 +3,19 @@ const express = require('express');
 const router = express.Router();
 const Organizers = require('../models/organizers');
 
+
+// GET all organizers (no filters)
+router.get('/all', async (req, res) => {
+    try {
+        const organizers = await Organizers.find({});
+        res.status(200).json(organizers);
+    } catch (error) {
+        console.error('Error fetching all organizers:', error);
+        res.status(500).json({ message: 'Error fetching all organizers' });
+    }
+});
+
+
 // GET organizers by activeCalculatedRegion
 router.get('/', async (req, res) => {
     const { activeCalculatedRegion } = req.query;
@@ -18,23 +31,6 @@ router.get('/', async (req, res) => {
     } catch (error) {
         console.error('Error fetching organizers:', error);
         res.status(500).json({ message: 'Error fetching organizers' });
-    }
-});
-
-// GET organizer by ID
-router.get('/:id', async (req, res) => {
-    const organizerId = req.params.id;
-
-    try {
-        const organizer = await Organizers.findById(organizerId);
-        if (organizer) {
-            res.status(200).json(organizer);
-        } else {
-            res.status(404).json({ message: 'Organizer not found' });
-        }
-    } catch (error) {
-        console.error('Error fetching organizer by ID:', error);
-        res.status(500).json({ message: 'Error fetching organizer by ID' });
     }
 });
 
@@ -56,81 +52,37 @@ router.get('/firebase/:firebaseUserId', async (req, res) => {
     }
 });
 
-// GET user by standard _id
-router.get('/:id', async (req, res) => {
-    const userId = req.params.id;
 
-    try {
-        const user = await UserLogin.findById(userId);
-        if (user) {
-            res.status(200).json(user);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        console.error('Error fetching user by ID:', error);
-        res.status(500).json({ message: 'Error fetching user by ID' });
-    }
-});
-
-// POST (create) a new user
+// POST create a new organizer
 router.post('/', async (req, res) => {
-    const userData = req.body;
+    const { name, shortName, organizerRegion, organizerDivision, organizerCity, regionRole, url, description, phone, publicEmail, loginId, paymentTier } = req.body;
 
     try {
-        const newUser = new UserLogin(userData);
-        await newUser.save();
-        res.status(201).json(newUser);
+        const newOrganizer = new Organizers({
+            name,
+            shortName,
+            organizerRegion,
+            organizerDivision,
+            organizerCity,
+            regionRole,
+            url,
+            description,
+            phone,
+            publicEmail,
+            loginId,
+            paymentTier,
+            activeFlag: true,  // Defaulting new organizers to active
+            lastActivity: Date.now(),
+            paidBool: false  // Defaulting new organizers to unpaid
+        });
+
+        const savedOrganizer = await newOrganizer.save();
+
+        res.status(201).json(savedOrganizer);
     } catch (error) {
-        console.error('Error creating user:', error);
-        res.status(500).json({ message: 'Error creating user' });
+        console.error('Error creating new organizer:', error);
+        res.status(500).json({ message: 'Error creating new organizer' });
     }
 });
-
-// PUT (update) a user by Firebase User ID
-router.put('/firebase/:firebaseUserId', async (req, res) => {
-    const firebaseUserId = req.params.firebaseUserId;
-    const updatedUserData = req.body;
-
-    try {
-        const user = await UserLogin.findOneAndUpdate(
-            { firebaseUserId },
-            updatedUserData,
-            { new: true, runValidators: true }
-        );
-        if (user) {
-            res.status(200).json(user);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        console.error('Error updating user by Firebase User ID:', error);
-        res.status(500).json({ message: 'Error updating user by Firebase User ID' });
-    }
-});
-
-// PUT (update) a user by standard _id
-router.put('/:id', async (req, res) => {
-    const userId = req.params.id;
-    const updatedUserData = req.body;
-
-    try {
-        const user = await UserLogin.findByIdAndUpdate(
-            userId,
-            updatedUserData,
-            { new: true, runValidators: true }
-        );
-        if (user) {
-            res.status(200).json(user);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        console.error('Error updating user by ID:', error);
-        res.status(500).json({ message: 'Error updating user by ID' });
-    }
-});
-
-module.exports = router;
 
 module.exports = router;
