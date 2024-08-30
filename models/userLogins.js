@@ -2,18 +2,8 @@ const mongoose = require('mongoose');
 
 const userLoginSchema = new mongoose.Schema({
     firebaseUserId: { type: String, required: true, unique: true },
-    firebaseUserInfo: {
-        email: { type: String },
-        emailVerified: { type: Boolean, default: false },
-        displayName: { type: String },
-        photoURL: { type: String },
-        phoneNumber: { type: String },
-        isAnonymous: { type: Boolean, default: false },
-        creationTime: { type: Date },
-        lastSignInTime: { type: Date }
-    },
-    authType: { type: String, required: false },  // e.g., 'Google', 'Facebook'
     mfaEnabled: { type: Boolean, default: false },
+    role: { type: String, required: true, default: 'NamedUser' },
     localUserInfo: {
         loginUserName: { type: String, },
         firstName: { type: String },
