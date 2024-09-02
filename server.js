@@ -9,10 +9,10 @@ const cors = require('cors');
 const app = express();
 const allowedOrigins = [
     'https://proud-mud-0788d6f0f.5.azurestaticapps.net', // Init Cloud origin
-    'https://wonderful-glacier-03516880f.5.azurestaticapps.net' / officail test 
+    'https://wonderful-glacier-03516880f.5.azurestaticapps.net', // official test 
     'http://localhost:3000', // Local development origin
     'https://tangotiempo.com', // final production
-]   'https://www.tangotiempo.com' // final production
+   'https://www.tangotiempo.com' // final production
 ];
 
 
