@@ -8,11 +8,12 @@ const cors = require('cors');
 
 const app = express();
 const allowedOrigins = [
-    'https://proud-mud-0788d6f0f.5.azurestaticapps.net', // Init Cloud origin
-    'https://wonderful-glacier-03516880f.5.azurestaticapps.net', // official test 
     'http://localhost:3000', // Local development origin
+    'https://wonderful-glacier-03516880f.5.azurestaticapps.net', // official test 
     'https://tangotiempo.com', // final production
-   'https://www.tangotiempo.com' // final production
+    'https://www.tangotiempo.com', // final production
+    'http://witty-bay-08177ec0f.5.azurestaticapps.net', // alternative production link
+    'https://red-field-0006d060f.5.azurestaticapps.net', // integration
 ];
 
 
@@ -32,6 +33,10 @@ app.use(cors({
     credentials: true,
 }));
 
+
+// REMOVE LATER
+console.log('process.env.MONGODB_URI', process.env.MONGODB_URI);
+console.log('process.env.FIREBASE_JSON', process.env.FIREBASE_JSON);
 
 // Connect to MongoDB
 mongoose
