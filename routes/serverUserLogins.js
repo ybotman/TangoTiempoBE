@@ -4,30 +4,30 @@ const router = express.Router();
 const UserLogins = require('../models/userLogins');
 const getFirebaseUserInfo = require('../utils/firebaseUserInfo');
 
-// // GET /api/userlogins/all - Fetch all user logins with roles and organizer info populated
-// router.get('/all', async (req, res) => {
-//     try {
-//         const userLogins = await UserLogins.find()
-//             .populate({ path: 'localOrganizerInfo.organizerId', select: 'name', strictPopulate: false })
-//             .exec();
-//         res.status(200).json(userLogins);
-//     } catch (error) {
-//         console.error('Error fetching all user logins:', error);
-//         res.status(500).json({ message: 'Error fetching user logins' });
-//     }
-// });
+// GET /api/userlogins/all - Fetch all user logins with roles and organizer info populated
+router.get('/all', async (req, res) => {
+    try {
+        const userLogins = await UserLogins.find()
+            .populate({ path: 'localOrganizerInfo.organizerId', select: 'name', strictPopulate: false })
+            .exec();
+        res.status(200).json(userLogins);
+    } catch (error) {
+        console.error('Error fetching all user logins:', error);
+        res.status(500).json({ message: 'Error fetching user logins' });
+    }
+});
 
-// // GET /api/userlogins/active - Fetch active user logins
-// router.get('/active', async (req, res) => {
-//     try {
-//         const activeUserLogins = await UserLogins.find({ active: true })  // Assuming there's an 'active' field
-//             .populate('organizerId', 'name');  // Corrected path for population
-//         res.status(200).json(activeUserLogins);
-//     } catch (error) {
-//         console.error('Error fetching active user logins:', error);
-//         res.status(500).json({ message: 'Error fetching active user logins' });
-//     }
-// });
+// GET /api/userlogins/active - Fetch active user logins
+router.get('/active', async (req, res) => {
+    try {
+        const activeUserLogins = await UserLogins.find({ active: true })  // Assuming there's an 'active' field
+            .populate('organizerId', 'name');  // Corrected path for population
+        res.status(200).json(activeUserLogins);
+    } catch (error) {
+        console.error('Error fetching active user logins:', error);
+        res.status(500).json({ message: 'Error fetching active user logins' });
+    }
+});
 
 // GET /api/userlogins/firebase/:firebaseId - Fetch user login by Firebase ID
 router.get('/firebase/:firebaseId', async (req, res) => {
@@ -69,23 +69,6 @@ router.post('/', async (req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }
 });
-
-// // PUT /api/userlogins/update/:id - Update a user login by ID
-// router.put('/update/:id', async (req, res) => {
-//     const { id } = req.params;
-//     const updateData = req.body;
-
-//     try {
-//         const updatedUserLogin = await UserLogins.findByIdAndUpdate(id, updateData, { new: true });
-//         if (!updatedUserLogin) {
-//             return res.status(404).json({ message: 'User login not found' });
-//         }
-//         res.status(200).json(updatedUserLogin);
-//     } catch (error) {
-//         console.error('Error updating user login:', error);
-//         res.status(500).json({ message: 'Error updating user login' });
-//     }
-// });
 
 
 
