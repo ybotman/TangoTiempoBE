@@ -20,36 +20,19 @@ const corsOptions = {
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else if (/^https:\/\/(wonderful-glacier-03516880f|witty-bay-08177ec0f|red-field-0006d060f)[a-z0-9\-\.]*\.5.azurestaticapps\.net/.test(origin)) {
-            callback(null, true);
+            const msg = 'The CORS policy for this site does not allow access from the specified origin.';
+            return callback(new Error(msg), false);
         } else {
             callback(new Error('Not allowed by CORS'));
         }
     },
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
 };
-
-app.use(cors(corsOptions));
-
 
 // Middleware setup
 app.use(bodyParser.json());
-app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin) return callback(null, true);
-
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'The CORS policy for this site does not allow access from the specified origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    },
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-}));
-
-
-// REMOVE LATER
-console.log('process.env.MONGODB_URI', process.env.MONGODB_URI);
-console.log('process.env.FIREBASE_JSON', process.env.FIREBASE_JSON);
+app.use(cors(corsOptions));
 
 // Connect to MongoDB
 mongoose
