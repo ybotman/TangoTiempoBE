@@ -10,18 +10,25 @@ const app = express();
 const cors = require('cors');
 
 const allowedOrigins = [
-    'http://localhost:3000', // Local development
-    'https://tangotiempo.com', // Final production
-    'https://www.tangotiempo.com', // Final production
+    'http://localhost:3000', // Local development origin
+    'https://wonderful-glacier-03516880f.5.azurestaticapps.net', // official test 
+    'https://tangotiempo.com', // final production
+    'https://www.tangotiempo.com', // final production
+    'http://witty-bay-08177ec0f.5.azurestaticapps.net', // alternative production link
+    'https://red-field-0006d060f.5.azurestaticapps.net', // integration
 ];
 
+// REMOVE THIS
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            console.log('CORS policy default')
             callback(null, true);
         } else if (/^https:\/\/(wonderful-glacier-03516880f|witty-bay-08177ec0f|red-field-0006d060f)[a-z0-9\-\.]*\.5.azurestaticapps\.net/.test(origin)) {
+            console.log('CORS policy Regex')
             return callback(null, true);
         } else {
+            console.log('CORS policy error')
             const msg = 'The CORS policy for this site does not allow access from the specified origin.';
             return callback(new Error(msg), false);
         }
