@@ -4,17 +4,30 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const cors = require('cors');
 
 const app = express();
+
+const cors = require('cors');
+
 const allowedOrigins = [
-    'http://localhost:3000', // Local development origin
-    'https://wonderful-glacier-03516880f.5.azurestaticapps.net', // official test 
-    'https://tangotiempo.com', // final production
-    'https://www.tangotiempo.com', // final production
-    'http://witty-bay-08177ec0f.5.azurestaticapps.net', // alternative production link
-    'https://red-field-0006d060f.5.azurestaticapps.net', // integration
+    'http://localhost:3000', // Local development
+    'https://tangotiempo.com', // Final production
+    'https://www.tangotiempo.com', // Final production
 ];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else if (/^https:\/\/(wonderful-glacier-03516880f|witty-bay-08177ec0f|red-field-0006d060f)[a-z0-9\-\.]*\.5.azurestaticapps\.net/.test(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+};
+
+app.use(cors(corsOptions));
 
 
 // Middleware setup
