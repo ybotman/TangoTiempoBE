@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const UserLogins = require('../models/userLogins');
+const Roles = require('../models/roles');
 const getFirebaseUserInfo = require('../utils/firebaseUserInfo');
 
 // GET /api/userlogins/all - Fetch all user logins with roles and organizer info populated
@@ -9,6 +10,7 @@ router.get('/all', async (req, res) => {
     try {
         const userLogins = await UserLogins.find()
             .populate({ path: 'localOrganizerInfo.organizerId', select: 'name', strictPopulate: false })
+            .populate({ path: 'roleIds', select: 'roleName' })  // Populating roleName instead of roleId
             .exec();
         res.status(200).json(userLogins);
     } catch (error) {
@@ -20,8 +22,10 @@ router.get('/all', async (req, res) => {
 // GET /api/userlogins/active - Fetch active user logins
 router.get('/active', async (req, res) => {
     try {
-        const activeUserLogins = await UserLogins.find({ active: true })  // Assuming there's an 'active' field
-            .populate('organizerId', 'name');  // Corrected path for population
+        const activeUserLogins = await UserLogins.find({ active: true })
+            .populate({ path: 'organizerId', select: 'name' })
+            .populate({ path: 'roleIds', select: 'roleName' })  // Corrected for roleNames
+            .exec();
         res.status(200).json(activeUserLogins);
     } catch (error) {
         console.error('Error fetching active user logins:', error);
@@ -34,6 +38,7 @@ router.get('/firebase/:firebaseId', async (req, res) => {
     const { firebaseId } = req.params;
     try {
         const userLogins = await UserLogins.findOne({ firebaseUserId: firebaseId })
+            .populate({ path: 'roleIds', select: 'roleName' });  // Populating roleNames
         if (!userLogins) {
             return res.status(404).json({ message: 'User login not found' });
         }
@@ -56,15 +61,22 @@ router.post('/', async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });
         }
+        
+        // Find the roleId of the role with the name 'NamedUser'
+        const namedUserRole = await Roles.findOne({ roleName: 'NamedUser' });
+        if (!namedUserRole) {
+            return res.status(500).json({ message: 'Could not create user due to server error' });
+        }
 
-        // Create a new user with only the firebaseUserId, relying on schema defaults
+        // Create a new user with firebaseUserId and assign the NamedUser role
         const newUserLogin = new UserLogins({
-            firebaseUserId
+            firebaseUserId,
+            roleIds: [namedUserRole._id] // Assign the role ID of 'NamedUser'
         });
 
         // Save the new user login
         await newUserLogin.save();
-        res.status(201).json({ message: 'User login created successfully', userLogin: newUserLogin });
+        res.status(204).json({ message: 'User login created successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });
     }

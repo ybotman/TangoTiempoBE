@@ -8,20 +8,21 @@ const LocationSchema = require('../models/locations').schema;
 const RoleSchema = require('../models/roles').schema;
 const RegionSchema = require('../models/regions').schema;
 const EventSchema = require('../models/events').schema;
-const userLoginSchema = require('../models/userlogins').schema;
+const userLoginSchema = require('../models/userLogins').schema;
 
 // Define the target URIs for each environment (P: Prod, T: Test, I: Intg)
 const targetURIs = {
     P: process.env.PROD_DB_URI,
     T: process.env.TEST_DB_URI,
     I: process.env.INTG_DB_URI,
+    S: process.env.SAND_DB_URI,
 };
 
 // Capture the argument from the command line (db choice)
 const dbChoice = process.argv[2]; // Example usage: node script.js P
 
 if (!dbChoice || !targetURIs[dbChoice]) {
-    console.error('Please provide a valid database option: P (Prod), T (Test), or I (Intg)');
+    console.error('Please provide a valid database option: P (Prod), T (Test), I (Intg), or S (Sandbox)');
     process.exit(1);
 }
 
