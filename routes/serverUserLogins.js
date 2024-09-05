@@ -76,7 +76,7 @@ router.post('/', async (req, res) => {
 
         // Save the new user login
         await newUserLogin.save();
-        res.status(201).json({ message: 'User login created successfully', userLogin: newUserLogin });
+        res.status(204).json({ message: 'User login created successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });
     }
