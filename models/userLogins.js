@@ -5,24 +5,37 @@ const userLoginSchema = new mongoose.Schema({
     mfaEnabled: { type: Boolean, default: false },
     role: { type: String, required: true, default: 'NamedUser' },
     localUserInfo: {
-        loginUserName: { type: String, },
+        loginUserName: { type: String },
         firstName: { type: String },
         lastName: { type: String },
         icon: { type: String },
         defaultedCity: { type: mongoose.Schema.Types.ObjectId, ref: 'Cities' },
         favoriteOrganizers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Organizers' }],
         favoriteLocations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Locations' }],
+        userCommunicationSettings: {
+            wantFestivalMessages: { type: Boolean, default: false },
+            wantWorkshopMessages: { type: Boolean, default: false },
+            messagePrimaryMethod: { type: String, enum: ['app', 'text', 'email', 'social'], default: 'app' }
+        }
     },
     localOrganizerInfo: {
-        organizerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Organizers', },
+        organizerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Organizers' },
         allowedCities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cities' }],
         allowedDivisions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Divisions' }],
-        allowedRegions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Regions' }]
+        allowedRegions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Regions' }],
+        organizerCommunicationSettings: {
+            messagePrimaryMethod: { type: String, enum: ['app', 'text', 'email', 'social'], default: 'app' }
+        }
     },
     localAdminInfo: {
         adminRegions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Regions' }],
         adminDivisions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Divisions' }],
-        adminCities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cities' }]
+        adminCities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cities' }],
+        userCommunicationSettings: {
+            wantFestivalMessages: { type: Boolean, default: false },
+            wantWorkshopMessages: { type: Boolean, default: false },
+            messagePrimaryMethod: { type: String, enum: ['app', 'text', 'email', 'social'], default: 'app' }
+        }
     },
     auditLog: [
         {
