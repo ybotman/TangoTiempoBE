@@ -14,7 +14,7 @@ router.get('/all', async (req, res) => {
     }
 });
 
-// Get events by calculated locations (region, division, city)
+// Get events by calculated locations 
 router.get('/byCalculatedLocations', async (req, res) => {
     try {
         const { calculatedRegionName, calculatedDivisionName, calculatedCityName, start, end, active } = req.query;
