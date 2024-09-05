@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const userLoginSchema = new mongoose.Schema({
     firebaseUserId: { type: String, required: true, unique: true },
     mfaEnabled: { type: Boolean, default: false },
-    role: {
+    roleIds: {
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Roles' }],
         required: true,
         default: []
