@@ -3,16 +3,29 @@ const express = require('express');
 const router = express.Router();
 const UserLogins = require('../models/userLogins');
 const Roles = require('../models/roles');
-const getFirebaseUserInfo = require('../utils/firebaseUserInfo');
+const admin = require('../lib/firebaseAdmin');
 
 // GET /api/userlogins/all - Fetch all user logins with roles and organizer info populated
 router.get('/all', async (req, res) => {
     try {
         const userLogins = await UserLogins.find()
             .populate({ path: 'localOrganizerInfo.organizerId', select: 'name', strictPopulate: false })
-            .populate({ path: 'roleIds', select: 'roleName' })  // Populating roleName instead of roleId
+            .populate({ path: 'roleIds', select: 'roleName' })
             .exec();
-        res.status(200).json(userLogins);
+
+        // Fetch Firebase user info for each user login
+        const userLoginsWithFirebaseData = await Promise.all(userLogins.map(async (userLogin) => {
+            const firebaseUserInfo = await admin.auth().getUser(userLogin.firebaseUserId);
+            return {
+                ...userLogin.toObject(),
+                firebaseUserInfo: {
+                    displayName: firebaseUserInfo.displayName,
+                    email: firebaseUserInfo.email
+                }
+            };
+        }));
+
+        res.status(200).json(userLoginsWithFirebaseData);
     } catch (error) {
         console.error('Error fetching all user logins:', error);
         res.status(500).json({ message: 'Error fetching user logins' });
@@ -24,9 +37,22 @@ router.get('/active', async (req, res) => {
     try {
         const activeUserLogins = await UserLogins.find({ active: true })
             .populate({ path: 'organizerId', select: 'name' })
-            .populate({ path: 'roleIds', select: 'roleName' })  // Corrected for roleNames
+            .populate({ path: 'roleIds', select: 'roleName' })
             .exec();
-        res.status(200).json(activeUserLogins);
+
+        // Fetch Firebase user info for each active user login
+        const activeUsersWithFirebaseData = await Promise.all(activeUserLogins.map(async (userLogin) => {
+            const firebaseUserInfo = await admin.auth().getUser(userLogin.firebaseUserId);
+            return {
+                ...userLogin.toObject(),
+                firebaseUserInfo: {
+                    displayName: firebaseUserInfo.displayName,
+                    email: firebaseUserInfo.email
+                }
+            };
+        }));
+
+        res.status(200).json(activeUsersWithFirebaseData);
     } catch (error) {
         console.error('Error fetching active user logins:', error);
         res.status(500).json({ message: 'Error fetching active user logins' });
@@ -37,17 +63,29 @@ router.get('/active', async (req, res) => {
 router.get('/firebase/:firebaseId', async (req, res) => {
     const { firebaseId } = req.params;
     try {
-        const userLogins = await UserLogins.findOne({ firebaseUserId: firebaseId })
-            .populate({ path: 'roleIds', select: 'roleName' });  // Populating roleNames
-        if (!userLogins) {
+        const userLogin = await UserLogins.findOne({ firebaseUserId: firebaseId })
+            .populate({ path: 'roleIds', select: 'roleName' });
+
+        if (!userLogin) {
             return res.status(404).json({ message: 'User login not found' });
         }
-        res.status(200).json(userLogins);
+
+        // Fetch Firebase user info
+        const firebaseUserInfo = await admin.auth().getUser(firebaseId);
+
+        res.status(200).json({
+            ...userLogin.toObject(),
+            firebaseUserInfo: {
+                displayName: firebaseUserInfo.displayName,
+                email: firebaseUserInfo.email
+            }
+        });
     } catch (error) {
         console.error('Error fetching user login by Firebase ID:', error);
         res.status(500).json({ message: 'Error fetching user login by Firebase ID' });
     }
 });
+
 
 
 
