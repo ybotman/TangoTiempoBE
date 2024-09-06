@@ -86,9 +86,6 @@ router.get('/firebase/:firebaseId', async (req, res) => {
     }
 });
 
-
-
-
 // POST /api/userlogins/ - Create a new user login
 router.post('/', async (req, res) => {
     const { firebaseUserId } = req.body;
@@ -120,6 +117,38 @@ router.post('/', async (req, res) => {
     }
 });
 
+// PUT /api/userlogins/:firebaseId/roles - Update the roles of a user
+router.put('/:firebaseId/roles', async (req, res) => {
+    const { firebaseId } = req.params;
+    const { roleIds } = req.body;
 
+    try {
+        // Check if at least one role is provided
+        if (!roleIds || roleIds.length < 1) {
+            return res.status(400).json({ message: 'At least one role must be assigned to the user.' });
+        }
+
+        // Validate if all provided roleIds exist
+        const validRoles = await Roles.find({ _id: { $in: roleIds } });
+        if (validRoles.length !== roleIds.length) {
+            return res.status(400).json({ message: 'Some roleIds are invalid.' });
+        }
+
+        // Find the user by firebaseUserId
+        const userLogin = await UserLogins.findOne({ firebaseUserId: firebaseId });
+        if (!userLogin) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        // Update user's roles
+        userLogin.roleIds = roleIds;
+        await userLogin.save();
+
+        res.status(200).json({ message: 'User roles updated successfully.', updatedRoles: roleIds });
+    } catch (error) {
+        console.error('Error updating user roles:', error);
+        res.status(500).json({ message: 'Server error.', error });
+    }
+});
 
 module.exports = router;
