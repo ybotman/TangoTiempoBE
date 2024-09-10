@@ -88,7 +88,7 @@ router.get('/firebase/:firebaseId', async (req, res) => {
 
 // POST /api/userlogins/ - Create a new user login
 router.post('/', async (req, res) => {
-    const { firebaseUserId } = req.body;
+    const { firebaseUserId, firstName, lastName, phoneNumber, photoUrl } = req.body;
 
     try {
         // Check if the user already exists
@@ -103,16 +103,23 @@ router.post('/', async (req, res) => {
             return res.status(500).json({ message: 'Could not create user due to server error' });
         }
 
-        // Create a new user with firebaseUserId and assign the NamedUser role
+        // Create a new user with optional fields and assign the NamedUser role
         const newUserLogin = new UserLogins({
             firebaseUserId,
-            roleIds: [namedUserRole._id] // Assign the role ID of 'NamedUser'
+            roleIds: [namedUserRole._id], // Assign the role ID of 'NamedUser'
+            localUserInfo: {
+                firstName: firstName || undefined,
+                lastName: lastName || undefined,
+                phoneNumber: phoneNumber || undefined,
+                photoUrl: photoUrl || undefined
+            }
         });
 
         // Save the new user login
         await newUserLogin.save();
         res.status(204).json({ message: 'User login created successfully' });
     } catch (error) {
+        console.error('Error creating new user login:', error);
         res.status(500).json({ message: 'Server error', error });
     }
 });

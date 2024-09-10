@@ -9,10 +9,13 @@ const userLoginSchema = new mongoose.Schema({
         default: []
     },
     localUserInfo: {
-        loginUserName: { type: String },
+        // Firebase user info start
+        // email: { type: String },
+        // Firebase user info end
+        photoUrl: { type: String },
+        phoneNumber: { type: String },
         firstName: { type: String },
         lastName: { type: String },
-        icon: { type: String },
         defaultedCity: { type: mongoose.Schema.Types.ObjectId, ref: 'Cities' },
         favoriteOrganizers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Organizers' }],
         favoriteLocations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Locations' }],
