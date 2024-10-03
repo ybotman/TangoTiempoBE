@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 7c0425d695cc0990d2a5ff19b1bdc81246054403
 /node_modules
 /node_modules 3
 .next/
@@ -10,10 +6,7 @@ package-lock.json
 .DS_Store
 dist/
 .env
-<<<<<<< HEAD
 
-=======
->>>>>>> 7c0425d695cc0990d2a5ff19b1bdc81246054403
 # Logs
 logs
 *.log
@@ -27,7 +20,7 @@ lerna-debug.log*
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # 1x scripts
-1x-scripts/
+utils/1x-scripts/
 archive/
 
 # Runtime data
