@@ -31,6 +31,7 @@ const eventSchema = new mongoose.Schema({
     tmpVenueId: { type: String, required: false },
     tmpEventOrgId: { type: String, required: false },
     tmpUrl: { type: String, required: false },
+    tmpMix: { type: mongoose.Schema.Types.Mixed, required: false }
 });
 
 

@@ -15,7 +15,7 @@ const Organizers = require('../models/organizers.js');
 const Regions = require('../models/regions.js');
 
 // Set these flags as per your requirements
-const LOAD_TO_MONGO = false; // Default is off
+const LOAD_TO_MONGO = true; // Default is off
 const OUTPUT_TO_JSON = true; // Default is on
 const mongoURI = process.env.MONGODB_URI;
 const parser = new xml2js.Parser({ explicitArray: false });
@@ -48,6 +48,7 @@ const categories = [
   { _id: '6700258c9bde2a0fb8166f87', categoryName: 'DayWorkshop', categoryCode: 'D' },
 ];
 
+let loadMechismDate = 'BTC-' + new Date().toISOString();
 // Helper function to clean titles
 function cleanTitle(title) {
   // Remove accents and special characters
@@ -97,228 +98,159 @@ async function loadEvents() {
       logger.info('MongoDB connected');
     }
 
+    
+    
     for (const item of allItems) {
-      try {
-        // Extract and clean title
-        let title = item.title || '';
-        if (!title) {
-          logger.warn('Event without title found, skipping.');
-          continue;
+  try {
+    // Initialize eventData object at the start of each loop iteration
+    const eventData = {}; // This ensures eventData is always initialized
+
+    // Extract and clean title
+    let title = item.title || '';
+    if (!title) {
+      logger.warn('Event without title found, skipping.');
+      continue;
+    }
+
+    // Decode HTML entities and clean title
+    eventData.title = he.decode(title);
+    eventData.description = removeAccents(item['content:encoded'] || '');
+    eventData.tmpEventload = loadMechismDate; // Add tmpEventload to eventDat
+
+    // Extract metadata from <wp:postmeta>
+    const meta = item['wp:postmeta'] || [];
+    
+    // Initialize variables for metadata fields
+    let startDate = null;
+    let endDate = null;
+    let venueId = null;
+    let organizerId = null;
+    let cost = '';
+    let tempMix = '';
+    let tmpVenueId = null;
+    let tmpUrl = null;
+    let tmpCreator = null;
+    let tmpEventOrgId = null;
+
+    // Ensure meta is always an array
+    const metaArray = Array.isArray(meta) ? meta : [meta];
+
+    // Iterate through meta data and assign values conditionally
+    for (const entry of metaArray) {
+      const metaKey = entry['wp:meta_key'];
+      const metaValue = entry['wp:meta_value'];
+
+      // Map the relevant metadata to the corresponding variables
+      if (metaKey === '_EventStartDate') {
+        startDate = metaValue;
+      }
+      if (metaKey === '_EventEndDate') {
+        endDate = metaValue;
+      }
+      if (metaKey === '_EventVenueID') {
+        venueId = metaValue;
+        tmpVenueId = metaValue || tmpVenueId;  // Map to tmpVenueId, only if metaValue exists
+      }
+      if (metaKey === '_EventOrganizerID') {
+        organizerId = metaValue;
+        tmpCreator = metaValue || tmpCreator;  // Map to tmpCreator, only if metaValue exists
+        tmpEventOrgId = metaValue || tmpEventOrgId;
+      }
+      if (metaKey === '_EventCost') {
+        cost = metaValue;
+      }
+      if (metaKey === '_EventURL') {
+        tmpUrl = metaValue || tmpUrl;  // Map to tmpUrl, only if metaValue exists
+      }
+      if (metaKey === '_EventRecurrence') {
+        tmpMix = metaValue;
+      }
+      if (metaKey === 'category') {
+        categoriesMeta.push(metaValue);
+      }
+      if (metaKey === '_tribe_blocks_recurrence_rules') {
+        // Parse recurrence rules
+        try {
+          const recurrenceData = JSON.parse(metaValue);
+          recurrenceRule = recurrenceData[0]; // Assuming the first rule
+        } catch (e) {
+          logger.warn(`Failed to parse recurrence rules for event ${title}`);
         }
-        //title = he.decode(title); // Decode HTML entities
-        //title = cleanTitle(title);
-
-        // Extract description
-        let description = item['content:encoded'] || '';
-        description = he.decode(description);
-
-        // Remove accents from description
-        description = removeAccents(description);
-
-    // Extract eventImage URL
-    let eventImage = '';
-
-    // Check for image URL in various item properties
-    if (item['media:content'] && item['media:content']['$'] && item['media:content']['$']['url']) {
-      eventImage = item['media:content']['$']['url'];
-    } else if (item['media:thumbnail'] && item['media:thumbnail']['$'] && item['media:thumbnail']['$']['url']) {
-      eventImage = item['media:thumbnail']['$']['url'];
-    } else if (item['enclosure'] && item['enclosure']['$'] && item['enclosure']['$']['url']) {
-      eventImage = item['enclosure']['$']['url'];
-    } else {
-      // Try to extract image URL from description
-      const imgRegex = /<img.*?src=["'](.*?)["']/;
-      const imgMatch = description.match(imgRegex);
-      if (imgMatch && imgMatch[1]) {
-        eventImage = imgMatch[1];
       }
     }
-        
-        // Extract standardTitle from dc:creator
-        const standardsTitle = 'ExtractedViaBTC';
 
-        // Extract metadata from <wp:postmeta>
-        const meta = item['wp:postmeta'] || [];
-        let startDate = null;
-        let endDate = null;
-        let venueId = null;
-        let organizerId = null;
-        let cost = '';
-        let recurrenceRule = '';
-
-        // Ensure meta is always an array
-        const metaArray = Array.isArray(meta) ? meta : [meta];
-
-        for (const entry of metaArray) {
-          const metaKey = entry['wp:meta_key'];
-          const metaValue = entry['wp:meta_value'];
-
-          if (metaKey === '_EventStartDate') startDate = metaValue;
-          if (metaKey === '_EventEndDate') endDate = metaValue;
-          if (metaKey === '_EventVenueID') venueId = metaValue;
-          if (metaKey === '_EventOrganizerID') organizerId = metaValue;
-          if (metaKey === '_EventCost') cost = metaValue;
-          if (metaKey === '_EventRecurrence') recurrenceRule = metaValue;
-          if (metaKey === 'category') categoriesMeta.push(metaValue);
-          if (metaKey === '_tribe_blocks_recurrence_rules') {
-            // Parse recurrence rules
-            try {
-              const recurrenceData = JSON.parse(metaValue);
-              recurrenceRule = recurrenceData[0]; // Assuming the first rule
-            } catch (e) {
-              logger.warn(`Failed to parse recurrence rules for event ${title}`);
-            }
-          }
-        }
-
-        // Skip events without dates
-        if (!startDate || !endDate) {
-          logger.warn(`Event ${title} does not have valid start or end dates, skipping.`);
-          continue;
-        }
-
-        // Parse dates
-        startDate = new Date(startDate);
-        endDate = new Date(endDate);
-
-        // Map categories
-        // Extract and map categories from XML
-let categoriesMeta = []; // Initialize array to hold the categories
-
-// Assuming 'item' is the current event item you're processing
-if (item['category']) {
-  const categoryItems = Array.isArray(item['category']) ? item['category'] : [item['category']];
-
-  for (const catItem of categoryItems) {
-    if (catItem['$'] && catItem['$']['domain'] === 'tribe_events_cat') {
-      const categoryName = catItem['_'] ? catItem['_'].toLowerCase() : '';
-      categoriesMeta.push(categoryName);
+    // Skip events without valid start or end dates
+    if (!startDate || !endDate) {
+      logger.warn(`Event ${title} does not have valid start or end dates, skipping.`);
+      continue;
     }
-  }
-}
 
-// Now map the categoriesMeta to the actual category values
-let categoryFirst = 'Unknown'; // Default to 'Unknown'
-for (const cat of categoriesMeta) {
-  if (cat.includes('class') || cat.includes('drop-in-class')) {
-    categoryFirst = 'Class';
-    break;
-  } else if (cat.includes('practica')) {
-    categoryFirst = 'Practica';
-    break;
-  } else if (cat.includes('milonga')) {
-    categoryFirst = 'Milonga';
-    break;
-  } else if (cat.includes('festival')) {
-    categoryFirst = 'Festival';
-    break;
-  } else if (cat.includes('workshop')) {
-    categoryFirst = 'Workshop';
-    break;
-  } else if (cat.includes('canceled')) {
-    categoryFirst = 'Canceled';
-    break;
-  }
-}
+    // Parse dates
+    eventData.startDate = new Date(startDate);
+    eventData.endDate = new Date(endDate);
 
-        // Get category ID
-        const category = categories.find(cat => cat.categoryName === categoryFirst) || categories.find(cat => cat.categoryName === 'Unknown');
+    // Assign additional event data with default values
+    eventData.tmpVenueId = tmpVenueId || '66ce24219dba0abc71c2c7d6';  // Default locationID
+    eventData.tmpUrl = tmpUrl || '';  // Ensure URL is not empty
+    eventData.tmpCreator = tmpCreator || '';  // Ensure creator is not empty
+    eventData.tmpEventOrgId = tmpEventOrgId || '66fed93f6ab695d2c6dbc79c';  // Default unknown organizer ID
+    eventData.cost = cost;
+    eventData.tmpMix = tmpMix;
+    eventData.expiresAt = new Date('2026-01-01');  // Default expiration date
+    eventData.regionName = 'Northeast';
+    eventData.regionID = '66c4d99042ec462ea22484bd';  // Default regionID
+    eventData.locationID = '66c8bc4c6b597390419b9187'
+    eventData.calculatedRegionName = 'Northeast';  // Default regionName
+    eventData.ownerOrganizerName = eventData.tmpCreator || 'BostonTango';  // Default organizer name
+    eventData.ownerOrganizerID = '66c8bd338593d5136d3fdf0b';  // Default organizer ID
+    eventData.categoryFirst = 'Unknown';  // Default category if none found
 
-            // Prepare event data
-    const eventData = {
-      title,
-      standardsTitle,
-      description,
-      startDate,
-      endDate,
-      categoryFirst: category.categoryName,
-      categorySecond: null,
-      categoryThird: null,
-      regionName: 'Northeast', // Default value
-      regionID: '66c4d99042ec462ea22484bd',
-      ownerOrganizerID: null,
-      ownerOrganizerName: '',
-      calculatedRegionName: '',
-      calculatedDivisionName: '',
-      calculatedCityName: '',
-      eventImage: eventImage, // Set the extracted eventImage URL
-      locationID: null,
-      locationName: '',
-      recurrenceRule: '', // Placeholder, could be set if recurrence is handled
-      active: true,
-      featured: false,
-      canceled: false,
-      cost: cost || '',
-      expiresAt: endDate // Using endDate as expiresAt
-    };
-      
+    // Log the processed event data before saving
+    logger.info(`Processed event data: ${JSON.stringify(eventData)}`);
 
-        // Remove formatting characters from title
-        eventData.title = cleanTitle(eventData.title);
+    // Only proceed if we have a title and startDate
+    if (!eventData.title || !eventData.startDate) {
+      logger.warn(`Event ${title} is missing title or start date, skipping.`);
+      continue;
+    }
 
-        // Remove accents from description
-        eventData.description = removeAccents(eventData.description);
-
-        // Only proceed if we have a title and startDate
-        if (!eventData.title || !eventData.startDate) {
-          logger.warn(`Event ${title} is missing title or start date, skipping.`);
-          continue;
-        }
-
-        // Lookup location ID
-        if (LOAD_TO_MONGO && venueId) {
-          const venueMeta = await Locations.findOne({ name: venueId });
-          if (venueMeta) {
-            eventData.locationID = venueMeta._id;
-            eventData.locationName = venueMeta.name;
-          } else {
-            logger.warn(`Venue with ID ${venueId} not found for event ${title}`);
-          }
-        }
-
-        // Lookup organizer ID
-        if (LOAD_TO_MONGO && standardsTitle) {
-          const organizerMeta = await Organizers.findOne({ standardsTitle });
-          if (organizerMeta) {
-            eventData.ownerOrganizerID = organizerMeta._id;
-            eventData.ownerOrganizerName = organizerMeta.name;
-          } else {
-            logger.warn(`Organizer with standardsTitle ${standardsTitle} not found for event ${title}`);
-          }
-        } else {
-          // If organizer not found, set defaults
-          eventData.ownerOrganizerID = null;
-          eventData.ownerOrganizerName = item['dc:creator'] ? item['dc:creator'] : '';
-        }
-
-        // If LOAD_TO_MONGO is true, save to MongoDB
-        if (LOAD_TO_MONGO) {
-          // Lookup region ID
-          const region = await Regions.findOne({ regionName: eventData.regionName });
-          if (region) {
-            eventData.regionID = region._id;
-          } else {
-            logger.warn(`Region ${eventData.regionName} not found for event ${title}`);
-          }
-
-          // Create new event
-          const newEvent = new Events(eventData);
-          await newEvent.save();
-          logger.info(`Event ${title} inserted successfully into MongoDB.`);
-        }
-
-        // If OUTPUT_TO_JSON is true, add to outputEvents array
-        if (OUTPUT_TO_JSON) {
-          outputEvents.push(eventData);
-        }
-
-        successfulEvents.push({ title });
-
-      } catch (error) {
-        logger.error(`Error processing event: ${item.title} - ${error.message}`);
-        failedEvents.push({ title: item.title, error: error.message });
+    // Lookup location ID if required
+    if (LOAD_TO_MONGO && venueId) {
+      const venueMeta = await Locations.findOne({ name: venueId });
+      if (venueMeta) {
+        eventData.locationID = venueMeta._id;
+        eventData.locationName = venueMeta.name;
+      } else {
+        logger.warn(`Venue with ID ${venueId} not found for event ${title}`);
       }
     }
+
+    // Lookup organizer ID if required
+    if (LOAD_TO_MONGO && eventData.tmpCreator) {
+      const organizerMeta = await Organizers.findOne({ standardsTitle: eventData.tmpCreator });
+      if (organizerMeta) {
+        eventData.ownerOrganizerID = organizerMeta._id;
+        eventData.ownerOrganizerName = organizerMeta.name;
+      } else {
+        logger.warn(`Organizer with standardsTitle ${eventData.tmpCreator} not found for event ${title}`);
+      }
+    }
+
+    // Add eventData to outputEvents
+    outputEvents.push(eventData); // Make sure the eventData is added to outputEvents
+
+    // Save to MongoDB if required
+    if (LOAD_TO_MONGO) {
+      const newEvent = new Events(eventData);
+      await newEvent.save();
+      logger.info(`Event ${title} inserted successfully into MongoDB.`);
+    }
+
+  } catch (error) {
+    logger.error(`Error processing event: ${item.title} - ${error.message}`);
+    failedEvents.push({ title: item.title, error: error.message });
+  }
+}
 
     // Save the successful and failed event data to files in XMLData4Cutover folder
     fs.writeFileSync('./utils/XMLData4Cutover/logs/successfulEvents.json', JSON.stringify(successfulEvents, null, 2));
