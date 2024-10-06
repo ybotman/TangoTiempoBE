@@ -18,7 +18,7 @@ mongoose.connect(mongoURI)
     .catch(err => {
         console.log('Error connecting to MongoDB:', err);
     });
-
+/*
 async function loadPermissionsFromJSON() {
     try {
         // Load the JSON file from the masterdata directory
@@ -40,3 +40,5 @@ async function loadPermissionsFromJSON() {
         console.error('Error loading permissions:', error);
     }
 }
+
+*/

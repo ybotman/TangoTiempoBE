@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const organizerSchema = new mongoose.Schema({
     name: { type: String, required: true },
     shortName: { type: String, required: true },
+    btcNiceName:{type: String, required: false},
     organizerRegion: { type: mongoose.Schema.Types.ObjectId, ref: 'Regions', required: true },
     organizerDivision: { type: mongoose.Schema.Types.ObjectId, ref: 'Divisions', required: true },
     organizerCity: { type: mongoose.Schema.Types.ObjectId, ref: 'Cities', required: true },

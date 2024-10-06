@@ -26,7 +26,12 @@ const eventSchema = new mongoose.Schema({
     featured: { type: Boolean, required: false, default: false },
     canceled: { type: Boolean, required: false, default: false },
     cost: { type: String, required: false },
-    expiresAt: { type: Date, required: true }
+    expiresAt: { type: Date, required: true },
+    tmpCreator: { type: String, required: false },
+    tmpVenueId: { type: String, required: false },
+    tmpEventOrgId: { type: String, required: false },
+    tmpUrl: { type: String, required: false },
+    tmpMix: { type: mongoose.Schema.Types.Mixed, required: false }
 });
 
 
