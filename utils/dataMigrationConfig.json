@@ -1,0 +1,14 @@
+{
+  "environments": {
+    "test": true,
+    "intg": false,
+    "prod": false
+  },
+  "models": {
+    "categories": true,
+    "permissions": false,
+    "roles": false,
+    "regions": false,
+    "events": false
+  }
+}
