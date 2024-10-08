@@ -19,13 +19,19 @@ const eventSchema = new mongoose.Schema({
     calculatedDivisionName: { type: String, required: false },
     calculatedCityName: { type: String, required: false },
     eventImage: { type: String, required: false },
-    locationID: { type: mongoose.Schema.Types.ObjectId, ref: 'Location', required: false },
+    locationID: { type: mongoose.Schema.Types.ObjectId, ref: 'Location', required: true },
     locationName: { type: String, required: false },
     recurrenceRule: { type: String, required: false },
-    active: { type: Boolean, required: true },
-    featured: { type: Boolean, required: false },
+    active: { type: Boolean, required: true, default: true },
+    featured: { type: Boolean, required: false, default: false },
+    canceled: { type: Boolean, required: false, default: false },
     cost: { type: String, required: false },
-    expiresAt: { type: Date, required: true }
+    expiresAt: { type: Date, required: true },
+    tmpCreator: { type: String, required: false },
+    tmpVenueId: { type: String, required: false },
+    tmpEventOrgId: { type: String, required: false },
+    tmpUrl: { type: String, required: false },
+    tmpMix: { type: mongoose.Schema.Types.Mixed, required: false }
 });
 
 

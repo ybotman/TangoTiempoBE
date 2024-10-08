@@ -59,8 +59,34 @@ async function findClosestCalculatedFields(lat, lng) {
 }
 
 /* ******************* */
+
+router.get('/', async (req, res) => {
+    const { region, division, city } = req.query; // Extract region, division, city from query parameters
+
+    try {
+        let query = { activeFlag: true }; // Base query for active locations
+
+        // If a region is provided, filter by calculatedRegion
+        if (region) query.calculatedRegion = region;
+
+        // If a division is provided, filter by calculatedDivision
+        if (division) query.calculatedDivision = division;
+
+        // If a city is provided, filter by calculatedCity
+        if (city) query.calculatedCity = city;
+
+        const locations = await Locations.find(query);
+        res.status(200).json(locations);
+    } catch (error) {
+        console.error('Error fetching locations:', error);
+        res.status(500).json({ message: 'Error fetching locations' });
+    }
+});
+
+
 // GET /locations/active - Fetch all active locations
 router.get('/active', async (req, res) => {
+    console.warn('testing only do not use');
     try {
         const activeLocations = await Locations.find({ activeFlag: true });
         res.status(200).json(activeLocations);
@@ -70,8 +96,10 @@ router.get('/active', async (req, res) => {
     }
 });
 
+
 // GET /locations/all - Fetch all locations
 router.get('/all', async (req, res) => {
+        console.warn('testing only do not use');
     try {
         const allLocations = await Locations.find();
         res.status(200).json(allLocations);

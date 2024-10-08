@@ -4,9 +4,11 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const cors = require('cors');
 
 const app = express();
+
+const cors = require('cors');
+
 const allowedOrigins = [
     'http://localhost:3000', // Local development origin
     'https://wonderful-glacier-03516880f.5.azurestaticapps.net', // official test 
@@ -16,27 +18,25 @@ const allowedOrigins = [
     'https://red-field-0006d060f.5.azurestaticapps.net', // integration
 ];
 
-
-// Middleware setup
-app.use(bodyParser.json());
-app.use(cors({
+// REMOVE THIS
+const corsOptions = {
     origin: function (origin, callback) {
-        if (!origin) return callback(null, true);
-
-        if (allowedOrigins.indexOf(origin) === -1) {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else if (/^https:\/\/(wonderful-glacier-03516880f|witty-bay-08177ec0f|red-field-0006d060f)[a-z0-9\-\.]*\.5.azurestaticapps\.net/.test(origin)) {
+            return callback(null, true);
+        } else {
             const msg = 'The CORS policy for this site does not allow access from the specified origin.';
             return callback(new Error(msg), false);
         }
-        return callback(null, true);
     },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
-}));
+};
 
-
-// REMOVE LATER
-console.log('process.env.MONGODB_URI', process.env.MONGODB_URI);
-console.log('process.env.FIREBASE_JSON', process.env.FIREBASE_JSON);
+// Middleware setup
+app.use(bodyParser.json());
+app.use(cors(corsOptions));
 
 // Connect to MongoDB
 mongoose
@@ -52,6 +52,7 @@ const categoryRoutes = require('./routes/serverCategories');
 const locationRoutes = require('./routes/serverLocations');
 const userLoginRoutes = require('./routes/serverUserLogins');
 const firebaseRoutes = require('./routes/serverFirebase');
+const roleRoutes = require('./routes/serverRoles');
 
 // Use routes
 app.use('/api/events', eventRoutes);
@@ -61,6 +62,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/userlogins', userLoginRoutes);
 app.use('/api/firebase', firebaseRoutes);
+app.use('/api/roles', roleRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 3001;

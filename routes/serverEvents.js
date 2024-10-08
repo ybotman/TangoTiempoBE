@@ -14,7 +14,7 @@ router.get('/all', async (req, res) => {
     }
 });
 
-// Get events by calculated locations (region, division, city)
+// Get events by calculated locations 
 router.get('/byCalculatedLocations', async (req, res) => {
     try {
         const { calculatedRegionName, calculatedDivisionName, calculatedCityName, start, end, active } = req.query;
@@ -51,7 +51,7 @@ router.get('/byCalculatedLocations', async (req, res) => {
 });
 
 // Get event by ID
-router.get('/:id', async (req, res) => {
+router.get('/id/:id', async (req, res) => {
     const eventId = req.params.id;
 
     try {
@@ -109,12 +109,23 @@ router.put('/:eventId', async (req, res) => {
 });
 
 // Create a new event with a CRUD endpoint
-router.post('/CRUD', async (req, res) => {
+router.post('/post', async (req, res) => {
     const eventData = req.body;
-    console.log('app.post: /api/events/CRUD : Received data:', req.body);
+    const userRole = req.user.role; // Assuming user role is passed in the request (from JWT or middleware)
 
+    // Check if the user is an Active Regional Organizer
+    if (userRole !== 'RegionalOrganizer' || !req.user.isActive) {
+        return res.status(403).json({ message: 'Only Active Regional Organizers can add events' });
+    }
+
+    // Ensure required fields are provided
     if (!eventData.title || !eventData.startDate || !eventData.endDate || !eventData.ownerOrganizerID) {
         return res.status(400).json({ message: 'Title, Start Date, End Date, and Organizer ID are required' });
+    }
+
+    // Location validation and assignment (assuming location data is sent in eventData)
+    if (!eventData.locationID) {
+        return res.status(400).json({ message: 'Location is required' });
     }
 
     try {
@@ -126,5 +137,4 @@ router.post('/CRUD', async (req, res) => {
         res.status(500).json({ message: 'Error creating event' });
     }
 });
-
 module.exports = router;

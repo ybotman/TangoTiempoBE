@@ -18,6 +18,7 @@ router.post('/', async (req, res) => {
 // GET all organizers (no filters)
 router.get('/all', async (req, res) => {
     try {
+        console.warn('Fetching all organizers -- do not use this');
         const organizers = await Organizers.find({});
         res.status(200).json(organizers);
     } catch (error) {
@@ -26,16 +27,31 @@ router.get('/all', async (req, res) => {
     }
 });
 
-// GET: Retrieve all organizers
+
+// GET: Retrieve organizers filtered by region, division, and city
 router.get('/', async (req, res) => {
+    const { region, division, city } = req.query; // Extract region, division, city from query parameters
+
     try {
-        const organizers = await Organizers.find();
-        res.status(200).json(organizers);
+        let query = { activeFlag: true }; // Base query for active organizers
+
+        // If a region is provided, filter by organizerRegion
+        if (region) query.organizerRegion = region;
+
+        // If a division is provided, filter by organizerDivision
+        if (division) query.organizerDivision = division;
+
+        // If a city is provided, filter by organizerCity
+        if (city) query.organizerCity = city;
+
+        const organizers = await Organizers.find(query); // Fetch organizers matching the query
+        res.status(200).json(organizers); // Return the filtered organizers
     } catch (error) {
-        console.error('Error retrieving organizers:', error);
-        res.status(500).json({ message: 'Error retrieving organizers' });
+        console.error('Error fetching organizers:', error);
+        res.status(500).json({ message: 'Error fetching organizers' });
     }
 });
+
 
 // PUT: Update an existing organizer by ID
 router.put('/:id', async (req, res) => {
@@ -66,60 +82,3 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
-
-
-/* // routes/serverOrganizers.js
-const express = require('express');
-const router = express.Router();
-const Organizers = require('../models/organizers');
-
-
-// GET all organizers (no filters)
-router.get('/all', async (req, res) => {
-    try {
-        const organizers = await Organizers.find({});
-        res.status(200).json(organizers);
-    } catch (error) {
-        console.error('Error fetching all organizers:', error);
-        res.status(500).json({ message: 'Error fetching all organizers' });
-    }
-});
-
-
-// GET organizers by activeCalculatedRegion
-router.get('/', async (req, res) => {
-    const { activeCalculatedRegion } = req.query;
-
-    try {
-        if (!activeCalculatedRegion) {
-            return res.status(400).json({ message: 'activeCalculatedRegion is required' });
-        }
-
-        const organizers = await Organizers.find({ calculatedRegionName: activeCalculatedRegion });
-
-        res.status(200).json(organizers);
-    } catch (error) {
-        console.error('Error fetching organizers:', error);
-        res.status(500).json({ message: 'Error fetching organizers' });
-    }
-});
-
-
-// GET user by Firebase User ID
-router.get('/firebase/:firebaseUserId', async (req, res) => {
-    const firebaseUserId = req.params.firebaseUserId;
-
-    try {
-        const user = await UserLogin.findOne({ firebaseUserId });
-        if (user) {
-            res.status(200).json(user);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        console.error('Error fetching user by Firebase User ID:', error);
-        res.status(500).json({ message: 'Error fetching user by Firebase User ID' });
-    }
-});
-
-*/
