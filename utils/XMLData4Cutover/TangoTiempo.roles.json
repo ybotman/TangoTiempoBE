@@ -1,0 +1,117 @@
+[{
+  "_id": {
+    "$oid": "66cb85ac74dca51e34e268e9"
+  },
+  "roleName": "SystemOwner",
+  "description": "Has full control over the system, including all events, organizers, and settings.",
+  "permissions": [
+    "canReadEvents",
+    "canCRUDOwnEvents",
+    "canCRUDAllEventsInRegion",
+    "canManageOrganizers",
+    "canManageRegions",
+    "canManageSystemSettings"
+  ],
+  "createdAt": {
+    "$date": "2024-08-25T19:27:40.380Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-25T19:27:40.381Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66cb85ac74dca51e34e268ea"
+  },
+  "roleName": "SystemAdmin",
+  "description": "Can manage all events, organizers, and regions but does not have access to system settings.",
+  "permissions": [
+    "canReadEvents",
+    "canCRUDOwnEvents",
+    "canCRUDAllEventsInRegion",
+    "canManageOrganizers",
+    "canManageRegions"
+  ],
+  "createdAt": {
+    "$date": "2024-08-25T19:27:40.381Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-25T19:27:40.381Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66cb85ac74dca51e34e268eb"
+  },
+  "roleName": "RegionalAdmin",
+  "description": "Can manage all events and organizers within their assigned region.",
+  "permissions": [
+    "canReadEvents",
+    "canCRUDOwnEvents",
+    "canCRUDAllEventsInRegion",
+    "canManageOrganizers"
+  ],
+  "createdAt": {
+    "$date": "2024-08-25T19:27:40.382Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-25T19:27:40.382Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66cb85ac74dca51e34e268ec"
+  },
+  "roleName": "RegionalOrganizer",
+  "description": "Can manage their own events and all events within their assigned region.",
+  "permissions": [
+    "canReadEvents",
+    "canCRUDOwnEvents",
+    "canCRUDAllEventsInRegion"
+  ],
+  "createdAt": {
+    "$date": "2024-08-25T19:27:40.382Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-25T19:27:40.382Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66cb85ac74dca51e34e268ed"
+  },
+  "roleName": "NamedUser",
+  "description": "Can manage their system setting, favorites and loctions",
+  "permissions": [
+    "canReadEvents",
+    "canCRUDOwnEvents"
+  ],
+  "createdAt": {
+    "$date": "2024-08-25T19:27:40.383Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-25T19:27:40.383Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66cb85ac74dca51e34e268ee"
+  },
+  "roleName": "Anonymous",
+  "description": "Can view public events only.",
+  "permissions": [
+    "canReadEvents"
+  ],
+  "createdAt": {
+    "$date": "2024-08-25T19:27:40.383Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-25T19:27:40.383Z"
+  },
+  "__v": 0
+}]
