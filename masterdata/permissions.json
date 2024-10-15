@@ -1,26 +1,26 @@
 [
-    {
-        "permissionName": "canReadEvents",
-        "description": "Allows the user to read events in the system."
-    },
-    {
-        "permissionName": "canCRUDOwnEvents",
-        "description": "Allows the user to create, read, update, and delete their own events."
-    },
-    {
-        "permissionName": "canCRUDAllEventsInRegion",
-        "description": "Allows the user to manage all events within their assigned region."
-    },
-    {
-        "permissionName": "canManageOrganizers",
-        "description": "Allows the user to manage organizers within their assigned region."
-    },
-    {
-        "permissionName": "canManageRegions",
-        "description": "Allows the user to manage regions."
-    },
-    {
-        "permissionName": "canManageSystemSettings",
-        "description": "Allows the user to manage system settings."
-    }
+  {
+    "permissionName": "canReadEvents",
+    "description": "Allows the user to read events in the system."
+  },
+  {
+    "permissionName": "canCRUDOwnEvents",
+    "description": "Allows the user to create, read, update, and delete their own events."
+  },
+  {
+    "permissionName": "canCRUDAllEventsInRegion",
+    "description": "Allows the user to manage all events within their assigned region."
+  },
+  {
+    "permissionName": "canManageOrganizers",
+    "description": "Allows the user to manage organizers within their assigned region."
+  },
+  {
+    "permissionName": "canManageRegions",
+    "description": "Allows the user to manage regions."
+  },
+  {
+    "permissionName": "canManageSystemSettings",
+    "description": "Allows the user to manage system settings."
+  }
 ]

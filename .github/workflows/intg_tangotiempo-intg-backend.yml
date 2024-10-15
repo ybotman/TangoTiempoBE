@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment:
-      name: 'INTEGRATION'
+      name: "INTEGRATION"
 
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +25,7 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
+          node-version: "20.x"
 
       - name: npm install, build, and test
         run: |
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'INTEGRATION'
+      name: "INTEGRATION"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -59,11 +59,11 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      - name: 'Deploy to Azure Web App'
+      - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'TangoTiempo-INTG-BackEnd'
-          slot-name: 'Production'
+          app-name: "TangoTiempo-INTG-BackEnd"
+          slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2A0190B2161843C499AD23226C53462A }}
           package: .
