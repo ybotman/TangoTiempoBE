@@ -10,6 +10,7 @@ const Events = require("../models/events");
 const Organizers = require("../models/organizers");
 const Locations = require("../models/locations");
 const Categories = require("../models/categories");
+const he = require("he"); // Import to handle HTML entity decoding
 
 // Category mapping
 const categoryMapping = {
@@ -29,7 +30,6 @@ const categoryMapping = {
   "Progressive Class": "Class",
   "Trips-Hosted": "Trips",
   Workshop: "Workshop",
-
   Undefined: "Unknown",
 };
 
@@ -88,8 +88,8 @@ async function migrateEvents() {
   }
 
   migrateLogger.info("Event migration started.");
-  const startDate = moment("2024-10-01");
-  const endDate = moment("2024-10-31"); // Modify date range as needed
+  const startDate = moment("2024-05-01");
+  const endDate = moment("2025-05-31");
   deepLogger.info(
     `------------  Starting importing of events for date Range: ${startDate} to ${endDate}  -------`,
   );
@@ -143,14 +143,12 @@ async function migrateEvents() {
         });
         if (!category) throw new Error(`Category ${mappedCategory} not found`);
 
-        const eventTitle = removeAccents(event.title || "").replace(
-          /[^a-zA-Z0-9 ]/g,
-          "",
-        );
-        const eventDescription = removeAccents(event.description || "").replace(
-          /[^a-zA-Z0-9 ]/g,
-          "",
-        );
+        const eventTitle = he
+          .decode(event.title || "")
+          .normalize("NFKD") // Normalize to decompose special characters and accents
+          .replace(/[\u0300-\u036f]/g, "") // Remove combining diacritical marks (accents, etc.)
+          .replace(/[^a-zA-Z0-9 \-]/g, ""); // Keep letters, numbers, spaces, and hyphens.
+        const eventDescription = he.decode(event.description || ""); // Retain HTML and special characters
 
         const tmpMix = {
           eventUrl: event.url || "",
@@ -171,7 +169,7 @@ async function migrateEvents() {
           locationID: location._id,
           locationName: location.name,
           eventImage: event.image?.url || null,
-          calculatedRegionName: "NorthEast",
+          calculatedRegionName: "Northeast",
           calculatedDivisionName: "New England",
           calculatedCityName: "Boston",
           tmpMix,
