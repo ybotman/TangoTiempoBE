@@ -29,16 +29,16 @@ router.get('/activeRegions', async (req, res) => {
 router.get('/activeDivisions', async (req, res) => {
     try {
         const activeDivisions = await Regions.aggregate([
-            { $unwind: "$divisions" },
-            { $match: { "divisions.active": true } },
+            { $unwind: '$divisions' },
+            { $match: { 'divisions.active': true } },
             {
                 $project: {
                     _id: 0,
                     regionName: 1,
                     regionCode: 1,
-                    divisionName: "$divisions.divisionName",
-                    states: "$divisions.states",
-                    majorCities: "$divisions.majorCities"
+                    divisionName: '$divisions.divisionName',
+                    states: '$divisions.states',
+                    majorCities: '$divisions.majorCities'
                 }
             }
         ]);
@@ -53,18 +53,18 @@ router.get('/activeDivisions', async (req, res) => {
 router.get('/activeCities', async (req, res) => {
     try {
         const activeCities = await Regions.aggregate([
-            { $unwind: "$divisions" },
-            { $unwind: "$divisions.majorCities" },
-            { $match: { "divisions.majorCities.active": true } },
+            { $unwind: '$divisions' },
+            { $unwind: '$divisions.majorCities' },
+            { $match: { 'divisions.majorCities.active': true } },
             {
                 $project: {
                     _id: 0,
                     regionName: 1,
                     regionCode: 1,
-                    divisionName: "$divisions.divisionName",
-                    cityName: "$divisions.majorCities.cityName",
-                    latitude: "$divisions.majorCities.latitude",
-                    longitude: "$divisions.majorCities.longitude"
+                    divisionName: '$divisions.divisionName',
+                    cityName: '$divisions.majorCities.cityName',
+                    latitude: '$divisions.majorCities.latitude',
+                    longitude: '$divisions.majorCities.longitude'
                 }
             }
         ]);

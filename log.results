@@ -1,0 +1,165 @@
+[2024-10-15T02:38:42.892Z] [info] Fetching events for 2024-10-01
+[2024-10-15T02:38:48.226Z] [info] MongoDB connected successfully.
+[2024-10-15T02:38:48.374Z] [error] Error processing event "TUESDAYS &#8212; NOCHE DE PRÁCTICA Guided Tango Practica": Location Dance Union not found
+[2024-10-15T02:38:48.575Z] [info] Event "Short Sequences  enrich your vocabulary with 52 sequences every year" on 2024-10-01 processed successfully.
+[2024-10-15T02:38:48.689Z] [info] Event "UT 8211 Beginner 8211 Learn Argentine Tango 8211 make new friends  Tuesdays 730pm" on 2024-10-01 processed successfully.
+[2024-10-15T02:38:48.809Z] [info] Event "UT  Practica Chiquita" on 2024-10-01 processed successfully.
+[2024-10-15T02:38:48.937Z] [info] Event "UT 8211 Open Level 8211  Practica Chiquita at Ultimate Tango" on 2024-10-01 processed successfully.
+[2024-10-15T02:38:48.940Z] [info] Fetching events for 2024-10-02
+[2024-10-15T02:38:50.272Z] [error] Error processing event "Wednesday Tango Break– 7pm Beginner Tango Classes": Location Dance Union not found
+[2024-10-15T02:38:50.360Z] [error] Error processing event "Wednesday Tango Break– 8pm Intermediate Tango Classes": Location Dance Union not found
+[2024-10-15T02:38:50.480Z] [error] Error processing event "Wednesday Tango Break  –Dancing": Location Dance Union not found
+[2024-10-15T02:38:50.481Z] [info] Fetching events for 2024-10-03
+[2024-10-15T02:38:51.810Z] [info] Event "TANGO 1 BEGINNER" on 2024-10-03 processed successfully.
+[2024-10-15T02:38:51.811Z] [error] Error processing event "FGDA TANGO 1 First Timer / Beginner": Cannot read properties of undefined (reading 'organizer')
+[2024-10-15T02:38:51.955Z] [info] Event "TangoLab  Dancing focused on MusicalityPartnership" on 2024-10-03 processed successfully.
+[2024-10-15T02:38:52.076Z] [info] Event "UT 8211 Beginner 8211 Learn Argentine Tango in 4 weeks  Improve your communication and partnership make new friends" on 2024-10-03 processed successfully.
+[2024-10-15T02:38:52.200Z] [info] Event "UT OakGrove Practica Guided" on 2024-10-03 processed successfully.
+[2024-10-15T02:38:52.201Z] [info] Fetching events for 2024-10-04
+[2024-10-15T02:38:53.250Z] [error] Error processing event "Milonga TRANOCHANDO Hosted by Guillermo Merlo": Location Dance Union not found
+[2024-10-15T02:38:53.251Z] [info] Fetching events for 2024-10-05
+[2024-10-15T02:38:54.485Z] [info] Event "Argentine Tango in West Hartford CT" on 2024-10-05 processed successfully.
+[2024-10-15T02:38:54.634Z] [info] Event "TANGO 2  3 INTERMEDIATE" on 2024-10-05 processed successfully.
+[2024-10-15T02:38:54.721Z] [error] Error processing event "Milonga NUEVA": Location Dance Union not found
+[2024-10-15T02:38:54.721Z] [info] Fetching events for 2024-10-06
+[2024-10-15T02:38:56.650Z] [info] Event "UT 8211 PreAdvanced Tango 8211 Parallel v Cross System" on 2024-10-06 processed successfully.
+[2024-10-15T02:38:56.827Z] [info] Event "UT 8211 Open Level 8211  Milonga Intensive  4 months  Rhythm Cadencia and Vocabulary" on 2024-10-06 processed successfully.
+[2024-10-15T02:38:57.003Z] [info] Event "UT PreAdvanced Argentine Tango 8211 Learn Back Sacadas" on 2024-10-06 processed successfully.
+[2024-10-15T02:38:57.198Z] [info] Event "UT 8211 Beginner 8211 Bored and Lost Learn Argentine Tango  Sundays 230pm" on 2024-10-06 processed successfully.
+[2024-10-15T02:38:57.322Z] [info] Event "UT 8211 Intermediate Level 8211 Giros from the forward cross and the back cross" on 2024-10-06 processed successfully.
+[2024-10-15T02:38:57.412Z] [error] Error processing event "Boston Weekly Sunday Practica": Location Q-Ballroom not found
+[2024-10-15T02:38:57.555Z] [info] Event "UT Advanced Argentine Tango 8211 Elaborate exploration" on 2024-10-06 processed successfully.
+[2024-10-15T02:38:57.695Z] [info] Event "UT 8211 PreIntermediate Level 8211 Parallel v Cross System" on 2024-10-06 processed successfully.
+[2024-10-15T02:38:57.787Z] [error] Error processing event "“PRACTILONGA CAMINITO” –the true Practica in Boston! Every Sunday Class &amp; Practice": Location Dance Union not found
+[2024-10-15T02:38:57.787Z] [info] Fetching events for 2024-10-07
+[2024-10-15T02:38:59.359Z] [error] Error processing event "Queer Tango &#8211; Beginner Series": Location undefined not found
+[2024-10-15T02:38:59.436Z] [error] Error processing event "Queer Tango Boston All-levels Class": Location undefined not found
+[2024-10-15T02:38:59.437Z] [info] Fetching events for 2024-10-08
+[2024-10-15T02:39:00.924Z] [error] Error processing event "TUESDAYS &#8212; NOCHE DE PRÁCTICA Guided Tango Practica": Location Dance Union not found
+[2024-10-15T02:39:01.045Z] [info] Event "Short Sequences  enrich your vocabulary with 52 sequences every year" on 2024-10-08 processed successfully.
+[2024-10-15T02:39:01.186Z] [info] Event "INTADV CLASSES TangoAffair" on 2024-10-08 processed successfully.
+[2024-10-15T02:39:01.305Z] [info] Event "UT 8211 Beginner 8211 Learn Argentine Tango 8211 make new friends  Tuesdays 730pm" on 2024-10-08 processed successfully.
+[2024-10-15T02:39:01.426Z] [info] Event "INTADV CLASSES TangoAffair" on 2024-10-08 processed successfully.
+[2024-10-15T02:39:01.567Z] [info] Event "UT  Practica Chiquita" on 2024-10-08 processed successfully.
+[2024-10-15T02:39:01.685Z] [info] Event "UT 8211 Open Level 8211  Practica Chiquita at Ultimate Tango" on 2024-10-08 processed successfully.
+[2024-10-15T02:39:01.685Z] [info] Fetching events for 2024-10-09
+[2024-10-15T02:39:03.025Z] [error] Error processing event "Wednesday Tango Break– 7pm Beginner Tango Classes": Location Dance Union not found
+[2024-10-15T02:39:03.105Z] [error] Error processing event "Wednesday Tango Break– 8pm Intermediate Tango Classes": Location Dance Union not found
+[2024-10-15T02:39:03.185Z] [error] Error processing event "Wednesday Tango Break  –Dancing": Location Dance Union not found
+[2024-10-15T02:39:03.186Z] [info] Fetching events for 2024-10-10
+[2024-10-15T02:39:05.062Z] [info] Event "TANGO 1 BEGINNER" on 2024-10-10 processed successfully.
+[2024-10-15T02:39:05.205Z] [info] Event "Tango Lab moves this week to MUSICALITY WORKSHOP with El Chachivache" on 2024-10-10 processed successfully.
+[2024-10-15T02:39:05.331Z] [info] Event "UT 8211 Open Level 8211  MUSICALITY WORKSHOP with El Chachivache" on 2024-10-10 processed successfully.
+[2024-10-15T02:39:05.457Z] [info] Event "UT 8211 Beginner 8211 Learn Argentine Tango in 4 weeks  Improve your communication and partnership make new friends" on 2024-10-10 processed successfully.
+[2024-10-15T02:39:05.577Z] [info] Event "UT OakGrove Practica Guided" on 2024-10-10 processed successfully.
+[2024-10-15T02:39:05.578Z] [info] Fetching events for 2024-10-11
+[2024-10-15T02:39:07.616Z] [error] Error processing event "❤️.❤️El Arrabal Milonga” Pre-Mother’s Day Celebration with Pre-Milonga Class w/Laura &amp;  Guest DJ": Location Dance Union not found
+[2024-10-15T02:39:07.741Z] [info] Event "UT 8211 Open Level 8211  A Milonga with El Cachivache at Ultimate Tango" on 2024-10-11 processed successfully.
+[2024-10-15T02:39:07.741Z] [info] Fetching events for 2024-10-12
+[2024-10-15T02:39:10.347Z] [info] Event "Argentine Tango in West Hartford CT" on 2024-10-12 processed successfully.
+[2024-10-15T02:39:10.502Z] [info] Event "TANGO 2  3 INTERMEDIATE" on 2024-10-12 processed successfully.
+[2024-10-15T02:39:10.585Z] [error] Error processing event "May 11 starts our Season 28 of Tango by Moonlight –  FREE- Every 2nd Saturday of the month": Location Lumen Academy not found
+[2024-10-15T02:39:10.682Z] [error] Error processing event "Blue Milonga": Location Dance Union not found
+[2024-10-15T02:39:10.683Z] [info] Fetching events for 2024-10-13
+[2024-10-15T02:39:13.181Z] [info] Event "UT 8211 PreAdvanced Tango 8211 Parallel v Cross System" on 2024-10-13 processed successfully.
+[2024-10-15T02:39:13.297Z] [info] Event "UT 8211 Open Level 8211  Milonga Intensive  4 months  Rhythm Cadencia and Vocabulary" on 2024-10-13 processed successfully.
+[2024-10-15T02:39:13.453Z] [info] Event "UT PreAdvanced Argentine Tango 8211 Learn Back Sacadas" on 2024-10-13 processed successfully.
+[2024-10-15T02:39:13.587Z] [info] Event "UT 8211 Beginner 8211 Bored and Lost Learn Argentine Tango  Sundays 230pm" on 2024-10-13 processed successfully.
+[2024-10-15T02:39:13.697Z] [info] Event "UT 8211 Intermediate Level 8211 Giros from the forward cross and the back cross" on 2024-10-13 processed successfully.
+[2024-10-15T02:39:13.780Z] [error] Error processing event "Boston Weekly Sunday Practica": Location Q-Ballroom not found
+[2024-10-15T02:39:13.904Z] [info] Event "UT Advanced Argentine Tango 8211 Elaborate exploration" on 2024-10-13 processed successfully.
+[2024-10-15T02:39:14.027Z] [info] Event "UT 8211 PreIntermediate Level 8211 Parallel v Cross System" on 2024-10-13 processed successfully.
+[2024-10-15T02:39:14.102Z] [error] Error processing event "“PRACTILONGA CAMINITO” –the true Practica in Boston! Every Sunday Class &amp; Practice": Location Dance Union not found
+[2024-10-15T02:39:14.102Z] [info] Fetching events for 2024-10-14
+[2024-10-15T02:39:15.336Z] [info] Fetching events for 2024-10-15
+[2024-10-15T02:39:17.255Z] [error] Error processing event "TUESDAYS &#8212; NOCHE DE PRÁCTICA Guided Tango Practica": Location Dance Union not found
+[2024-10-15T02:39:17.379Z] [info] Event "Short Sequences  enrich your vocabulary with 52 sequences every year" on 2024-10-15 processed successfully.
+[2024-10-15T02:39:17.533Z] [info] Event "INTADV CLASSES TangoAffair" on 2024-10-15 processed successfully.
+[2024-10-15T02:39:17.658Z] [info] Event "UT 8211 Beginner 8211 Learn Argentine Tango 8211 make new friends  Tuesdays 730pm" on 2024-10-15 processed successfully.
+[2024-10-15T02:39:17.791Z] [info] Event "UT  Practica Chiquita" on 2024-10-15 processed successfully.
+[2024-10-15T02:39:17.915Z] [info] Event "UT 8211 Open Level 8211  Practica Chiquita at Ultimate Tango" on 2024-10-15 processed successfully.
+[2024-10-15T02:39:17.915Z] [info] Fetching events for 2024-10-16
+[2024-10-15T02:39:19.651Z] [error] Error processing event "Wednesday Tango Break– 7pm Beginner Tango Classes": Location Dance Union not found
+[2024-10-15T02:39:19.730Z] [error] Error processing event "Wednesday Tango Break– 8pm Intermediate Tango Classes": Location Dance Union not found
+[2024-10-15T02:39:19.810Z] [error] Error processing event "Wednesday Tango Break  –Dancing": Location Dance Union not found
+[2024-10-15T02:39:19.811Z] [info] Fetching events for 2024-10-17
+[2024-10-15T02:39:21.914Z] [info] Event "TANGO 1 BEGINNER" on 2024-10-17 processed successfully.
+[2024-10-15T02:39:22.043Z] [info] Event "TangoLab  Dancing focused on MusicalityPartnership" on 2024-10-17 processed successfully.
+[2024-10-15T02:39:22.173Z] [info] Event "BE METHOD Stretching for Tango Dancers" on 2024-10-17 processed successfully.
+[2024-10-15T02:39:22.297Z] [info] Event "UT 8211 Beginner 8211 Learn Argentine Tango in 4 weeks  Improve your communication and partnership make new friends" on 2024-10-17 processed successfully.
+[2024-10-15T02:39:22.424Z] [info] Event "UT OakGrove Practica Guided" on 2024-10-17 processed successfully.
+[2024-10-15T02:39:22.425Z] [info] Fetching events for 2024-10-18
+[2024-10-15T02:39:23.792Z] [error] Error processing event "Vida Mia – special edition": Location Dance Union not found
+[2024-10-15T02:39:23.888Z] [error] Error processing event "INT/ADV special class, TangoAffair": Location Dance Union not found
+[2024-10-15T02:39:23.967Z] [error] Error processing event "“TANGO BAR” MILONGA –3rd Friday of the Month": Location Dance Union not found
+[2024-10-15T02:39:23.968Z] [info] Fetching events for 2024-10-19
+[2024-10-15T02:39:25.458Z] [info] Event "Argentine Tango in West Hartford CT" on 2024-10-19 processed successfully.
+[2024-10-15T02:39:25.586Z] [info] Event "TANGO 2  3 INTERMEDIATE" on 2024-10-19 processed successfully.
+[2024-10-15T02:39:25.711Z] [info] Event "MATINEE MILONGA TARDECITAS" on 2024-10-19 processed successfully.
+[2024-10-15T02:39:25.835Z] [info] Event "Milonga TS Seasons in Milford CT" on 2024-10-19 processed successfully.
+[2024-10-15T02:39:25.918Z] [error] Error processing event "LA MILONGA Dancing": Location Dance Union not found
+[2024-10-15T02:39:25.918Z] [info] Fetching events for 2024-10-20
+[2024-10-15T02:39:27.842Z] [info] Event "UT 8211 PreAdvanced Tango 8211 Parallel v Cross System" on 2024-10-20 processed successfully.
+[2024-10-15T02:39:27.969Z] [info] Event "UT 8211 Open Level 8211  Milonga Intensive  4 months  Rhythm Cadencia and Vocabulary" on 2024-10-20 processed successfully.
+[2024-10-15T02:39:28.098Z] [info] Event "UT PreAdvanced Argentine Tango 8211 Learn Back Sacadas" on 2024-10-20 processed successfully.
+[2024-10-15T02:39:28.239Z] [info] Event "UT 8211 Beginner 8211 Bored and Lost Learn Argentine Tango  Sundays 230pm" on 2024-10-20 processed successfully.
+[2024-10-15T02:39:28.362Z] [info] Event "UT 8211 Intermediate Level 8211 Giros from the forward cross and the back cross" on 2024-10-20 processed successfully.
+[2024-10-15T02:39:28.442Z] [error] Error processing event "Boston Weekly Sunday Practica": Location Q-Ballroom not found
+[2024-10-15T02:39:28.570Z] [info] Event "UT Advanced Argentine Tango 8211 Elaborate exploration" on 2024-10-20 processed successfully.
+[2024-10-15T02:39:28.705Z] [info] Event "UT 8211 PreIntermediate Level 8211 Parallel v Cross System" on 2024-10-20 processed successfully.
+[2024-10-15T02:39:28.787Z] [error] Error processing event "“PRACTILONGA CAMINITO” –the true Practica in Boston! Every Sunday Class &amp; Practice": Location Dance Union not found
+[2024-10-15T02:39:28.788Z] [info] Fetching events for 2024-10-21
+[2024-10-15T02:39:30.587Z] [error] Error processing event "Queer Tango &#8211; Beginner Series": Location undefined not found
+[2024-10-15T02:39:30.689Z] [error] Error processing event "Queer Tango Boston All-levels Class": Location undefined not found
+[2024-10-15T02:39:30.690Z] [info] Fetching events for 2024-10-22
+[2024-10-15T02:39:32.932Z] [error] Error processing event "TUESDAYS &#8212; NOCHE DE PRÁCTICA Guided Tango Practica": Location Dance Union not found
+[2024-10-15T02:39:33.070Z] [info] Event "Short Sequences  enrich your vocabulary with 52 sequences every year" on 2024-10-22 processed successfully.
+[2024-10-15T02:39:33.198Z] [info] Event "INTADV CLASSES TangoAffair" on 2024-10-22 processed successfully.
+[2024-10-15T02:39:33.325Z] [info] Event "UT 8211 Beginner 8211 Learn Argentine Tango 8211 make new friends  Tuesdays 730pm" on 2024-10-22 processed successfully.
+[2024-10-15T02:39:33.453Z] [info] Event "UT  Practica Chiquita" on 2024-10-22 processed successfully.
+[2024-10-15T02:39:33.580Z] [info] Event "UT 8211 Open Level 8211  Practica Chiquita at Ultimate Tango" on 2024-10-22 processed successfully.
+[2024-10-15T02:39:33.581Z] [info] Fetching events for 2024-10-23
+[2024-10-15T02:39:35.844Z] [error] Error processing event "Wednesday Tango Break– 7pm Beginner Tango Classes": Location Dance Union not found
+[2024-10-15T02:39:35.924Z] [error] Error processing event "Wednesday Tango Break– 8pm Intermediate Tango Classes": Location Dance Union not found
+[2024-10-15T02:39:36.004Z] [error] Error processing event "Wednesday Tango Break  –Dancing": Location Dance Union not found
+[2024-10-15T02:39:36.005Z] [info] Fetching events for 2024-10-24
+[2024-10-15T02:39:39.363Z] [info] Event "TANGO 1 BEGINNER" on 2024-10-24 processed successfully.
+[2024-10-15T02:39:39.490Z] [info] Event "Tango Practica Corazon in Lexington MA" on 2024-10-24 processed successfully.
+[2024-10-15T02:39:39.621Z] [info] Event "TangoLab  Dancing focused on MusicalityPartnership" on 2024-10-24 processed successfully.
+[2024-10-15T02:39:39.743Z] [info] Event "BE METHOD Stretching for Tango Dancers" on 2024-10-24 processed successfully.
+[2024-10-15T02:39:39.878Z] [info] Event "UT 8211 Beginner 8211 Learn Argentine Tango in 4 weeks  Improve your communication and partnership make new friends" on 2024-10-24 processed successfully.
+[2024-10-15T02:39:40.011Z] [info] Event "UT OakGrove Practica Guided" on 2024-10-24 processed successfully.
+[2024-10-15T02:39:40.012Z] [info] Fetching events for 2024-10-25
+[2024-10-15T02:39:41.817Z] [info] Fetching events for 2024-10-26
+[2024-10-15T02:39:44.826Z] [info] Event "Argentine Tango in West Hartford CT" on 2024-10-26 processed successfully.
+[2024-10-15T02:39:44.956Z] [info] Event "TANGO 2  3 INTERMEDIATE" on 2024-10-26 processed successfully.
+[2024-10-15T02:39:45.036Z] [error] Error processing event "“LATE NIGHT CAMBALACHE”  Milonga–": Location Dance Union not found
+[2024-10-15T02:39:45.037Z] [info] Fetching events for 2024-10-27
+[2024-10-15T02:39:51.453Z] [info] Event "UT 8211 PreAdvanced Tango 8211 Parallel v Cross System" on 2024-10-27 processed successfully.
+[2024-10-15T02:39:51.582Z] [info] Event "UT 8211 Open Level 8211  Milonga Intensive  4 months  Rhythm Cadencia and Vocabulary" on 2024-10-27 processed successfully.
+[2024-10-15T02:39:51.722Z] [info] Event "UT PreAdvanced Argentine Tango 8211 Learn Back Sacadas" on 2024-10-27 processed successfully.
+[2024-10-15T02:39:51.853Z] [info] Event "UT 8211 Beginner 8211 Bored and Lost Learn Argentine Tango  Sundays 230pm" on 2024-10-27 processed successfully.
+[2024-10-15T02:39:51.979Z] [info] Event "UT 8211 Intermediate Level 8211 Giros from the forward cross and the back cross" on 2024-10-27 processed successfully.
+[2024-10-15T02:39:52.065Z] [error] Error processing event "Boston Weekly Sunday Practica": Location Q-Ballroom not found
+[2024-10-15T02:39:52.207Z] [info] Event "UT Advanced Argentine Tango 8211 Elaborate exploration" on 2024-10-27 processed successfully.
+[2024-10-15T02:39:52.343Z] [info] Event "UT 8211 PreIntermediate Level 8211 Parallel v Cross System" on 2024-10-27 processed successfully.
+[2024-10-15T02:39:52.426Z] [error] Error processing event "“PRACTILONGA CAMINITO” –the true Practica in Boston! Every Sunday Class &amp; Practice": Location Dance Union not found
+[2024-10-15T02:39:52.427Z] [info] Fetching events for 2024-10-28
+[2024-10-15T02:39:57.210Z] [error] Error processing event "Queer Tango &#8211; Beginner Series": Location undefined not found
+[2024-10-15T02:39:57.291Z] [error] Error processing event "Queer Tango Boston All-levels Class": Location undefined not found
+[2024-10-15T02:39:57.291Z] [info] Fetching events for 2024-10-29
+[2024-10-15T02:40:03.248Z] [error] Error processing event "TUESDAYS &#8212; NOCHE DE PRÁCTICA Guided Tango Practica": Location Dance Union not found
+[2024-10-15T02:40:03.380Z] [info] Event "Short Sequences  enrich your vocabulary with 52 sequences every year" on 2024-10-29 processed successfully.
+[2024-10-15T02:40:03.502Z] [info] Event "INTADV CLASSES TangoAffair" on 2024-10-29 processed successfully.
+[2024-10-15T02:40:03.636Z] [info] Event "UT  Practica Chiquita" on 2024-10-29 processed successfully.
+[2024-10-15T02:40:03.761Z] [info] Event "UT 8211 Open Level 8211  Practica Chiquita at Ultimate Tango" on 2024-10-29 processed successfully.
+[2024-10-15T02:40:03.762Z] [info] Fetching events for 2024-10-30
+[2024-10-15T02:40:08.625Z] [error] Error processing event "Wednesday Tango Break– 7pm Beginner Tango Classes": Location Dance Union not found
+[2024-10-15T02:40:08.714Z] [error] Error processing event "Wednesday Tango Break– 8pm Intermediate Tango Classes": Location Dance Union not found
+[2024-10-15T02:40:08.792Z] [error] Error processing event "Wednesday Tango Break  –Dancing": Location Dance Union not found
+[2024-10-15T02:40:08.793Z] [info] Fetching events for 2024-10-31
+[2024-10-15T02:40:11.818Z] [info] Event "TANGO 1 BEGINNER" on 2024-10-31 processed successfully.
+[2024-10-15T02:40:11.945Z] [info] Event "TangoLab  Dancing focused on MusicalityPartnership" on 2024-10-31 processed successfully.
+[2024-10-15T02:40:12.108Z] [info] Event "BE METHOD Stretching for Tango Dancers" on 2024-10-31 processed successfully.
+[2024-10-15T02:40:12.235Z] [info] Event "UT OakGrove Practica Guided" on 2024-10-31 processed successfully.
+[2024-10-15T02:40:12.236Z] [info] Event migration completed.

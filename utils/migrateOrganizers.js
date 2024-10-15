@@ -18,7 +18,6 @@ const logger = winston.createLogger({
   ),
   transports: [
     new winston.transports.Console(),
-    // Additional transports like File can be added here
   ],
 });
 
@@ -68,7 +67,7 @@ async function migrateOrganizers() {
   }
 
   // Fetch Organizer Data from the API
-  const apiEndpoint = 'https://bostontangocalendar.com/wp-json/tribe/events/v1/organizers';
+  const apiEndpoint = 'https://bostontangocalendar.com/wp-json/tribe/events/v1/organizers?per_page=200';
   let organizersData;
 
   try {
@@ -86,9 +85,13 @@ async function migrateOrganizers() {
     return;
   }
 
+  let processedCount = 0;
+
   // Iterate over each organizer and process
   for (const organizer of organizersData) {
     try {
+      logger.info(`Processing organizer "${organizer.organizer}" with slug "${organizer.slug}"`);
+
       // Transform the data according to your schema
       const transformedOrganizer = {
         name: organizer.organizer || 'Unknown',
@@ -129,10 +132,16 @@ async function migrateOrganizers() {
       } else {
         logger.info(`Organizer "${transformedOrganizer.name}" already up-to-date.`);
       }
+
+      processedCount++;
     } catch (error) {
-      logger.error(`Error processing organizer "${organizer.organizer}": ${error.message}`);
+      logger.error(`Error processing organizer "${organizer.organizer || 'unknown'}": ${error.message}`);
+      continue; // Continue processing other organizers even if one fails
     }
   }
+
+  // Log processed organizers count
+  logger.info(`Total organizers processed: ${processedCount}/${organizersData.length}`);
 
   // Close MongoDB connection
   await mongoose.connection.close();

@@ -68,7 +68,7 @@ async function migrateLocations() {
   }
 
   // Fetch Venue (Location) Data from the API
-  const apiEndpoint = 'https://bostontangocalendar.com/wp-json/tribe/events/v1/venues';
+  const apiEndpoint = 'https://bostontangocalendar.com/wp-json/tribe/events/v1/venues?per_page=200';
   let venuesData;
 
   try {
