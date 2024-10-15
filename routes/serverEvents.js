@@ -58,6 +58,52 @@ router.get("/byCalculatedLocations", async (req, res) => {
     res.status(500).json({ message: "Error fetching events" });
   }
 });
+// Get events by region and category (event type)
+router.get("/byRegionAndCategory", async (req, res) => {
+  try {
+    const {
+      calculatedRegionName,
+      calculatedDivisionName,
+      calculatedCityName,
+      start,
+      end,
+      active,
+      category, // New category filter
+    } = req.query;
+
+    if (!calculatedRegionName || !start || !end || active === undefined || !category) {
+      return res.status(400).json({
+        message: "Region, start date, end date, active status, and category are required",
+      });
+    }
+
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const isActive = active === "true";
+
+    const query = {
+      calculatedRegionName,
+      startDate: { $gte: startDate, $lte: endDate },
+      active: isActive,
+      category, // Filter by category (event type)
+    };
+
+    if (calculatedDivisionName) {
+      query.calculatedDivisionName = calculatedDivisionName;
+    }
+
+    if (calculatedCityName) {
+      query.calculatedCityName = calculatedCityName;
+    }
+
+    const events = await Events.find(query).sort({ startDate: 1 });
+
+    res.status(200).json(events);
+  } catch (error) {
+    console.error("Error fetching events by region and category:", error);
+    res.status(500).json({ message: "Error fetching events by region and category" });
+  }
+});
 
 // Get event by ID
 router.get("/id/:id", async (req, res) => {
