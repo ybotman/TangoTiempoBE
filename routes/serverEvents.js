@@ -71,9 +71,16 @@ router.get("/byRegionAndCategory", async (req, res) => {
       category, // New category filter
     } = req.query;
 
-    if (!calculatedRegionName || !start || !end || active === undefined || !category) {
+    if (
+      !calculatedRegionName ||
+      !start ||
+      !end ||
+      active === undefined ||
+      !category
+    ) {
       return res.status(400).json({
-        message: "Region, start date, end date, active status, and category are required",
+        message:
+          "Region, start date, end date, active status, and category are required",
       });
     }
 
@@ -101,7 +108,9 @@ router.get("/byRegionAndCategory", async (req, res) => {
     res.status(200).json(events);
   } catch (error) {
     console.error("Error fetching events by region and category:", error);
-    res.status(500).json({ message: "Error fetching events by region and category" });
+    res
+      .status(500)
+      .json({ message: "Error fetching events by region and category" });
   }
 });
 
