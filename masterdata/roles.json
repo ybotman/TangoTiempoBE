@@ -1,59 +1,54 @@
 [
-    {
-        "roleName": "SystemOwner",
-        "description": "Has full control over the system, including all events, organizers, and settings.",
-        "permissions": [
-            "canReadEvents",
-            "canCRUDOwnEvents",
-            "canCRUDAllEventsInRegion",
-            "canManageOrganizers",
-            "canManageRegions",
-            "canManageSystemSettings"
-        ]
-    },
-    {
-        "roleName": "SystemAdmin",
-        "description": "Can manage all events, organizers, and regions but does not have access to system settings.",
-        "permissions": [
-            "canReadEvents",
-            "canCRUDOwnEvents",
-            "canCRUDAllEventsInRegion",
-            "canManageOrganizers",
-            "canManageRegions"
-        ]
-    },
-    {
-        "roleName": "RegionalAdmin",
-        "description": "Can manage all events and organizers within their assigned region.",
-        "permissions": [
-            "canReadEvents",
-            "canCRUDOwnEvents",
-            "canCRUDAllEventsInRegion",
-            "canManageOrganizers"
-        ]
-    },
-    {
-        "roleName": "RegionalOrganizer",
-        "description": "Can manage their own events and all events within their assigned region.",
-        "permissions": [
-            "canReadEvents",
-            "canCRUDOwnEvents",
-            "canCRUDAllEventsInRegion"
-        ]
-    },
-    {
-        "roleName": "BasicUser",
-        "description": "Can manage their own events and view all events.",
-        "permissions": [
-            "canReadEvents",
-            "canCRUDOwnEvents"
-        ]
-    },
-    {
-        "roleName": "Anonymous",
-        "description": "Can view public events only.",
-        "permissions": [
-            "canReadEvents"
-        ]
-    }
+  {
+    "roleName": "SystemOwner",
+    "description": "Has full control over the system, including all events, organizers, and settings.",
+    "permissions": [
+      "canReadEvents",
+      "canCRUDOwnEvents",
+      "canCRUDAllEventsInRegion",
+      "canManageOrganizers",
+      "canManageRegions",
+      "canManageSystemSettings"
+    ]
+  },
+  {
+    "roleName": "SystemAdmin",
+    "description": "Can manage all events, organizers, and regions but does not have access to system settings.",
+    "permissions": [
+      "canReadEvents",
+      "canCRUDOwnEvents",
+      "canCRUDAllEventsInRegion",
+      "canManageOrganizers",
+      "canManageRegions"
+    ]
+  },
+  {
+    "roleName": "RegionalAdmin",
+    "description": "Can manage all events and organizers within their assigned region.",
+    "permissions": [
+      "canReadEvents",
+      "canCRUDOwnEvents",
+      "canCRUDAllEventsInRegion",
+      "canManageOrganizers"
+    ]
+  },
+  {
+    "roleName": "RegionalOrganizer",
+    "description": "Can manage their own events and all events within their assigned region.",
+    "permissions": [
+      "canReadEvents",
+      "canCRUDOwnEvents",
+      "canCRUDAllEventsInRegion"
+    ]
+  },
+  {
+    "roleName": "BasicUser",
+    "description": "Can manage their own events and view all events.",
+    "permissions": ["canReadEvents", "canCRUDOwnEvents"]
+  },
+  {
+    "roleName": "Anonymous",
+    "description": "Can view public events only.",
+    "permissions": ["canReadEvents"]
+  }
 ]
