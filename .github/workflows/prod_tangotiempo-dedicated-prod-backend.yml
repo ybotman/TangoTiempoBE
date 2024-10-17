@@ -6,11 +6,11 @@ name: Dedicated Production Server CI/CD
 on:
   push:
     branches:
-      - PROD
+      - INTG
   pull_request:
     types: [opened, synchronize, reopened]
     branches:
-      - PROD
+      - INTG
   workflow_dispatch:
 
 jobs:
