@@ -7,12 +7,17 @@ on:
   push:
     branches:
       - STAGE
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - STAGE
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    environment:
+      name: 'STAGE'
     steps:
       - uses: actions/checkout@v4
 
