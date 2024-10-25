@@ -14,6 +14,18 @@ router.get("/", async (req, res) => {
   }
 });
 
+// POST create category
+router.post("/", async (req, res) => {
+  try {
+    const newCategory = new Categories(req.body);
+    const savedCategory = await newCategory.save();
+    res.status(201).json(savedCategory);
+  } catch (error) {
+    console.error("Error creating category:", error);
+    res.status(500).json({ message: "Error creating category" });
+  }
+});
+
 // PUT update category
 router.put("/:id", async (req, res) => {
   try {
@@ -26,7 +38,7 @@ router.put("/:id", async (req, res) => {
     if (!updatedCategory) {
       return res.status(404).json({ message: "Category not found" });
     }
-    
+
     res.status(200).json(updatedCategory);
   } catch (error) {
     console.error("Error updating category:", error);
