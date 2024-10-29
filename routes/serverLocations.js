@@ -13,8 +13,17 @@ async function geocodeAddress(address) {
     });
     if (response && response.results.length > 0) {
       const { lat, lng } = response.results[0].geometry;
-      const formattedAddress = response.results[0].formatted; // Get the cleaned address
-      return { latitude: lat, longitude: lng, formattedAddress };
+      return {
+        latitude: lat,
+        longitude: lng,
+        formattedAddress: {
+          address_1: `${response.results[0].components.house_number} ${response.results[0].components.road}`,
+          city: response.results[0].components.city,
+          state: response.results[0].components.state_code,
+          zip: response.results[0].components.postcode,
+          country: response.results[0].components.country,
+        }
+      };
     } else {
       throw new Error("No results found for the given address");
     }
@@ -145,14 +154,16 @@ router.put("/:id", async (req, res) => {
 
 // POST route to create a new location with geocoding and calculated fields
 router.post("/", async (req, res) => {
-  const { address_1, address_2, city, state, zip } = req.body;
+  const { address_1, address_2, city, state, zip, country } = req.body;
 
   try {
-    const fullAddress = `${address_1}, ${address_2 || ""}, ${city}, ${state}, ${zip}`;
+    const fullAddress = `${address_1}, ${address_2 || ""}, ${city}, ${state}, ${zip}, ${country}`;
 
     // Geocode the address to get latitude, longitude, and the cleaned address
     const { latitude, longitude, formattedAddress } =
       await geocodeAddress(fullAddress);
+    
+    console.log(latitude, longitude, formattedAddress);
 
     // Find the closest calculated city, division, and region
     const { calculatedCity, calculatedDivision, calculatedRegion } =
@@ -161,11 +172,12 @@ router.post("/", async (req, res) => {
     // Create the new location object with the cleaned address
     const newLocation = new Locations({
       name: req.body.name,
-      address_1: formattedAddress, // Save the cleaned address
+      address_1: formattedAddress.address_1 ?? address_1, // Save the cleaned address
       address_2: req.body.address_2,
-      city,
-      state,
-      zip,
+      city: formattedAddress.city ?? city,
+      state: formattedAddress.state ?? state,
+      zip: formattedAddress.zip ?? zip,
+      country: formattedAddress.country ?? "USA",
       latitude,
       longitude,
       geolocation: {
@@ -184,6 +196,21 @@ router.post("/", async (req, res) => {
   } catch (error) {
     console.error("Error creating location:", error);
     res.status(500).json({ message: "Error creating location" });
+  }
+});
+
+// DELETE /locations/:id - Delete a location by its ID
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedLocation = await Locations.findByIdAndDelete(id);
+    if (!deletedLocation) {
+      return res.status(404).json({ message: "Location not found" });
+    }
+    res.status(200).json(deletedLocation);
+  } catch (error) {
+    console.error("Error deleting location:", error);
+    res.status(500).json({ message: "Error deleting location" });
   }
 });
 
