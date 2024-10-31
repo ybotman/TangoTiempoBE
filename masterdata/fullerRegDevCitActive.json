@@ -1,0 +1,614 @@
+{
+  "regions": [
+    {
+      "regionName": "Northeast",
+      "regionCode": "NE",
+      "active": true,
+      "divisions": [
+        {
+          "divisionName": "New England",
+          "divisionCode": "NE",
+          "active": false,
+          "states": [
+            "Maine",
+            "New Hampshire",
+            "Vermont",
+            "Massachusetts",
+            "Rhode Island",
+            "Connecticut"
+          ],
+          "majorCities": [
+            {
+              "cityName": "Boston",
+              "cityCode": "BOSTN",
+              "latitude": 42.3601,
+              "longitude": -71.0589,
+              "active": true
+            },
+            {
+              "cityName": "Providence",
+              "cityCode": "PROVI",
+              "latitude": 41.824,
+              "longitude": -71.4128,
+              "active": true
+            },
+            {
+              "cityName": "Hartford",
+              "cityCode": "HARFD",
+              "latitude": 41.7658,
+              "longitude": -72.6734,
+              "active": true
+            },
+            {
+              "cityName": "Portland",
+              "cityCode": "PORTL",
+              "latitude": 43.6591,
+              "longitude": -70.2568,
+              "active": true
+            },
+            {
+              "cityName": "Manchester",
+              "cityCode": "MNCHR",
+              "latitude": 42.9956,
+              "longitude": -71.4548,
+              "active": true
+            },
+            {
+              "cityName": "Burlington",
+              "cityCode": "BRLNG",
+              "latitude": 44.4759,
+              "longitude": -73.2121,
+              "active": true
+            }
+          ]
+        },
+        {
+          "divisionName": "Middle Atlantic",
+          "divisionCode": "MA",
+          "active": true,
+          "states": ["New York", "New Jersey", "Pennsylvania"],
+          "majorCities": [
+            {
+              "cityName": "New York City",
+              "cityCode": "NYC",
+              "latitude": 40.7128,
+              "longitude": -74.006,
+              "active": true
+            },
+            {
+              "cityName": "Philadelphia",
+              "cityCode": "PHILA",
+              "latitude": 39.9526,
+              "longitude": -75.1652,
+              "active": true
+            },
+            {
+              "cityName": "Newark",
+              "cityCode": "NEWAR",
+              "latitude": 40.7357,
+              "longitude": -74.1724,
+              "active": true
+            },
+            {
+              "cityName": "Buffalo",
+              "cityCode": "BUFFL",
+              "latitude": 42.8864,
+              "longitude": -78.8784,
+              "active": true
+            },
+            {
+              "cityName": "Rochester",
+              "cityCode": "RCHST",
+              "latitude": 43.1566,
+              "longitude": -77.6088,
+              "active": true
+            },
+            {
+              "cityName": "Albany",
+              "cityCode": "ALBNY",
+              "latitude": 42.6526,
+              "longitude": -73.7562,
+              "active": true
+            },
+            {
+              "cityName": "Jersey City",
+              "cityCode": "JRCIT",
+              "latitude": 40.7178,
+              "longitude": -74.0431,
+              "active": true
+            },
+            {
+              "cityName": "Pittsburgh",
+              "cityCode": "PITTS",
+              "latitude": 40.4406,
+              "longitude": -79.9959,
+              "active": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regionName": "Midwest",
+      "regionCode": "MW",
+      "active": true,
+      "divisions": [
+        {
+          "divisionName": "East North Central",
+          "divisionCode": "ENC",
+          "active": true,
+          "states": ["Ohio", "Indiana", "Illinois", "Michigan", "Wisconsin"],
+          "majorCities": [
+            {
+              "cityName": "Chicago",
+              "cityCode": "CHCGO",
+              "latitude": 41.8781,
+              "longitude": -87.6298,
+              "active": true
+            },
+            {
+              "cityName": "Detroit",
+              "cityCode": "DTRT",
+              "latitude": 42.3314,
+              "longitude": -83.0458,
+              "active": true
+            },
+            {
+              "cityName": "Cleveland",
+              "cityCode": "CLVLD",
+              "latitude": 41.4993,
+              "longitude": -81.6944,
+              "active": true
+            },
+            {
+              "cityName": "Columbus",
+              "cityCode": "COLMB",
+              "latitude": 39.9612,
+              "longitude": -82.9988,
+              "active": true
+            },
+            {
+              "cityName": "Cincinnati",
+              "cityCode": "CINCI",
+              "latitude": 39.1031,
+              "longitude": -84.512,
+              "active": true
+            },
+            {
+              "cityName": "Indianapolis",
+              "cityCode": "INDPL",
+              "latitude": 39.7684,
+              "longitude": -86.1581,
+              "active": true
+            },
+            {
+              "cityName": "Fort Wayne",
+              "cityCode": "FTWYN",
+              "latitude": 41.0793,
+              "longitude": -85.1394,
+              "active": true
+            },
+            {
+              "cityName": "Grand Rapids",
+              "cityCode": "GRRPD",
+              "latitude": 42.9634,
+              "longitude": -85.6681,
+              "active": true
+            },
+            {
+              "cityName": "Milwaukee",
+              "cityCode": "MILWK",
+              "latitude": 43.0389,
+              "longitude": -87.9065,
+              "active": true
+            },
+            {
+              "cityName": "Madison",
+              "cityCode": "MADSN",
+              "latitude": 43.0731,
+              "longitude": -89.4012,
+              "active": true
+            }
+          ]
+        },
+        {
+          "divisionName": "West North Central",
+          "divisionCode": "WNC",
+          "active": true,
+          "states": [
+            "Minnesota",
+            "Iowa",
+            "Missouri",
+            "North Dakota",
+            "South Dakota",
+            "Nebraska",
+            "Kansas"
+          ],
+          "majorCities": [
+            {
+              "cityName": "Minneapolis",
+              "cityCode": "MNPLS",
+              "latitude": 44.9778,
+              "longitude": -93.265,
+              "active": true
+            },
+            {
+              "cityName": "Kansas City",
+              "cityCode": "KSCIT",
+              "latitude": 39.0997,
+              "longitude": -94.5786,
+              "active": true
+            },
+            {
+              "cityName": "St. Louis",
+              "cityCode": "STL",
+              "latitude": 38.627,
+              "longitude": -90.1994,
+              "active": true
+            },
+            {
+              "cityName": "St. Paul",
+              "cityCode": "STPAL",
+              "latitude": 44.9537,
+              "longitude": -93.09,
+              "active": true
+            },
+            {
+              "cityName": "Des Moines",
+              "cityCode": "DSMNS",
+              "latitude": 41.5868,
+              "longitude": -93.625,
+              "active": true
+            },
+            {
+              "cityName": "Fargo",
+              "cityCode": "FARGO",
+              "latitude": 46.8772,
+              "longitude": -96.7898,
+              "active": true
+            },
+            {
+              "cityName": "Sioux Falls",
+              "cityCode": "SXFLS",
+              "latitude": 43.5446,
+              "longitude": -96.7311,
+              "active": true
+            },
+            {
+              "cityName": "Omaha",
+              "cityCode": "OMAHA",
+              "latitude": 41.2565,
+              "longitude": -95.9345,
+              "active": true
+            },
+            {
+              "cityName": "Lincoln",
+              "cityCode": "LNCLN",
+              "latitude": 40.8136,
+              "longitude": -96.7026,
+              "active": true
+            },
+            {
+              "cityName": "Wichita",
+              "cityCode": "WCHTA",
+              "latitude": 37.6872,
+              "longitude": -97.3301,
+              "active": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regionName": "South",
+      "regionCode": "SO",
+      "active": true,
+      "divisions": [
+        {
+          "divisionName": "South Atlantic",
+          "divisionCode": "SA",
+          "active": true,
+          "states": [
+            "Delaware",
+            "Maryland",
+            "District of Columbia",
+            "Virginia",
+            "West Virginia",
+            "North Carolina",
+            "South Carolina",
+            "Georgia",
+            "Florida"
+          ],
+          "majorCities": [
+            {
+              "cityName": "Atlanta",
+              "cityCode": "ATLNT",
+              "latitude": 33.749,
+              "longitude": -84.388,
+              "active": true
+            },
+            {
+              "cityName": "Miami",
+              "cityCode": "MIAMI",
+              "latitude": 25.7617,
+              "longitude": -80.1918,
+              "active": true
+            },
+            {
+              "cityName": "Washington, D.C.",
+              "cityCode": "WDC",
+              "latitude": 38.9072,
+              "longitude": -77.0369,
+              "active": true
+            },
+            {
+              "cityName": "Wilmington",
+              "cityCode": "WLMNG",
+              "latitude": 39.7391,
+              "longitude": -75.5398,
+              "active": true
+            },
+            {
+              "cityName": "Baltimore",
+              "cityCode": "BLTMR",
+              "latitude": 39.2904,
+              "longitude": -76.6122,
+              "active": true
+            },
+            {
+              "cityName": "Charlotte",
+              "cityCode": "CHRLT",
+              "latitude": 35.2271,
+              "longitude": -80.8431,
+              "active": true
+            },
+            {
+              "cityName": "Raleigh",
+              "cityCode": "RLGH",
+              "latitude": 35.7796,
+              "longitude": -78.6382,
+              "active": true
+            },
+            {
+              "cityName": "Charleston",
+              "cityCode": "CHRLS",
+              "latitude": 32.7765,
+              "longitude": -79.9311,
+              "active": true
+            },
+            {
+              "cityName": "Richmond",
+              "cityCode": "RCHMD",
+              "latitude": 37.5407,
+              "longitude": -77.436,
+              "active": true
+            }
+          ]
+        },
+        {
+          "divisionName": "East South Central",
+          "divisionCode": "ESC",
+          "active": true,
+          "states": ["Kentucky", "Tennessee", "Alabama", "Mississippi"],
+          "majorCities": [
+            {
+              "cityName": "Nashville",
+              "cityCode": "NSHV",
+              "latitude": 36.1627,
+              "longitude": -86.7816,
+              "active": true
+            },
+            {
+              "cityName": "Birmingham",
+              "cityCode": "BHM",
+              "latitude": 33.5186,
+              "longitude": -86.8104,
+              "active": true
+            },
+            {
+              "cityName": "Louisville",
+              "cityCode": "LUVL",
+              "latitude": 38.2527,
+              "longitude": -85.7585,
+              "active": true
+            },
+            {
+              "cityName": "Memphis",
+              "cityCode": "MEMPH",
+              "latitude": 35.1495,
+              "longitude": -90.049,
+              "active": false
+            },
+            {
+              "cityName": "Jackson",
+              "cityCode": "JCKSN",
+              "latitude": 32.2988,
+              "longitude": -90.1848,
+              "active": false
+            }
+          ]
+        },
+        {
+          "divisionName": "West South Central",
+          "divisionCode": "WSC",
+          "active": true,
+          "states": ["Arkansas", "Louisiana", "Oklahoma", "Texas"],
+          "majorCities": [
+            {
+              "cityName": "Houston",
+              "cityCode": "HSTON",
+              "latitude": 29.7604,
+              "longitude": -95.3698,
+              "active": false
+            },
+            {
+              "cityName": "Dallas",
+              "cityCode": "DLLAS",
+              "latitude": 32.7767,
+              "longitude": -96.797,
+              "active": true
+            },
+            {
+              "cityName": "New Orleans",
+              "cityCode": "NOLAN",
+              "latitude": 29.9511,
+              "longitude": -90.0715,
+              "active": true
+            },
+            {
+              "cityName": "Little Rock",
+              "cityCode": "LTRCK",
+              "latitude": 34.7465,
+              "longitude": -92.2896,
+              "active": true
+            },
+            {
+              "cityName": "Oklahoma City",
+              "cityCode": "OKCIT",
+              "latitude": 35.4676,
+              "longitude": -97.5164,
+              "active": false
+            },
+            {
+              "cityName": "San Antonio",
+              "cityCode": "SANAN",
+              "latitude": 29.4241,
+              "longitude": -98.4936,
+              "active": false
+            },
+            {
+              "cityName": "Austin",
+              "cityCode": "AUSTN",
+              "latitude": 30.2672,
+              "longitude": -97.7431,
+              "active": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regionName": "West",
+      "regionCode": "WE",
+      "active": true,
+      "divisions": [
+        {
+          "divisionName": "Mountain",
+          "divisionCode": "MTN",
+          "active": true,
+          "states": [
+            "Montana",
+            "Idaho",
+            "Wyoming",
+            "Colorado",
+            "New Mexico",
+            "Arizona",
+            "Utah",
+            "Nevada"
+          ],
+          "majorCities": [
+            {
+              "cityName": "Denver",
+              "cityCode": "DNVR",
+              "latitude": 39.7392,
+              "longitude": -104.9903,
+              "active": true
+            },
+            {
+              "cityName": "Phoenix",
+              "cityCode": "PHX",
+              "latitude": 33.4484,
+              "longitude": -112.074,
+              "active": true
+            },
+            {
+              "cityName": "Salt Lake City",
+              "cityCode": "SLC",
+              "latitude": 40.7608,
+              "longitude": -111.891,
+              "active": true
+            },
+            {
+              "cityName": "Albuquerque",
+              "cityCode": "ALBQ",
+              "latitude": 35.0844,
+              "longitude": -106.6504,
+              "active": true
+            },
+            {
+              "cityName": "Las Vegas",
+              "cityCode": "LVGAS",
+              "latitude": 36.1699,
+              "longitude": -115.1398,
+              "active": true
+            },
+            {
+              "cityName": "Boise",
+              "cityCode": "BOISE",
+              "latitude": 43.615,
+              "longitude": -116.2023,
+              "active": false
+            }
+          ]
+        },
+        {
+          "divisionName": "Pacific",
+          "divisionCode": "PAC",
+          "active": false,
+          "states": ["Washington", "Oregon", "California", "Alaska", "Hawaii"],
+          "majorCities": [
+            {
+              "cityName": "Los Angeles",
+              "cityCode": "LA",
+              "latitude": 34.0522,
+              "longitude": -118.2437,
+              "active": true
+            },
+            {
+              "cityName": "San Francisco",
+              "cityCode": "SF",
+              "latitude": 37.7749,
+              "longitude": -122.4194,
+              "active": true
+            },
+            {
+              "cityName": "Seattle",
+              "cityCode": "SEA",
+              "latitude": 47.6062,
+              "longitude": -122.3321,
+              "active": true
+            },
+            {
+              "cityName": "Portland",
+              "cityCode": "PORTL",
+              "latitude": 45.5152,
+              "longitude": -122.6784,
+              "active": true
+            },
+            {
+              "cityName": "Honolulu",
+              "cityCode": "HNULU",
+              "latitude": 21.3069,
+              "longitude": -157.8583,
+              "active": false
+            },
+            {
+              "cityName": "Anchorage",
+              "cityCode": "ANCHR",
+              "latitude": 61.2181,
+              "longitude": -149.9003,
+              "active": false
+            },
+            {
+              "cityName": "San Diego",
+              "cityCode": "SDG",
+              "latitude": 32.7157,
+              "longitude": -117.1611,
+              "active": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

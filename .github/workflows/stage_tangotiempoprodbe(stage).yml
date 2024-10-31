@@ -17,14 +17,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment:
-      name: 'STAGE'
+      name: "STAGE"
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
+          node-version: "20.x"
 
       - name: npm install, build, and test
         run: |
@@ -45,9 +45,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'stage'
+      name: "stage"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
@@ -56,12 +56,12 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-      
-      - name: 'Deploy to Azure Web App'
+
+      - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'tangotiempoprodbe'
-          slot-name: 'stage'
+          app-name: "tangotiempoprodbe"
+          slot-name: "stage"
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_011CCAE104BA49F5B1163B7F994DA2BC }}

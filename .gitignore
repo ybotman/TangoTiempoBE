@@ -141,9 +141,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-<<<<<<< HEAD
-=======
 
 # Firebase
 firebase-service.json
->>>>>>> 7c0425d695cc0990d2a5ff19b1bdc81246054403

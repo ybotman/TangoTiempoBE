@@ -1,0 +1,1460 @@
+[
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8dbe1"
+    },
+    "name": "Alicia Cruzado",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "alicia-cruzado",
+    "description": "<p>Alicia Cruzado is an authentic master of salon tango, experienced as a dancer, teacher, choreographer and artistic director.</p>",
+    "firebaseUserId": "alicia-cruzado",
+    "images": [],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:28.559Z"
+    },
+    "loginId": "alicia-cruzado",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "alicia-cruzado",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:36.713Z"
+    },
+    "url": ""
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8dc4c"
+    },
+    "name": "Tango Practica Corazón",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "tango-practica-corazon",
+    "description": "",
+    "firebaseUserId": "tango-practica-corazon",
+    "images": [],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:28.619Z"
+    },
+    "loginId": "tango-practica-corazon",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "minuteman.tango.practica@gmail.com",
+    "shortName": "tango-practica-corazon",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:36.757Z"
+    },
+    "url": "https://www.facebook.com/groups/1117995259207196"
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8dcd4"
+    },
+    "name": "Toby Balsley",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "toby-balsley",
+    "description": "",
+    "firebaseUserId": "toby-balsley",
+    "images": [],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:28.676Z"
+    },
+    "loginId": "toby-balsley",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "toby-balsley",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:36.821Z"
+    },
+    "url": ""
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8dd14"
+    },
+    "name": "Western MA Tango",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "western-ma-tango",
+    "description": "<p>Western MA Tango is a dedicated group of tanguera/os in Western Massachusetts with the mission of:<br />\nCollaborating with community members<br />\nto maintain our warm, welcoming tango family<br />\nin western Massachusetts, and<br />\nto create opportunities for the exploration of this dance we love.<br />\nThis page is for news and discussion about Argentine Tango events, workshops, and classes that are sponsored or co-sponsored by Western MA Tango.<br />\nYou can reach us at westernmatango@gmail.com.<br />\nFor our events, please see: http://www.tangomango.org/index.php?show=Hampshire,MA<br />\nYou can also go to the wider regional events </p>",
+    "firebaseUserId": "western-ma-tango",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2024/04/29351722_10215784296298815_4246924963307081481_o.jpg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9778c603c9fc13cc11b7"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:28.730Z"
+    },
+    "loginId": "western-ma-tango",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "western-ma-tango",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:36.873Z"
+    },
+    "url": "http://www.tangomango.org/index.php?show=Hampshire,MA"
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8dd44"
+    },
+    "name": "Laura Grandi (de Argentina)",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "laura-grandi-de-argentina",
+    "description": "<p>Laura Grandi (de Argentina)</p>",
+    "firebaseUserId": "laura-grandi-de-argentina",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2024/02/IMG_1581-e1707590551497.jpg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9778c603c9fc13cc11b9"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:28.793Z"
+    },
+    "loginId": "laura-grandi-de-argentina",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "laura-grandi-de-argentina",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:36.916Z"
+    },
+    "url": "http://www.tangograndi.com"
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8ddba"
+    },
+    "name": "Andi Babbs",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "andi-babbs",
+    "description": "",
+    "firebaseUserId": "andi-babbs",
+    "images": [],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:28.837Z"
+    },
+    "loginId": "andi-babbs",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "andi-babbs",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:36.971Z"
+    },
+    "url": ""
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8ddd7"
+    },
+    "name": "Lise Brody",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "lise-brody",
+    "description": "",
+    "firebaseUserId": "lise-brody",
+    "images": [],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:28.889Z"
+    },
+    "loginId": "lise-brody",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "401-421-4943",
+    "publicEmail": "lisebrody@gmail.com",
+    "shortName": "lise-brody",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.015Z"
+    },
+    "url": ""
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8de16"
+    },
+    "name": "Tango Sueño Academy",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "tango-sueno-academy",
+    "description": "<p style=\"text-align: center;\"><strong>Tango Sueño Academy, Argentine Tango classes, milongas and workshops throughout Connecticut.</strong></p>\n<p>&nbsp;</p>\n<p class=\"medium_text_justified\">Tango Sueño Academy is the premier Argentine Tango school in Connecticut, serving elite dancers for more than 18 years under the direction of Jorge &#8220;Gem&#8221; Duras.</p>\n<p class=\"medium_text_justified\">The group and private lessons focus on authentic Argentine Tango as danced and performed in the halls of Buenos Aires. The classes take place in Stamford, New Haven, Hartford and Danbury metropolitan as well as Westchester NY.</p>\n<p class=\"medium_text_justified\">Gem has been dancing Argentine Tango for more than 26 years and teaching professionally since 2003. He trains and encourages his students to acquire the proper tango technique, so that they can create the sensuality, musicality and partner connection that the Argentine Tango is famous for.</p>\n<p class=\"medium_text_justified\">Although Tango Sueño Academy offers choreography and performance classes for more advanced students, the essence of tango &#8220;where the two partners become one&#8221; is never forgotten, with the goal of enabling the students to dance with others at local tango events and throughout the world including Buenos Aires.</p>\n<p class=\"medium_text_justified\">The group classes are supplemented with various activities such as milongas, practicas and student performaces, as well as special events with guest instructors.</p>",
+    "firebaseUserId": "tango-sueno-academy",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2022/12/gem_duras_5.jpg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9778c603c9fc13cc11bd"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:28.939Z"
+    },
+    "loginId": "tango-sueno-academy",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "203-584-4480",
+    "publicEmail": "info@tangosueno.com",
+    "shortName": "tango-sueno-academy",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.060Z"
+    },
+    "url": "https://www.tangosueno.com"
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8de50"
+    },
+    "name": "Loca Tango Project (James Oh)",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "loca-tango-project-james-oh",
+    "description": "<p>James Oh is the founder of non-profit organization Loca Tango Project (founded in 2017) and has been organizing various of tango events and fundraisers in the Greater Boston Area including &#8220;Loca TangOH Festival &amp; Marathon with Flavor.&#8221; He also organized global virtual milonga &#8220;Milonga La Memoria&#8221; during 2020 pandemic. Since he first found Argentine Tango in 2008, he&#8217;s been active in many communities in the North East region of the US and Seoul, Korea as a dancer, DJ, and organizer. He focuses on gathering the communities and providing them with a welcoming and safe space.</p>",
+    "firebaseUserId": "loca-tango-project-james-oh",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2022/12/68303698_2360292304189398_6341518684263022592_n.jpg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9778c603c9fc13cc11bf"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:28.999Z"
+    },
+    "loginId": "loca-tango-project-james-oh",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "locatangoproject@gmail.com",
+    "shortName": "loca-tango-project-james-oh",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.105Z"
+    },
+    "url": "https://www.facebook.com/locatangoproject"
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8dea9"
+    },
+    "name": "Emma Holder",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "emma-holder",
+    "description": "",
+    "firebaseUserId": "emma-holder",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2020/02/Screenshot-2020-02-21-14.13.20.png",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9779c603c9fc13cc11c1"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.048Z"
+    },
+    "loginId": "emma-holder",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "emma@emmaholder.com",
+    "shortName": "emma-holder",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.154Z"
+    },
+    "url": ""
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8dee5"
+    },
+    "name": "PORTTANGO",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "porttango",
+    "description": "<p>We are a community of dancers, teachers, and musicians who have been captivated by the many joys of tango.Check the menu items at the top of this page and the <strong><a href=\"http://www.porttango.com/google-calendar/\">calendar</a></strong> for local events, <strong><a href=\"http://porttango.com/milonga/\" target=\"_blank\" rel=\"noopener noreferrer\">milongas</a></strong>, <strong><a href=\"http://porttango.com/practicas/\" target=\"_blank\" rel=\"noopener noreferrer\">practicas </a></strong>and <strong><a href=\"http://porttango.com/classes/\" target=\"_blank\" rel=\"noopener noreferrer\">classes</a></strong>. If you live here, check it out.</p>\n<p><strong>And if you are “from away”, as we say in Maine, please stop by and dance with us when you are in the Portland area!</strong></p>",
+    "firebaseUserId": "porttango",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2020/02/Screenshot-2020-02-21-14.08.11.png",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9779c603c9fc13cc11c3"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.094Z"
+    },
+    "loginId": "porttango",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "porttango",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.200Z"
+    },
+    "url": "porttango.com"
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8df23"
+    },
+    "name": "Guillermo Merlo",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "g-merlo",
+    "description": "<p>Guillermo Merlo</p>\n<p>Guillermo Merlo is a true legend in the world of Argentine tango.<br />\nA dancer, performer, choreographer, instructor and Coach. Guillermo Merlo was the recipient of the 1997 and 1998 TONY AWARD for Best Choreography for the show ‘Forever Tango” on Broadway. Guillermo won 1ST place in the World Argentine Tango Championship in 1999, and had the honor of being the first non-Asians ever invited to perform at the Imperial Theater in Tokyo.</p>\n<p>Guillermo served as a judge at The Tango Mundial, The World Competition for Argentine Tango in Montreal, Canada and ATUSA Argentine Tango USA Official Championship and Festival in San Francisco California.</p>\n<p>Guillermo has a realization of over 30 years of experience in Argentine Tango.</p>\n<p>&nbsp;</p>",
+    "firebaseUserId": "g-merlo",
+    "images": [],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.137Z"
+    },
+    "loginId": "g-merlo",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "7024184930",
+    "publicEmail": "guillermoyhelen@gmail.com",
+    "shortName": "g-merlo",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.243Z"
+    },
+    "url": ""
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8df88"
+    },
+    "name": "Boston Sunday Practica Group",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "boston-sunday-practica-group",
+    "description": "<p>The Sunday Practica is brought to you by the following hosts/DJs, who run the Practica on a rotating basis:</p>\n<p>David Chester, Alla Lakov, Tad Jankowski &#038; Claudyne Wilder, Steve Slavsky, Roger Wood, and Nanying Yin.</p>\n<p>For more information, contact info@SundayPractica.com.</p>\n<p>Every Sunday afternoon, normally from 3:00 to 6:00 p.m.</p>\n<p>Admission: $7</p>",
+    "firebaseUserId": "boston-sunday-practica-group",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2019/09/BOSTON-SUNNDAY-PRACTICA.gif",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9779c603c9fc13cc11c6"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.181Z"
+    },
+    "loginId": "boston-sunday-practica-group",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "info@SundayPractica.com",
+    "shortName": "boston-sunday-practica-group",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.286Z"
+    },
+    "url": "http://sundaypractica.com"
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8dfc1"
+    },
+    "name": "FG Dance Academy",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "fg-dance-academy",
+    "description": "<p><strong>FERNANDA GHI DANCE ACADEMY PHILOSOPHY</strong><br />\nThe Fernanda Ghi Dance Academy (FGDA) specializes in a wholistic approach to teaching Authentic Argentine Tango. Rather than teach you a pattern of steps, we offer programing that trains your BODY, MIND + SOUL. Argentine Tango is a social dance as well powerful form of art. Our curriculum reflects a commitment to teach tango in all of its many facets- from beginner social dancers to professional artists. We treat anyone who walks through our doors like a dancer. This means providing multiple ways to train your body and your mind to reach your own personal goals in dance.</p>\n<p>​Our classes range from specific topics in tango, to more general movement classes for stretching or facilitating body awareness. We are proud to offer body work to our students to help them maintain their physical health and agility.</p>\n<p><strong>TANGO AS A SOCIAL DANCE</strong><br />\n<span style=\"font-size: medium;\">We provide instruction for absolute beginners to advanced dancers interested in tango as a social dance. Our teaching is focused on continuity and quality. This means from your very first tango lesson, you will be taught from a consistent and carefully planned curriculum. Our technique builds strong, versatile and musical social dancers who understand the culture of tango.</span></p>\n<p><strong>TANGO AS AN ART FORM</strong><br />\n<span style=\"font-size: medium;\">We approach Argentine Tango as one would any other classical dance. To be a tango artist / performer requires a serious commitment to training and technique. FGDA provides training for professional tango dancers, and professional dancers from other backgrounds that are looking to expand their movement and partnering skills.</span></p>",
+    "firebaseUserId": "fg-dance-academy",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2019/12/FG.jpeg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9779c603c9fc13cc11c8"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.234Z"
+    },
+    "loginId": "fg-dance-academy",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "fg-dance-academy",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.328Z"
+    },
+    "url": "https://www.fernandaghi.dance"
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8e051"
+    },
+    "name": "North Shore Tango",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "north-shore-tango",
+    "description": "<p>Leo and Olga have been studying and dancing Argentine Tango since 2005. They learned from numerous local and visiting teachers, including great masters from Argentina, US and Europe.</p>\n<p>In their dancing and teaching they emphasize proper technique, connection, and musicality.</p>\n<p>Olga and Leo are members of Boston Tango Society and medalists of the First Annual Boston Argentine Tango Competition.</p>\n<p>They live in Beverly and are available for group and private lessons through out the North Shore.</p>",
+    "firebaseUserId": "north-shore-tango",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2020/01/NS-Tango-Sunday-Logo.jpg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9779c603c9fc13cc11ca"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.280Z"
+    },
+    "loginId": "north-shore-tango",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "(978) 633-7744",
+    "publicEmail": "",
+    "shortName": "north-shore-tango",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.394Z"
+    },
+    "url": "http://www.northshoretango.org/home"
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8e0c4"
+    },
+    "name": "Harvard Tango  (HT)",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "harvard-tango",
+    "description": "<p>Come out and dance tango at Harvard. This is the second fall edition of the hottest new milonga in town&#8211;The Harvard Milonga&#8211;in our beautiful location: the Barker Center Cafe at 12 Quincy Street. A rotunda with high windows on all sides, pristine hardwood floor, tables, and a true circle for a perfect ronda right at the heart campus.</p>\n<p>Follow us on FB, &#8220;Harvard Tango,&#8221; and add yourself to our mailing list: hats@hcs.harvard.edu</p>\n<p>Nearby metered parking on Mass Ave., Harvard St., and Quincy St. Garage at Broadway. Directions: walk inside the Barker Center, past the security desk, through the double doors, and straight to the end of the hall.</p>",
+    "firebaseUserId": "harvard-tango",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2019/11/Harvard-Tango.jpg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9779c603c9fc13cc11cc"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.323Z"
+    },
+    "loginId": "harvard-tango",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "hats@hcs.harvard.edu",
+    "shortName": "harvard-tango",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.445Z"
+    },
+    "url": "https://www.facebook.com/groups/harvardtango/"
+  },
+  {
+    "_id": {
+      "$oid": "670db15e72b5a57837c8e133"
+    },
+    "name": "Alla lakov",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "alla-lakov",
+    "description": "",
+    "firebaseUserId": "alla-lakov",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2019/07/IMG_767915674-e1563896352582.jpg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9779c603c9fc13cc11ce"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.371Z"
+    },
+    "loginId": "alla-lakov",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "alla-lakov",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.492Z"
+    },
+    "url": "https://allatango.wordpress.com"
+  },
+  {
+    "_id": {
+      "$oid": "670db15f72b5a57837c8e1eb"
+    },
+    "name": "Misha",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "misha",
+    "description": "<p>Summer, has public private practica every Tuesday in West Yarmouth. For location please email Gorenstm@yahoo.com.</p>\n<p>&nbsp;</p>",
+    "firebaseUserId": "misha",
+    "images": [],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.427Z"
+    },
+    "loginId": "misha",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "misha",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.548Z"
+    },
+    "url": ""
+  },
+  {
+    "_id": {
+      "$oid": "670db15f72b5a57837c8e23b"
+    },
+    "name": "Southern New Hampshire Tango",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "snhtango",
+    "description": "<h3><strong>Our wish is to make Argentine Tango accessible and to help build a</strong><br />\n<strong>vibrant and welcoming tango community in Southern New Hampshire.</strong></h3>\n<h2>Tango events are classes are happening in Nashua &amp; Wilton!</h2>\n<p><a href=\"https://snhtango.weebly.com\">S N H TANGO </a></p>\n<h4>We learn tango through building sensitivity awareness and muscle memory.  The body learns to move in new ways and remembers.  Our senses learn the subtle language of the dance through connection, communication and response. We learn to be in the moment and with each other, to connect and move together through space. Tango is a conversation in its own language spoken between two people dancing and with the other dancers in the ronda.</h4>\n<h4>While performance or fantasy tango is beautiful and moving, it is really meant for the stage and not the social dance floor.  Conscious of this, we teach elements of social tango dancing so that everything you learn in class is relative to what you can bring to the dancefloor.</h4>\n<h5>Classes that are accessible and engaging make for happier tango students and that is important to us. Because we want our growing NH Tango community to be warm, welcoming and vibrant, we will strive to help anyone wishing to be part of this social fun.</h5>\n<div>\n<div class=\"wsite-multicol\">\n<h5 class=\"wsite-multicol-table-wrap\">Our aim is to nurture a Southern New Hampshire tango community of social dancers who are prepared to integrate into social dance communities all over the world. And, to warmly welcome tango dancers of other communities into ours.</h5>\n<div></div>\n</div>\n</div>\n<div>\n<div>\n<div></div>\n</div>\n<h2 class=\"wsite-content-title\"><span style=\"color: #515151; font-size: xx-large;\">About Us</span></h2>\n<h2 class=\"paragraph\">Jamie and Scott of SNH Tango have been dancing for many years and  together for well over a decade. They have traveled for tango nationally and internationally and are passionate in sharing the universal language of Argentine Tango as a social dance. Building a vibrant and welcoming tango community is their motivation.  They bring a blend of tango styles to the dance floor and into their current classes that they teach in<br />\n​Southern New Hampshire.</h2>\n</div>\n<p><!--more--></p>",
+    "firebaseUserId": "snhtango",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2019/06/Screenshot-2019-06-20-16.56.05.png",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9779c603c9fc13cc11d1"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.473Z"
+    },
+    "loginId": "snhtango",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "603 316 4525",
+    "publicEmail": "snhtango@gmail.com",
+    "shortName": "snhtango",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.598Z"
+    },
+    "url": "snhtango.com"
+  },
+  {
+    "_id": {
+      "$oid": "670db15f72b5a57837c8e283"
+    },
+    "name": "David Chester",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "chester",
+    "description": "",
+    "firebaseUserId": "chester",
+    "images": [],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.519Z"
+    },
+    "loginId": "chester",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "chester",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.641Z"
+    },
+    "url": ""
+  },
+  {
+    "_id": {
+      "$oid": "670db15f72b5a57837c8e303"
+    },
+    "name": "LGBTQ+ Tango",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "lgbtq-tango",
+    "description": "<h2>We are a collective of LGBTQ+ tango dancers.</h2>\n<div>\n<div class=\" _2iem\" role=\"heading\" aria-level=\"4\">\n<div class=\"x11i5rnm xat24cr x1mh8g0r x1vvkbs xdj266r\">\n<div dir=\"auto\">\n<div class=\"x11i5rnm xat24cr x1mh8g0r x1vvkbs xdj266r\">\n<div dir=\"auto\">Mondays at José Mateo Dance Studio, Studio 3 (2nd floor)</div>\n<div dir=\"auto\">400 Harvard St, Cambridge</div>\n<div dir=\"auto\">(Enter through the door on the path between Harvard St &amp; Mass Ave.)</div>\n</div>\n<div class=\"x11i5rnm xat24cr x1mh8g0r x1vvkbs xtlvy1s\">\n<div dir=\"auto\"></div>\n<div dir=\"auto\">$20/sliding scale pay-what-you-can for classes</div>\n<div dir=\"auto\">Drop-ins welcome</div>\n<div dir=\"auto\">Clean, soft-soled shoes are required. (Socks are also fine)</div>\n<div dir=\"auto\"></div>\n</div>\n</div>\n</div>\n<div class=\"x11i5rnm xat24cr x1mh8g0r x1vvkbs xtlvy1s\">\n<div dir=\"auto\"></div>\n</div>\n</div>\n</div>\n<div>\n<div role=\"heading\" aria-level=\"4\">Our facebook site:</div>\n<div role=\"heading\" aria-level=\"4\"><a href=\"https://www.facebook.com/groups/qtboston/\">https://www.facebook.com/groups/qtboston/</a></div>\n<div role=\"heading\" aria-level=\"4\"></div>\n<div class=\"_3-96 _2iem\" role=\"heading\" aria-level=\"4\">Our BostonTangoCalendar site :</div>\n<div role=\"heading\" aria-level=\"4\"><a href=\"https://bostontangocalendar.com/organizer/lgbtq-tango/\">https://bostontangocalendar.com/organizer/lgbtq-tango/</a></div>\n<div role=\"heading\" aria-level=\"4\"></div>\n</div>",
+    "firebaseUserId": "lgbtq-tango",
+    "images": [],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.564Z"
+    },
+    "loginId": "lgbtq-tango",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "lgbtq-tango",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.695Z"
+    },
+    "url": "https://www.facebook.com/groups/qtboston/"
+  },
+  {
+    "_id": {
+      "$oid": "670db15f72b5a57837c8e378"
+    },
+    "name": "Sue Davis",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "sue-davis",
+    "description": "<h2>Known for the Tango events at Towers.</h2>\n<p>&nbsp;</p>\n<p>My BostonTango Calendar Site:</p>\n<blockquote class=\"wp-embedded-content\" data-secret=\"tSfOWbJnco\"><p><a href=\"https://bostontangocalendar.com/organizer/sue-davis/\">Sue Davis</a></p></blockquote>\n<p><iframe loading=\"lazy\" title=\"&#8220;Sue Davis&#8221; &#8212; \" class=\"wp-embedded-content\" sandbox=\"allow-scripts\" security=\"restricted\" style=\"position: absolute; clip: rect(1px, 1px, 1px, 1px);\" src=\"https://bostontangocalendar.com/organizer/sue-davis/embed/#?secret=tSfOWbJnco\" data-secret=\"tSfOWbJnco\" width=\"600\" height=\"338\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\"></iframe></p>\n<p>&nbsp;</p>",
+    "firebaseUserId": "sue-davis",
+    "images": [],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.611Z"
+    },
+    "loginId": "sue-davis",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "ridancer@aol.com",
+    "shortName": "sue-davis",
+    "updatedAt": {
+      "$date": "2024-10-15T00:03:37.749Z"
+    },
+    "url": ""
+  },
+  {
+    "_id": {
+      "$oid": "670dca5e72b5a57837750207"
+    },
+    "name": "Blue Tango",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "blue-tango",
+    "description": "<h2>Hsueh-tze, known for her musicality and innovative approach,</h2>\n<h4>teaches Argentine Tango across North America and internationally. She is a life-long dancer and one of North America&#8217;s tango pioneers since 1990. Hsueh-tze has been traveling to Buenos Aires annually since 1998. She draws inspiration from her extensive experience dancing with milongueros, especially at many of the classic milongas of the early days of tango&#8217;s current revival (e.g., Pavadita, Almagro, Regin, Canning, Sin Rumbo, etc.). Her dance blends the richness of tango tradition with exploratory possibilities.</h4>\n<p>Hsueh-tze is highly regarded for her skills and astute insights. She is equally adept at both leading and following, with 28 years of experience dancing both roles. She has taught throughout the US, and also in Singapore, Hong Kong, Canada, Mexico and Buenos Aires. In her classes, Hsueh-tze integrates her knowledge of dance, physiology and biomechanics to focus on quality of movement, musical communication and improvisation. Her dedicated students are sought as perceptive and musically expressive partners, having solid fundamental skills that enable them to develop their own style.</p>\n<p>Hsueh-tze hosts and DJs Blue Milonga, the popular second Saturday milonga in Boston.</p>\n<p>She holds a doctorate in physiology from Harvard University, and won a teaching award as a Harvard Teaching Fellow. Formerly a biology professor at Wellesley College, Hsueh-tze became one of the first professional North American tango instructors.</p>",
+    "firebaseUserId": "blue-tango",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2018/12/BANocturno21K.jpg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9779c603c9fc13cc11d6"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.670Z"
+    },
+    "loginId": "blue-tango",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "(617) 393-3772",
+    "publicEmail": "info@bluetango.org",
+    "shortName": "blue-tango",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:16.870Z"
+    },
+    "url": "http://bluetango.org"
+  },
+  {
+    "_id": {
+      "$oid": "670dca5e72b5a57837750263"
+    },
+    "name": "Organizer : Un-Identified, N/A",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "default",
+    "description": "<p>Either a Non-identified organizer (Private events, or 1x events)  or the organizer is not an applicable concept for the calendar event(Traveling Concerts, shows, etc)  .</p>",
+    "firebaseUserId": "default",
+    "images": [],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.717Z"
+    },
+    "loginId": "default",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "default",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:16.923Z"
+    },
+    "url": ""
+  },
+  {
+    "_id": {
+      "$oid": "670dca5e72b5a578377502f4"
+    },
+    "name": "Cape Cod Tango",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "cape-cod-tango",
+    "description": "<h3 style=\"text-align: center;\">Cape Cod Tango meets nearly every Thursday at 7pm, offering &#8220;walk-ins welcome&#8221; lessons and practica at <a href=\"http://www.capecodtango.org/map\" target=\"_blank\" rel=\"noopener noreferrer\">Freedom Hall</a> in Cotuit, MA.</h3>\n<p>We sometimes host the Cape&#8217;s only milonga, don&#8217;t forget to check our <a href=\"http://www.capecodtango.org/cctcaltemplatesmain/calendars\" target=\"_blank\" rel=\"noopener noreferrer\">calendar</a>!  We hope that this will grow the local Cape Cod tango community and be a useful resource for any Argentine Tango aficionados visiting the area.  Come dance with us sometime!</p>\n<p>If you have any questions, please <a href=\"http://www.capecodtango.org/contact-us\" target=\"_blank\" rel=\"noopener noreferrer\">let us know</a>.</p>\n<p>We also have a great <a href=\"mailto:tangocapecod@gmail.com?subject=Add%20me%20to%20the%20newsletter!\">e-newsletter</a> which we&#8217;d love to have you join. It&#8217;s an update about everything tango on the Cape.</p>\n<p>Heres our schedule : <a href=\"https://bostontangocalendar.com/organizer/cape-cod-tango/\">Cape Cod Tango</a></p>\n<p>&nbsp;</p>",
+    "firebaseUserId": "cape-cod-tango",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2019/03/map_capemain_nozoom.jpg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9779c603c9fc13cc11d9"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.761Z"
+    },
+    "loginId": "cape-cod-tango",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "cape-cod-tango",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:16.973Z"
+    },
+    "url": "www.capecodtango.com"
+  },
+  {
+    "_id": {
+      "$oid": "670dca5e72b5a5783775033d"
+    },
+    "name": "Providence Tango",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "providence-tango",
+    "description": "<p>Under Construction!</p>\n<p>Providence Tango started 2000 when the original founder Ellen purchased a factory building . She immediacy turned it into a dance studio with condos on top of the studio.  Later, Ellen sold the building and the business changed hands to Steven Spura. He then ran the business and invited the professional full time 2016 US Tango Champions Adam Cornett and Tilly Kimm to take over the studio. In 2017 Adam and Tilly decided to combine the studio with their efforts at Brown University and hold all the events at Brown U. Later in 2017 the Providence Tango community moved to the Mediator Stage in Providence for weekly events on Friday.</p>\n<p>Subsequently, starting in 2018, Providence Tango is now run by the local community.  We continue the long tradition of having classes and weekly events now at the Mediator Stage location.</p>",
+    "firebaseUserId": "providence-tango",
+    "images": [],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.812Z"
+    },
+    "loginId": "providence-tango",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "info@providencetango.com",
+    "shortName": "providence-tango",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:17.028Z"
+    },
+    "url": "providencetango.com"
+  },
+  {
+    "_id": {
+      "$oid": "670dca5e72b5a57837750399"
+    },
+    "name": "HARTS Tango",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "harts-tango",
+    "description": "<p style=\"text-align: center;\">H    A    R    T    S</p>\n<p>Hartford Argentine Tango Society</p>\n<p>Holds constant Milongas , Milonguita, practicas, worshops , invite national and international instructors , holds Alegria Mini Tango Festival , concerts and live music.</p>",
+    "firebaseUserId": "harts-tango",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2019/03/Screenshot-2019-03-02-10.23.46.png",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9779c603c9fc13cc11dc"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.857Z"
+    },
+    "loginId": "harts-tango",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "info@hartstango.net",
+    "shortName": "harts-tango",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:17.079Z"
+    },
+    "url": "https://garagedancestudio.com"
+  },
+  {
+    "_id": {
+      "$oid": "670dca5e72b5a578377503d6"
+    },
+    "name": "Adriana Pinto",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "adriana-pinto",
+    "description": "",
+    "firebaseUserId": "adriana-pinto",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2018/12/Screenshot-2019-02-27-16.51.20.png",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9779c603c9fc13cc11de"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.912Z"
+    },
+    "loginId": "adriana-pinto",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "adriana-pinto",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:17.126Z"
+    },
+    "url": "https://www.facebook.com/events/435098823700252/"
+  },
+  {
+    "_id": {
+      "$oid": "670dca5e72b5a57837750415"
+    },
+    "name": "Tango Affair",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "5429",
+    "description": "<p>TangoAffair – Argentine Tango in the Boston Area ! Planning to take tango lessons or buy tango shoes? We offer regular tango lessons for individuals and couples of all levels, and sell high quality tango shoes for women and men.</p>\n<p>Simonida Cekovic-Vuletic</p>",
+    "firebaseUserId": "5429",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2018/12/Screenshot-2018-12-31-10.30.42.png",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e9779c603c9fc13cc11e0"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:29.960Z"
+    },
+    "loginId": "5429",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "617-615-1550",
+    "publicEmail": "Simonida Cekovic-Vuletic simonida@tangoaffair.com",
+    "shortName": "5429",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:17.172Z"
+    },
+    "url": "http://tangoaffair.com/"
+  },
+  {
+    "_id": {
+      "$oid": "670dca5e72b5a5783775046a"
+    },
+    "name": "Tango Dogs",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "tangodogs",
+    "description": "<h1>Pamela and Steve Slavsky have been teaching Argentine tango together</h1>\n<h2>in the Boston area for over 15 years. They teach to promote tango’s unique charms as a social dance, emphasizing natural movement, connection, and musicality.</h2>\n<p>Classes keep students active and engaged in mind and body. They draw on mindfulness and somatic teaching methods as well as traditional training. The goal is to give students a foundation of skills rooted in classic technique from which they can grow into versatile and curious social dancers.</p>\n<p>Our external site : <a href=\"http://www.tangodogs.com\">www.tangodogs.com.</a></p>\n<p>Our events in this calendar : <a href=\"https://bostontangocalendar.com/organizer/tangodogs/\">https://bostontangocalendar.com/organizer/tangodogs/</a></p>\n<p>&nbsp;</p>",
+    "firebaseUserId": "tangodogs",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2018/12/Screenshot-2019-02-20-16.49.42.png",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e977ac603c9fc13cc11e2"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:30.010Z"
+    },
+    "loginId": "tangodogs",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "508-561-0844",
+    "publicEmail": "steve.slavsky@gmail.com",
+    "shortName": "tangodogs",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:17.217Z"
+    },
+    "url": "www.tangodogs.com"
+  },
+  {
+    "_id": {
+      "$oid": "670dca5e72b5a578377504aa"
+    },
+    "name": "Boston Tango Orchestra",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "boston-tango-orchestra",
+    "description": "<h2 style=\"text-align: center;\"><span style=\"color: #0000ff;\">The Boston Tango Orchestra (BTO).    </span></h2>\n<p style=\"text-align: center;\">We focus on the Golden Age of Argentine tango music played at milongas (Argentine tango social dancing).  Each song is carefully selected and arranged with tango dancers in mind.</p>\n<h4>Our facebook site : <a href=\"https://www.facebook.com/BTOrchestra/\">https://www.facebook.com/BTOrchestra/</a></h4>\n<h4>Our BostonTangoCalendar Site: <strong>:</strong> <span id=\"sample-permalink\"><a href=\"https://bostontangocalendar.com/organizer/boston-tango-orchestra/\">https://bostontangocalendar.com/organizer/<span id=\"editable-post-name\">boston-tango-orchestra</span>/</a></span> ‎</h4>\n<p>&nbsp;</p>",
+    "firebaseUserId": "boston-tango-orchestra",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2018/12/29064550_280574792479499_295558778491655881_o.jpg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e977ac603c9fc13cc11e4"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:30.056Z"
+    },
+    "loginId": "boston-tango-orchestra",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "",
+    "shortName": "boston-tango-orchestra",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:17.264Z"
+    },
+    "url": "https://www.facebook.com/BTOrchestra/"
+  },
+  {
+    "_id": {
+      "$oid": "670dca5e72b5a57837750500"
+    },
+    "name": "Milton and Corin",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "milton-and-corin",
+    "description": "<p><b>Info coming &#8230;.</b></p>",
+    "firebaseUserId": "milton-and-corin",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2018/12/52762420_10219187104931050_7456361348125949952_n.jpg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e977ac603c9fc13cc11e6"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:30.105Z"
+    },
+    "loginId": "milton-and-corin",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "MA87dance@gmail.com",
+    "shortName": "milton-and-corin",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:17.310Z"
+    },
+    "url": "http://www.milonganueva.net"
+  },
+  {
+    "_id": {
+      "$oid": "670dca5e72b5a57837750553"
+    },
+    "name": "Hsueh-tze Lee",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "hsueh-tze",
+    "description": "<p><strong>Hsueh-tze, known for her musicality and innovative approach</strong>, teaches Argentine Tango across North America and internationally.  She is a life-long dancer and one of North America&#8217;s tango pioneers since 1990. Hsueh-tze has been traveling to Buenos Aires annually since 1998.  She draws inspiration from her extensive experience dancing with milongueros, especially at many of the classic milongas of the early days of tango&#8217;s current revival (e.g., Pavadita, Almagro, Regin, Canning, Sin Rumbo, etc.).  Her dance blends the richness of tango tradition with exploratory possibilities.</p>\n<p>Hsueh-tze is highly regarded for her skills and astute insights.  She is equally adept at both leading and following, with 28 years of experience dancing both roles.  She has taught throughout the US, and also in Singapore, Hong Kong, Canada, Mexico and Buenos Aires.  In her classes, Hsueh-tze integrates her knowledge of dance, physiology and biomechanics to focus on quality of movement, musical communication and improvisation. Her dedicated students are sought as perceptive and musically expressive partners, having solid fundamental skills that enable them to develop their own style.</p>\n<p>Hsueh-tze hosts and DJs Blue Milonga, the popular second Saturday milonga in Boston.</p>\n<p>She holds a doctorate in physiology from Harvard University, and won a teaching award as a Harvard Teaching Fellow.  Formerly a biology professor at Wellesley College, Hsueh-tze became one of the first professional North American tango instructors.</p>",
+    "firebaseUserId": "hsueh-tze",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2018/12/hlee12k.jpg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e977ac603c9fc13cc11e8"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:30.157Z"
+    },
+    "loginId": "hsueh-tze",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "(617) 393-3772",
+    "publicEmail": "",
+    "shortName": "hsueh-tze",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:17.350Z"
+    },
+    "url": "http://www.bluetango.org/hsueh-tze.html"
+  },
+  {
+    "_id": {
+      "$oid": "670dca5e72b5a578377505a1"
+    },
+    "name": "Tango Society of Boston",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "tangosociety",
+    "description": "<h2><strong>Who Are We?</strong></h2>\n<p>The Tango Society of Boston was incorporated in June 1997 as a Massachusetts non-profit organization dedicated to the support and growth of the Argentine Tango. Within 5 months, it already had 250 members, and the numbers are growing weekly! While there are many facets to the Argentine Tango—the music and the culture being among the most prominent—it is the dance that brings most of us together.<br />\nThe Tango is a social and participant’s dance and is for everyone to learn and enjoy, regardless of dance background!</p>\n<p>Our membership has people from all walks of life, and has probably 20 or more countries represented! !</p>\n<h2><strong>What Do We Do?</strong></h2>\n<p>We are not just a paper organization! Our numerous activities fall into two broad categories:</p>\n<p><strong>1. Planning Tango events</strong></p>\n<p>Weekly Wednesday evening Tango dances at 16 Bow St, Union Sq, Somerville open to all, with a 1-hour lesson at the beginning<br />\nWeekend Tango seminars several times a year with the best Tango teachers in the world (usually from Argentina), such as the one with the renowned Pablo Veron, Fernanda Ghi and Guillermo Merlo, Daniela Arcuri, Hector Falcon, to name a few.<br />\nMilongas (Tango dance socials), some with live music<br />\nSpecial and unusual Tango events such as outdoor “Tango by Moonlight” nights in summer<br />\nOur Annual Boston Tango Festival in June</p>\n<p><strong>2. Supporting the growth of the Tango community</strong></p>\n<p>We sponsor TangoLine™, a 24-hour Tango hotline publicizing events for all Tango organizers in the Boston area&#8211;<br />\ntry it at 617-699-OCHO (-6246)<br />\nSupport local Tango organizers, musicians, etc., through our events, affiliations, and publicity and information channels<br />\nOutreach efforts via newspaper, radio and TV publicity<br />\nJoint events with other local and regional art and cultural institutions, both commercial and non-profit (e.g., Museum of Fine Arts, First Night Boston, movie houses showing Tango-related films, Tango festivals, etc.)</p>",
+    "firebaseUserId": "tangosociety",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2018/12/Screenshot-2018-12-27-14.22.34.png",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e977ac603c9fc13cc11ea"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:30.206Z"
+    },
+    "loginId": "tangosociety",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "617-699-OCHO",
+    "publicEmail": "info@bostontango.org",
+    "shortName": "tangosociety",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:17.396Z"
+    },
+    "url": "http://www.bostontango.org/"
+  },
+  {
+    "_id": {
+      "$oid": "670dca5e72b5a5783775063b"
+    },
+    "name": "Artango",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "artango",
+    "description": "<p>Artango Dance School is the realization of over 20 years of experience in Argentine Tango. We are dancers, performers, choreographers, instructors and coaches. We dream to not only teach you the steps, but also to share what we continue to learn from this wonderful dance: compassion, respect, vulnerability, and coexistence without competition.</p>\n<p>The true essence of tango- the embrace of the couple that creates two opposing energies that move in the same direction- is what interests us the most. This is what we seek to demonstrate when we teach and perform.</p>\n<p>We want to make Artango more than a dance studio: we envision a vibrant and diverse community, a place people never want to leave because they find here a powerful way of human connection​​​​.</p>\n<p>Experience the essence of tango with us-  a genuine way of being and sharing energy with another human being, of not expecting anything in return. This is the true expression of our souls&#8230;</p>\n<p>&#8211; Fernanda Ghi + Guillermo Merlo</p>\n<p><strong>Contact By ​Instructor:</strong><br />\n<strong>Fernanda Ghi + Guillermo Merlo</strong><br />\n<a>fg.artango@gmail.com</a></p>\n<p><strong>Mia Dalglish</strong><br />\n<a>mia.artango@gmail.com</a></p>",
+    "firebaseUserId": "artango",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2018/12/1447086042.png",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e977ac603c9fc13cc11ec"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:30.252Z"
+    },
+    "loginId": "artango",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "812.345.1077",
+    "publicEmail": "fg.artango@gmail.com",
+    "shortName": "artango",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:17.455Z"
+    },
+    "url": "http://www.artango.dance"
+  },
+  {
+    "_id": {
+      "$oid": "670dca5f72b5a57837750681"
+    },
+    "name": "Ultimate Tango",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "ultimate-tango",
+    "description": "<h5 style=\"text-align: center;\">Don&#8217;t Repeat Mindlessly. Learn Through Understanding.</h5>\n<p class=\"lead\">Here, at Ultimate Tango you will find all you need to become a true member of the Tango community in Boston MA and worldwide. We focus on developing in you the true understanding of what Tango is. Argentine Tango is not just a dance. It’s a philosophy.  A way of comprehending the world. A way of building relationships Indeed, a way of understanding yourself.</p>\n<p>Ultimate Tango, the Premier Boston tango studio,  has been helping Boston, MA residents master the art of the tango in exciting ways. We take pride in being the premier Boston, MA tango studio and working with students of all ages and skill levels.</p>",
+    "firebaseUserId": "ultimate-tango",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2018/12/img-about.jpg",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e977ac603c9fc13cc11ee"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:30.298Z"
+    },
+    "loginId": "ultimate-tango",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "781-395-9000",
+    "publicEmail": "",
+    "shortName": "ultimate-tango",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:17.511Z"
+    },
+    "url": "www.ultimatetango.com"
+  },
+  {
+    "_id": {
+      "$oid": "670dca5f72b5a578377506f9"
+    },
+    "name": "MIT Tango Club",
+    "__v": 0,
+    "activeFlag": true,
+    "btcNiceName": "mit",
+    "description": "<p><strong>Argentine Tango is a partnered social dan</strong>ce danced all over the world. Connection and movement together to the music is emphasized over flashy moves: the partners dance together to the music is emphasized over flashy moves: the partners dance for each other.</p>\n<p><strong>The MIT Tango club is dedicated to promoting Argentine Tango</strong> to the MIT Community, Boston Student community and in the Greater Boston Area in general. We offer classes, practice sessions (called &#8220;practicas&#8221;), introductory bootcamps, and workshops at prices discounted for MIT students and students in general.</p>\n<p>We are always looking for people to help us do cool tango things, particularly among MIT students. If you would like to help out, please send an e-mail to &#8220;tango-org&#8221; at mit dot edu and let us know what kinds of help you might be able to provide. We are a non-profit student organization, but MIT volunteers get cool benefits like free entrances to MIT Tango club milongas, workshops, and events. You can also help to influence the direction of the club.</p>",
+    "firebaseUserId": "mit",
+    "images": [
+      {
+        "imageUrl": "https://bostontangocalendar.com/wp-content/uploads/2018/12/customLogo.png",
+        "imageType": "banner",
+        "_id": {
+          "$oid": "670e977ac603c9fc13cc11f0"
+        }
+      }
+    ],
+    "lastActivity": {
+      "$date": "2024-10-15T16:25:30.339Z"
+    },
+    "loginId": "mit",
+    "organizerCity": {
+      "$oid": "66c4d99042ec462ea22484bf"
+    },
+    "organizerDivision": {
+      "$oid": "66c4d99042ec462ea22484be"
+    },
+    "organizerRegion": {
+      "$oid": "66c4d99042ec462ea22484bd"
+    },
+    "paidBool": false,
+    "paymentTier": "free",
+    "phone": "",
+    "publicEmail": "tangoclubmit@gmail.com",
+    "shortName": "mit",
+    "updatedAt": {
+      "$date": "2024-10-15T01:50:17.567Z"
+    },
+    "url": "https://sites.google.com/site/mittangoclub/"
+  }
+]

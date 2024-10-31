@@ -7,11 +7,13 @@ const regionsSchema = new mongoose.Schema({
   divisions: [
     {
       divisionName: { type: String, required: true },
+      divisionCode: { type: String, required: true },
       active: { type: Boolean, default: true },
       states: { type: [String], required: true },
       majorCities: [
         {
           cityName: { type: String, required: true },
+          cityCode: { type: String, required: true },
           latitude: { type: Number, required: true },
           longitude: { type: Number, required: true },
           active: { type: Boolean, default: true },
