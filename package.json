@@ -20,7 +20,9 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "prep": "npx eslint . --fix && npx prettier --write ."
+    "prettier": "prettier --write . |grep -v 'unchanged'",
+    "eslint": "eslint . --fix",
+    "prep": "npx eslint . --fix && npm run prettier"
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",

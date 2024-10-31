@@ -134,6 +134,48 @@ router.post("/", async (req, res) => {
   }
 });
 
+// PUT /api/userlogins/updateUserInfo - Update user info
+router.put("/updateUserInfo", async (req, res) => {
+  const {
+    firebaseUserId,
+    firstName,
+    lastName,
+    subscribedEvents,
+    favoriteOrganizers,
+    notificationPreference,
+    photo,
+    imageSharingLevel,
+    messagePrimaryMethod,
+    userCommunicationSettings,
+  } = req.body;
+
+  try {
+    const userLogin = await UserLogins.findOne({ firebaseUserId });
+    if (!userLogin) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update fields if they are provided in the request
+    if (firstName) userLogin.localUserInfo.firstName = firstName;
+    if (lastName) userLogin.localUserInfo.lastName = lastName;
+    if (subscribedEvents) userLogin.localUserInfo.subscribedEvents = subscribedEvents;
+    if (favoriteOrganizers) userLogin.localUserInfo.favoriteOrganizers = favoriteOrganizers;
+    if (notificationPreference) userLogin.localUserInfo.notificationPreference = notificationPreference;
+    if (photo) userLogin.localUserInfo.photo = photo;
+    if (imageSharingLevel) userLogin.localUserInfo.imageSharingLevel = imageSharingLevel;
+    if (messagePrimaryMethod) userLogin.localUserInfo.messagePrimaryMethod = messagePrimaryMethod;
+    if (userCommunicationSettings) userLogin.localUserInfo.userCommunicationSettings = userCommunicationSettings;
+
+    await userLogin.save();
+    res.status(200).json({ message: "User info updated successfully." });
+  } catch (error) {
+    console.error("Error updating user info:", error);
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
+
+
 // PUT /api/userlogins/:firebaseId/roles - Update the roles of a user
 router.put("/:firebaseId/roles", async (req, res) => {
   const { firebaseId } = req.params;

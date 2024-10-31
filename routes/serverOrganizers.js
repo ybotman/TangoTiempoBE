@@ -31,9 +31,9 @@ router.get("/", async (req, res) => {
   const { region, division, city } = req.query; // Extract region, division, city from query parameters
 
   try {
-    let query = { activeFlag: true }; // Base query for active organizers
+    let query = { activeFlag: true, isEnabled: true }; // Base query for active organizers
 
-    // If a region is provided, filter by organizerRegion
+    // If a region is provided, filter by organrun izerRegion
     if (region) query.organizerRegion = region;
 
     // If a division is provided, filter by organizerDivision

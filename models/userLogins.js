@@ -1,5 +1,40 @@
 const mongoose = require("mongoose");
 
+const notificationPreferencesSchema = new mongoose.Schema({
+  new: { type: Boolean, default: false },
+  updates: { type: Boolean, default: false },
+});
+
+const userCommunicationSettingsSchema = new mongoose.Schema({
+  Favorites: {
+    festivals: { type: notificationPreferencesSchema, default: {} },
+    workshops: { type: notificationPreferencesSchema, default: {} },
+    dayWorkshops: { type: notificationPreferencesSchema, default: {} },
+    milongas: { type: notificationPreferencesSchema, default: {} },
+    practices: { type: notificationPreferencesSchema, default: {} },
+    classes: { type: notificationPreferencesSchema, default: {} },
+    concerts: { type: notificationPreferencesSchema, default: {} },
+  },
+  DefaultRegion: {
+    festivals: { type: notificationPreferencesSchema, default: {} },
+    workshops: { type: notificationPreferencesSchema, default: {} },
+    dayWorkshops: { type: notificationPreferencesSchema, default: {} },
+    milongas: { type: notificationPreferencesSchema, default: {} },
+    practices: { type: notificationPreferencesSchema, default: {} },
+    classes: { type: notificationPreferencesSchema, default: {} },
+    concerts: { type: notificationPreferencesSchema, default: {} },
+  },
+  ExternalRegions: {
+    festivals: { type: notificationPreferencesSchema, default: {} },
+    workshops: { type: notificationPreferencesSchema, default: {} },
+    dayWorkshops: { type: notificationPreferencesSchema, default: {} },
+    milongas: { type: notificationPreferencesSchema, default: {} },
+    practices: { type: notificationPreferencesSchema, default: {} },
+    classes: { type: notificationPreferencesSchema, default: {} },
+    concerts: { type: notificationPreferencesSchema, default: {} },
+  },
+});
+
 const userLoginSchema = new mongoose.Schema({
   firebaseUserId: { type: String, required: true, unique: true },
   mfaEnabled: { type: Boolean, default: false },
@@ -12,22 +47,30 @@ const userLoginSchema = new mongoose.Schema({
     loginUserName: { type: String },
     firstName: { type: String },
     lastName: { type: String },
-    icon: { type: String },
-    defaultedCity: { type: mongoose.Schema.Types.ObjectId, ref: "Cities" },
+    isEnabled: { type: Boolean, default: true },
+    subscribedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Events" }],
     favoriteOrganizers: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Organizers" },
     ],
-    favoriteLocations: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "Locations" },
-    ],
+    notificationPreference: {
+      type: String,
+      enum: ["Application", "Email", "Text"],
+      default: "Application",
+    },
+    photo: { type: String },
+    imageSharingLevel: {
+      type: String,
+      enum: ["none", "friends", "all"],
+      default: "none",
+    },
+    messagePrimaryMethod: {
+      type: String,
+      enum: ["app", "text", "email", "facebook", "twitter"],
+      default: "app",
+    },
     userCommunicationSettings: {
-      wantFestivalMessages: { type: Boolean, default: false },
-      wantWorkshopMessages: { type: Boolean, default: false },
-      messagePrimaryMethod: {
-        type: String,
-        enum: ["app", "text", "email", "social"],
-        default: "app",
-      },
+      type: userCommunicationSettingsSchema,
+      default: {},
     },
   },
   localOrganizerInfo: {
@@ -79,12 +122,11 @@ const userLoginSchema = new mongoose.Schema({
 // Pre-save middleware to log changes
 userLoginSchema.pre("save", async function (next) {
   if (!this.isNew) {
-    // If it's not a new document
     const previousDoc = await this.constructor.findById(this._id).lean(); // Get the previous state of the document
     if (previousDoc) {
       this.auditLog.push({
         previousData: previousDoc,
-        ipAddress: this.ipAddress, // Assuming you set these in the request context
+        ipAddress: this.ipAddress,
         platform: this.platform,
       });
     }
