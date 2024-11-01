@@ -63,7 +63,7 @@ const organizerSchema = new mongoose.Schema({
   },
 
   updatedAt: { type: Date, default: Date.now },
-  lastActivityAsOrganizer: { type: Date, default: Date.now },
+  lastEventActivityAsOrganizer: { type: Date, default: Date.now },
   isActiveAsOrganizer: { type: Boolean, default: true },
   btcNiceName: { type: String, required: false },
 });
@@ -71,6 +71,7 @@ const organizerSchema = new mongoose.Schema({
 // Middleware to update the `updatedAt` field
 organizerSchema.pre("save", function (next) {
   this.updatedAt = Date.now();
+  this.isActiveAsOrganizer = true;
   next();
 });
 
