@@ -73,7 +73,7 @@ const userLoginSchema = new mongoose.Schema({
       default: {},
     },
   },
-  localOrganizerInfo: {
+  regionalOrganizerInfo: {
     organizerId: { type: mongoose.Schema.Types.ObjectId, ref: "Organizers" },
     isApporved: { type: Boolean, default: false },
     AoprovdalDate: { type: Date },

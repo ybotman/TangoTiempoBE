@@ -10,7 +10,7 @@ router.get("/all", async (req, res) => {
   try {
     const userLogins = await UserLogins.find()
       .populate({
-        path: "localOrganizerInfo.organizerId",
+        path: "regionalOrganizerInfo.organizerId",
         select: "name",
         strictPopulate: false,
       })
