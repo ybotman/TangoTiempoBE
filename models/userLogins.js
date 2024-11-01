@@ -75,12 +75,14 @@ const userLoginSchema = new mongoose.Schema({
   },
   localOrganizerInfo: {
     organizerId: { type: mongoose.Schema.Types.ObjectId, ref: "Organizers" },
+    isApporved: { type: Boolean, default: false },
+    AoprovdalDate: { type: Date },
     allowedCities: [{ type: mongoose.Schema.Types.ObjectId, ref: "Cities" }],
     allowedDivisions: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Divisions" },
     ],
     allowedRegions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Regions" }],
-    organizerCommunicationSettings: {
+    organizerCommunicationSettingsAdmin: {
       messagePrimaryMethod: {
         type: String,
         enum: ["app", "text", "email", "social"],

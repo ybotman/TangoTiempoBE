@@ -1,27 +1,29 @@
 const mongoose = require("mongoose");
 
 const organizerSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  linkedUserLogin: { type: mongoose.Schema.Types.ObjectId, ref: "userLogins", required: true },
+  firebaseUserId: { type: String, required: true, unique: true }, name: { type: String, required: true },
   shortName: { type: String, required: true },
-  btcNiceName: { type: String, required: false },
-  organizerRegion: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Regions",
-    required: true,
-  },
-  organizerDivision: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Divisions",
-    required: false,
-  },
-  organizerCity: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Cities",
-    required: false,
-  },
-  firebaseUserId: { type: String, required: true, unique: true },
-  url: { type: String },
   description: { type: String },
+  publicContactInfo: {
+    phone: { type: String },                          
+    Email: { type: String },                    
+    url: { type: String },
+    address: {
+      street1: { type: String },
+      street2: { type: String },
+      city: { type: String },
+      state: { type: String },
+      postalCode: { type: String },
+    },
+  },    
+  delegatedOrganizerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Organizers", // References the Organizers collection
+    default: null,
+    },
+  organizerPublicImageURL: { type: String },  
+  wantRender: { type: Boolean, default: true },
   images: [
     {
       originalUrl: { type: String }, // Azure Blob URL for original image
@@ -42,29 +44,28 @@ const organizerSchema = new mongoose.Schema({
       orientation: { type: String, enum: ["landscape", "portrait", "square"] }, // Image orientation
       isMobileFriendly: { type: Boolean, default: true }, // Flag for mobile suitability
     },
-  ],
-  phone: { type: String },
-  publicEmail: { type: String },
-  loginId: { type: String },
-  activeFlag: { type: Boolean, required: true, default: true },
-  updatedAt: { type: Date, default: Date.now },
-  isEnabled: { type: Boolean, default: true }, // Active status
-  isRendered: { type: Boolean, default: true }, // Rendered status
-  lastActivity: { type: Date, default: Date.now }, // Last activity timestamp
-  paymentTier: {
-    type: String,
-    enum: ["free", "basic", "premium"], // Payment tier options
-    required: true,
-    default: "free",
-  }, // Payment tier for advertising
-  paidBool: { type: Boolean, default: false }, // Whether the organizer has paid for services
-
-  // Delegated organizer for shared management access
-  delegatedOrganizerId: {
+    ],
+  
+  organizerRegion: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Organizers", // References the Organizers collection
-    default: null,
+    ref: "Regions",
+    required: true,
   },
+  organizerDivision: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Divisions",
+    required: false,
+  },
+  organizerCity: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Cities",
+    required: false,
+  },
+
+  updatedAt: { type: Date, default: Date.now },
+  lastActivityAsOrganizer: { type: Date, default: Date.now },
+  isActiveAsOrganizer: { type: Boolean, default: true },
+  btcNiceName: { type: String, required: false },
 });
 
 // Middleware to update the `updatedAt` field

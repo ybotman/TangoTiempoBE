@@ -14,6 +14,20 @@ router.post("/", async (req, res) => {
   }
 });
 
+// GET: Retrieve a single organizer by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const organizer = await Organizers.findById(req.params.id);
+    if (!organizer) {
+      return res.status(404).json({ message: "Organizer not found" });
+    }
+    res.status(200).json(organizer);
+  } catch (error) {
+    console.error("Error fetching organizer:", error);
+    res.status(500).json({ message: "Error fetching organizer" });
+  }
+});
+
 // GET all organizers (no filters)
 router.get("/all", async (req, res) => {
   try {
