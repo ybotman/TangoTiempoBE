@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const organizerSchema = new mongoose.Schema({
   linkedUserLogin: { type: mongoose.Schema.Types.ObjectId, ref: "userLogins", required: true },
   firebaseUserId: { type: String, required: true, unique: true }, name: { type: String, required: true },
+  fullName: { type: String, required: true },
   shortName: { type: String, required: true },
   description: { type: String },
   publicContactInfo: {
