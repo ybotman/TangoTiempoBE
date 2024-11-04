@@ -75,8 +75,8 @@ const userLoginSchema = new mongoose.Schema({
   },
   regionalOrganizerInfo: {
     organizerId: { type: mongoose.Schema.Types.ObjectId, ref: "Organizers" },
-    isApporved: { type: Boolean, default: false },
-    AoprovdalDate: { type: Date },
+    isApproved: { type: Boolean, default: false },
+    ApprovalDate: { type: Date },
     allowedCities: [{ type: mongoose.Schema.Types.ObjectId, ref: "Cities" }],
     allowedDivisions: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Divisions" },
