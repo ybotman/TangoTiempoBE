@@ -173,4 +173,26 @@ router.put("/:firebaseId/roles", async (req, res) => {
   }
 });
 
+// DELETE /api/userlogins/firebase/:firebaseId - Delete a user login by Firebase ID
+router.delete("/firebase/:firebaseId", async (req, res) => {
+  const { firebaseId } = req.params;
+
+  try {
+    // Find the user by firebaseUserId
+    const userLogin = await UserLogins.findOne({ firebaseUserId: firebaseId });
+    if (!userLogin) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Soft delete the user login
+    userLogin.active = false;
+    await userLogin.save();
+
+    res.status(204).json({ message: "User login deleted successfully." });
+  } catch (error) {
+    console.error("Error deleting user login:", error);
+    res.status(500).json({ message: "Server error.", error });
+  }
+});
+
 module.exports = router;
