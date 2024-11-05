@@ -1,14 +1,19 @@
 const mongoose = require("mongoose");
 
 const organizerSchema = new mongoose.Schema({
-  linkedUserLogin: { type: mongoose.Schema.Types.ObjectId, ref: "userLogins", required: true },
-  firebaseUserId: { type: String, required: true, unique: true }, name: { type: String, required: true },
+  linkedUserLogin: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "userLogins",
+    required: true,
+  },
+  firebaseUserId: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
   fullName: { type: String, required: true },
   shortName: { type: String, required: true },
   description: { type: String },
   publicContactInfo: {
-    phone: { type: String },                          
-    Email: { type: String },                    
+    phone: { type: String },
+    Email: { type: String },
     url: { type: String },
     address: {
       street1: { type: String },
@@ -17,13 +22,13 @@ const organizerSchema = new mongoose.Schema({
       state: { type: String },
       postalCode: { type: String },
     },
-  },    
+  },
   delegatedOrganizerId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Organizers", // References the Organizers collection
     default: null,
-    },
-  organizerPublicImageURL: { type: String },  
+  },
+  organizerPublicImageURL: { type: String },
   wantRender: { type: Boolean, default: true },
   images: [
     {
@@ -45,8 +50,8 @@ const organizerSchema = new mongoose.Schema({
       orientation: { type: String, enum: ["landscape", "portrait", "square"] }, // Image orientation
       isMobileFriendly: { type: Boolean, default: true }, // Flag for mobile suitability
     },
-    ],
-  
+  ],
+
   organizerRegion: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Regions",

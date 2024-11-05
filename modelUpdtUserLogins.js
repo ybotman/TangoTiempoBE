@@ -22,21 +22,21 @@ async function updateUserLogins() {
   try {
     // Define the fields that should be retained based on the schema
     const validFields = [
-      'firebaseUserId',
-      'mfaEnabled',
-      'roleIds',
-      'localUserInfo',
-      'regionalOrganizerInfo',
-      'localAdminInfo',
-      'auditLog',
-      'active',
-      'createdAt',
-      'updatedAt',
+      "firebaseUserId",
+      "mfaEnabled",
+      "roleIds",
+      "localUserInfo",
+      "regionalOrganizerInfo",
+      "localAdminInfo",
+      "auditLog",
+      "active",
+      "createdAt",
+      "updatedAt",
     ];
 
     // Update and clean documents
     const result = await UserLogins.find({}).lean().exec();
-    
+
     for (const doc of result) {
       const updates = {
         $setOnInsert: {
@@ -56,7 +56,7 @@ async function updateUserLogins() {
             userCommunicationSettings: {},
           },
           regionalOrganizerInfo: {
-            organizerId: '670db15e72b5a57837c8dcd4',
+            organizerId: "670db15e72b5a57837c8dcd4",
             isApporved: false,
             AoprovdalDate: null,
             allowedCities: [],
@@ -85,7 +85,8 @@ async function updateUserLogins() {
 
       // Unset any fields not in the validFields array
       const unsetFields = Object.keys(doc).reduce((acc, key) => {
-        if (!validFields.includes(key) && key !== '_id') { // Exclude '_id'
+        if (!validFields.includes(key) && key !== "_id") {
+          // Exclude '_id'
           acc[key] = ""; // Use "" or null as a placeholder
         }
         return acc;
