@@ -2,6 +2,47 @@ const express = require("express");
 const router = express.Router();
 const Organizers = require("../models/organizers");
 
+const {
+  BlobServiceClient,
+  StorageSharedKeyCredential,
+  generateBlobSASQueryParameters,
+  ContainerSASPermissions,
+  SASProtocol,
+} = require("@azure/storage-blob");
+
+const accountName = "tangotiempoimages";
+const accountKey =
+  "25YFr5FNUIIzTO5ufN9T1IRdRQCKrzBHktYxd8nGRZJ+9JfoL+SxP9A0zNbLtdcCH43lOdp6fq5w+AStPoltVg=="; // Move this to environment variables in production
+
+// POST: Generate a SAS token
+router.post("/generate-sas-token", async (req, res) => {
+  try {
+    const sharedKeyCredential = new StorageSharedKeyCredential(
+      accountName,
+      accountKey,
+    );
+    const containerName = "organizer-images";
+    const expiresOn = new Date(new Date().valueOf() + 3600 * 1000); // Token valid for 1 hour
+    const permissions = ContainerSASPermissions.parse("rwl"); // Read, Write, List permissions
+
+    const sasToken = generateBlobSASQueryParameters(
+      {
+        containerName,
+        permissions,
+        startsOn: new Date(),
+        expiresOn,
+        protocol: SASProtocol.Https,
+      },
+      sharedKeyCredential,
+    ).toString();
+
+    res.status(200).json({ sasToken });
+  } catch (error) {
+    console.error("Error generating SAS token:", error);
+    res.status(500).json({ message: "Error generating SAS token" });
+  }
+});
+
 // POST: Create a new organizer
 router.post("/", async (req, res) => {
   try {
@@ -37,6 +78,27 @@ router.get("/all", async (req, res) => {
   } catch (error) {
     console.error("Error fetching all organizers:", error);
     res.status(500).json({ message: "Error fetching all organizers" });
+  }
+});
+
+// serverOrganizer.js
+
+// PUT: Add an image to an organizer's images array
+router.put("/:id/add-image", async (req, res) => {
+  try {
+    const { imageUrl } = req.body;
+    const updatedOrganizer = await Organizers.findByIdAndUpdate(
+      req.params.id,
+      { $push: { images: imageUrl } },
+      { new: true },
+    );
+    if (!updatedOrganizer) {
+      return res.status(404).json({ message: "Organizer not found" });
+    }
+    res.status(200).json(updatedOrganizer);
+  } catch (error) {
+    console.error("Error updating organizer images:", error);
+    res.status(500).json({ message: "Error updating organizer images" });
   }
 });
 
