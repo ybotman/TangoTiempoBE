@@ -21,10 +21,6 @@ const sharedKeyCredential = new StorageSharedKeyCredential(
   accountKey
 );
 
-//const accountName = "tangotiempoimages";
-//const accountKey =
-//  "25YFr5FNUIIzTO5ufN9T1IRdRQCKrzBHktYxd8nGRZJ+9JfoL+SxP9A0zNbLtdcCH43lOdp6fq5w+AStPoltVg=="; // Move this to // environment variables in production
-
 // POST: Generate a SAS token
 router.post("/generate-sas-token", async (req, res) => {
   try {
