@@ -23,11 +23,12 @@ const organizerSchema = new mongoose.Schema({
       postalCode: { type: String },
     },
   },
-  delegatedOrganizerId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Organizers", // References the Organizers collection
-    default: null,
-  },
+  delegatedOrganizerIds: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Organizers",
+    },
+  ],
   organizerPublicImageURL: { type: String },
   wantRender: { type: Boolean, default: true },
   images: [
