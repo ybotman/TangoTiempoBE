@@ -1,3 +1,5 @@
+require("dotenv").config(); // Ensure dotenv is loaded
+
 const express = require("express");
 const router = express.Router();
 const Organizers = require("../models/organizers");
@@ -10,9 +12,18 @@ const {
   SASProtocol,
 } = require("@azure/storage-blob");
 
-const accountName = "tangotiempoimages";
-const accountKey =
-  "25YFr5FNUIIzTO5ufN9T1IRdRQCKrzBHktYxd8nGRZJ+9JfoL+SxP9A0zNbLtdcCH43lOdp6fq5w+AStPoltVg=="; // Move this to environment variables in production
+
+const accountName = process.env.AZURE_STORAGE_ACCOUNT_NAME;
+const accountKey = process.env.AZURE_STORAGE_ACCOUNT_KEY;
+
+const sharedKeyCredential = new StorageSharedKeyCredential(
+  accountName,
+  accountKey
+);
+
+//const accountName = "tangotiempoimages";
+//const accountKey =
+//  "25YFr5FNUIIzTO5ufN9T1IRdRQCKrzBHktYxd8nGRZJ+9JfoL+SxP9A0zNbLtdcCH43lOdp6fq5w+AStPoltVg=="; // Move this to // environment variables in production
 
 // POST: Generate a SAS token
 router.post("/generate-sas-token", async (req, res) => {
