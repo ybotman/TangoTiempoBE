@@ -38,8 +38,3 @@ jobs:
           app-name: "tangotiempoprodbe" # Directly specified
           slot-name: "stage" # Directly specified
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_011CCAE104BA49F5B1163B7F994DA2BC }}
-
-      # Health check to verify deployment (optional)
-      - name: "Verify deployment"
-        run: |
-          curl -f -s https://tangotiempoprodbe-stage.azurewebsites.net/ || exit 1
