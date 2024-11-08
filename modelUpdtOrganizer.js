@@ -34,7 +34,7 @@ async function updateOrganizers() {
           loginId: "",
           isEnabled: true,
           isRendered: "",
-          wantRender:""
+          wantRender: "",
           lastActivity: new Date(),
           paymentTier: "free",
           paidBool: false,

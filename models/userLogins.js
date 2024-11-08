@@ -96,7 +96,7 @@ const userLoginSchema = new mongoose.Schema({
     },
   },
   localAdminInfo: {
-     isApproved: { type: Boolean, default: false },
+    isApproved: { type: Boolean, default: false },
     isActive: { type: Boolean, default: true },
     ApprovalDate: { type: Date },
 
