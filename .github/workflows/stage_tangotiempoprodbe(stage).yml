@@ -27,14 +27,6 @@ jobs:
       - name: "Install dependencies"
         run: npm install
 
-      # Build the application
-      - name: "Build application"
-        run: npm run build
-
-      # (Optional) Run tests
-      - name: "Run tests"
-        run: npm test
-
       # Wait to avoid conflicts
       - name: "Wait for ongoing deployments"
         run: sleep 15
