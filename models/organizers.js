@@ -31,6 +31,9 @@ const organizerSchema = new mongoose.Schema({
   ],
   organizerPublicImageURL: { type: String },
   wantRender: { type: Boolean, default: true },
+  isActive: { type: Boolean, default: true },
+  isEnabled: { type: Boolean, default: true },
+  isRendered: { type: Boolean, default: true },
   images: [
     {
       originalUrl: { type: String }, // Azure Blob URL for original image

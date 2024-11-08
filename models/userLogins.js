@@ -44,10 +44,14 @@ const userLoginSchema = new mongoose.Schema({
     default: [],
   },
   localUserInfo: {
+    isApproved: { type: Boolean, default: true },
+    isEnabled: { type: Boolean, default: true },
+    isActive: { type: Boolean, default: true },
+    ApprovalDate: { type: Date },
     loginUserName: { type: String },
     firstName: { type: String },
     lastName: { type: String },
-    isEnabled: { type: Boolean, default: true },
+
     subscribedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Events" }],
     favoriteOrganizers: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Organizers" },
@@ -76,6 +80,7 @@ const userLoginSchema = new mongoose.Schema({
   regionalOrganizerInfo: {
     organizerId: { type: mongoose.Schema.Types.ObjectId, ref: "Organizers" },
     isApproved: { type: Boolean, default: false },
+    isActive: { type: Boolean, default: true },
     ApprovalDate: { type: Date },
     allowedCities: [{ type: mongoose.Schema.Types.ObjectId, ref: "Cities" }],
     allowedDivisions: [
@@ -91,6 +96,10 @@ const userLoginSchema = new mongoose.Schema({
     },
   },
   localAdminInfo: {
+     isApproved: { type: Boolean, default: false },
+    isActive: { type: Boolean, default: true },
+    ApprovalDate: { type: Date },
+
     adminRegions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Regions" }],
     adminDivisions: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Divisions" },

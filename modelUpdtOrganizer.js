@@ -32,9 +32,9 @@ async function updateOrganizers() {
           phone: "",
           publicEmail: "",
           loginId: "",
-          activeFlag: true,
           isEnabled: true,
-          isRendered: true,
+          isRendered: "",
+          wantRender:""
           lastActivity: new Date(),
           paymentTier: "free",
           paidBool: false,

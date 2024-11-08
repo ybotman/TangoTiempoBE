@@ -20,7 +20,6 @@ const sharedKeyCredential = new StorageSharedKeyCredential(
   accountKey,
 );
 
-
 // POST: Generate a SAS token
 router.post("/generate-sas-token", async (req, res) => {
   try {
@@ -109,26 +108,28 @@ router.put("/:id/add-image", async (req, res) => {
   }
 });
 
-// GET: Retrieve organizers filtered by region, division, and city
 router.get("/", async (req, res) => {
-  const { region, division, city } = req.query; // Extract region, division, city from query parameters
+  const { region, division, city, isActive, wantRender, isEnabled } = req.query;
 
   try {
-    let query = { activeFlag: true, isEnabled: true }; // Base query for active organizers
+    let query = {};
 
-    // If a region is provided, filter by organrun izerRegion
+    if (isActive !== undefined) query.isActive = isActive === "true";
+    if (wantRender !== undefined) query.wantRender = wantRender === "true";
+    if (isEnabled !== undefined) query.isEnabled = isEnabled === "true";
+
     if (region) query.organizerRegion = region;
-
-    // If a division is provided, filter by organizerDivision
     if (division) query.organizerDivision = division;
-
-    // If a city is provided, filter by organizerCity
     if (city) query.organizerCity = city;
 
-    const organizers = await Organizers.find(query); // Fetch organizers matching the query
-    res.status(200).json(organizers); // Return the filtered organizers
+    // Log the constructed query
+    console.log("Constructed query:", query);
+
+    const organizers = await Organizers.find(query);
+    console.log("Query result:", organizers); // Log the query result
+    res.status(200).json(organizers);
   } catch (error) {
-    console.error("Error fetching organizers:", error);
+    console.error("Error fetching organizers with filters:", error);
     res.status(500).json({ message: "Error fetching organizers" });
   }
 });
