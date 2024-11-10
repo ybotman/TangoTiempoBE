@@ -30,10 +30,15 @@ const organizerSchema = new mongoose.Schema({
     },
   ],
   organizerPublicImageURL: { type: String },
-  wantRender: { type: Boolean, default: true },
-  isActive: { type: Boolean, default: true },
-  isEnabled: { type: Boolean, default: true },
-  isRendered: { type: Boolean, default: true },
+  wantRender: { type: Boolean, default: false },
+  isActive: { type: Boolean, default: false },
+  isEnabled: { type: Boolean, default: false },
+  isRendered: { type: Boolean, default: false },
+organizerBannerImage: { type: String, default: "/defaults/banner.png" },
+organizerProfileImage: { type: String, default: "/defaults/profile.png" },
+organizerLandscapeImage: { type: String, default: "/defaults/landscape.png" },
+organizerLogoImage: { type: String, default: "/defaults/logo.png" },
+  
   images: [
     {
       originalUrl: { type: String }, // Azure Blob URL for original image

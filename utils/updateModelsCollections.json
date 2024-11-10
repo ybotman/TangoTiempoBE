@@ -1,0 +1,36 @@
+{
+  "toRun": [
+    "organizers",
+    "events",
+    "categories",
+    "regions",
+    "roles",
+    "userLogins",
+    "locations"
+  ],
+  "completed": [
+    "categories",
+    "organizers",
+    "categories",
+    "organizers",
+    "events",
+    "categories",
+    "regions",
+    "roles",
+    "userLogins",
+    "locations",
+    "organizers",
+    "events",
+    "categories",
+    "regions",
+    "roles",
+    "userLogins",
+    "locations"
+  ],
+  "error": [
+    {
+      "collection": "organizers",
+      "error": "Performing an update on the path '_id' would modify the immutable field '_id'"
+    }
+  ]
+}
