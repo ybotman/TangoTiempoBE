@@ -1,9 +1,7 @@
-// utils/updateModelsCollections.js
-
 require("dotenv").config(); // Load environment variables
-const mongoose = require('mongoose');
-const fs = require('fs');
-const path = require('path');
+const mongoose = require("mongoose");
+const fs = require("fs");
+const path = require("path");
 const winston = require("winston");
 
 // Set up logger with Winston for better diagnostic output
@@ -12,16 +10,22 @@ const logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.colorize(),
     winston.format.timestamp(),
-    winston.format.printf(({ timestamp, level, message }) => `[${timestamp}] [${level}] ${message}`)
+    winston.format.printf(
+      ({ timestamp, level, message }) => `[${timestamp}] [${level}] ${message}`,
+    ),
   ),
-  transports: [new winston.transports.Console()]
+  transports: [new winston.transports.Console()],
 });
 
-// Load JSON configuration file
-const configPath = path.join(__dirname, 'updateModelsCollections.json');
+// Load JSON configuration file from public directory
+const configPath = path.join(
+  __dirname,
+  "../public/updateModelsCollections.json",
+);
 let config;
 try {
-  config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+  config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+  config.updated = []; // Initialize `updated` to track modified collections
   logger.info(`Loaded configuration: ${JSON.stringify(config, null, 2)}`);
 } catch (error) {
   logger.error(`Failed to load configuration file: ${error.message}`);
@@ -31,7 +35,7 @@ try {
 // Function to save configuration back to file
 function saveConfig() {
   try {
-    fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf-8');
+    fs.writeFileSync(configPath, JSON.stringify(config, null, 2), "utf-8");
     logger.info("Configuration saved successfully.");
   } catch (error) {
     logger.error(`Error saving configuration: ${error.message}`);
@@ -49,27 +53,35 @@ async function updateCollectionWithDefaults(collectionName) {
 
     const updateQuery = {
       $set: Object.keys(defaultValues).reduce((acc, field) => {
-        if (field !== '_id') {  // Exclude _id from updates
+        if (field !== "_id") {
+          // Exclude _id from updates
           acc[field] = defaultValues[field];
         }
         return acc;
-      }, {})
+      }, {}),
     };
 
     const result = await Model.updateMany(
-      { $or: Object.keys(defaultValues).map(field => ({ [field]: { $exists: false } })) },
-      updateQuery
+      {
+        $or: Object.keys(defaultValues).map((field) => ({
+          [field]: { $exists: false },
+        })),
+      },
+      updateQuery,
     );
 
     if (result.nModified > 0) {
-      logger.info(`Updated ${result.nModified} documents in collection: ${collectionName}`);
-      config.completed.push(collectionName);
+      logger.info(
+        `Updated ${result.nModified} documents in collection: ${collectionName}`,
+      );
+      config.updated.push(collectionName); // Track only modified collections
     } else {
       logger.info(`No updates needed for collection: ${collectionName}`);
-      config.completed.push(collectionName);
     }
   } catch (error) {
-    logger.error(`Error updating collection: ${collectionName}: ${error.message}`);
+    logger.error(
+      `Error updating collection: ${collectionName}: ${error.message}`,
+    );
     config.error.push({ collection: collectionName, error: error.message });
   }
   saveConfig(); // Save the updated config after each collection
@@ -96,7 +108,7 @@ async function runUpdates() {
   }
 
   try {
-    await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(mongoURI);
     logger.info("MongoDB connected successfully.");
     await runUpdates();
   } catch (error) {

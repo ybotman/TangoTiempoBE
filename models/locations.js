@@ -16,7 +16,7 @@ const locationSchema = new mongoose.Schema({
     type: { type: String, default: "Point" }, // GeoJSON type
     coordinates: [Number], // Array to store [longitude, latitude]
   },
-  activeFlag: { type: Boolean, default: true }, // New active flag field
+  activeFlag: { type: Boolean, default: false }, // New active flag field
   lastUsed: { type: Date }, // New last used date field
   calculatedRegion: {
     type: mongoose.Schema.Types.ObjectId,

@@ -34,7 +34,7 @@ const eventSchema = new mongoose.Schema({
   calculatedRegionName: { type: String, required: false },
   calculatedDivisionName: { type: String, required: false },
   calculatedCityName: { type: String, required: false },
-  eventImage: { type: String, required: false }, 
+  eventImage: { type: String, required: false },
   bannerImage: { type: String, required: false },
   featuredImage: { type: String, required: false },
   seriesImages: [{ type: String, required: false }],
