@@ -6,8 +6,12 @@ const winston = require("winston");
 
 // Configuration Settings
 const BATCH_SIZE = 1000; // Batch size for processing large collections
-const configPath = path.join(__dirname, "../public/updateModelsCollections.json");
+const configPath = path.join(
+  __dirname,
+  "../public/updateModelsCollections.json",
+);
 const mongoURI = process.env.MONGODB_URI;
+const shouldRunUpdateModels = process.env.RUN_UPDATE_MODELS === 'Yes';
 
 // Set up logger with Winston for better diagnostic output
 const logger = winston.createLogger({
@@ -16,11 +20,19 @@ const logger = winston.createLogger({
     winston.format.colorize(),
     winston.format.timestamp(),
     winston.format.printf(
-      ({ timestamp, level, message }) => `[${timestamp}] [${level}] ${message}`
-    )
+      ({ timestamp, level, message }) => `[${timestamp}] [${level}] ${message}`,
+    ),
   ),
   transports: [new winston.transports.Console()],
 });
+
+if (!shouldRunUpdateModels) {
+  logger.info(
+    "RUN_UPDATE_MODELS is not set to true. Exiting without updates.",
+  );
+  console.log(shouldRunUpdateModels);
+  process.exit(0);
+}
 
 // Load JSON configuration file
 let config;
@@ -36,7 +48,11 @@ try {
 // Function to save configuration back to file
 async function saveConfig() {
   try {
-    await fs.promises.writeFile(configPath, JSON.stringify(config, null, 2), "utf-8");
+    await fs.promises.writeFile(
+      configPath,
+      JSON.stringify(config, null, 2),
+      "utf-8",
+    );
     logger.info("Configuration saved successfully.");
   } catch (error) {
     logger.error(`Error saving configuration: ${error.message}`);
@@ -56,11 +72,15 @@ async function updateCollectionWithDefaults(collectionName) {
     let updatedCount = 0;
     const cursor = Model.find({}).batchSize(BATCH_SIZE).cursor();
 
-    for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
+    for (
+      let doc = await cursor.next();
+      doc != null;
+      doc = await cursor.next()
+    ) {
       const result = await Model.updateOne(
         { _id: doc._id },
         { $setOnInsert: defaultValues },
-        { upsert: true }
+        { upsert: true },
       );
       if (result.nModified > 0 || result.upserted) {
         updatedCount++;
@@ -68,13 +88,17 @@ async function updateCollectionWithDefaults(collectionName) {
     }
 
     if (updatedCount > 0) {
-      logger.info(`Updated ${updatedCount} documents in collection: ${collectionName}`);
+      logger.info(
+        `Updated ${updatedCount} documents in collection: ${collectionName}`,
+      );
       config.updated.push(collectionName); // Track only modified collections
     } else {
       logger.info(`No updates needed for collection: ${collectionName}`);
     }
   } catch (error) {
-    logger.error(`Error updating collection: ${collectionName}: ${error.message}`);
+    logger.error(
+      `Error updating collection: ${collectionName}: ${error.message}`,
+    );
     config.error.push({ collection: collectionName, error: error.message });
   }
   await saveConfig(); // Save the updated config after each collection
@@ -90,7 +114,9 @@ async function runUpdates() {
     if (updated) updatedCollections.push(collectionName); // Track only if updated
   }
 
-  logger.info(`Update process complete. Updated collections: ${updatedCollections.join(", ")}`);
+  logger.info(
+    `Update process complete. Updated collections: ${updatedCollections.join(", ")}`,
+  );
   mongoose.connection.close();
 }
 
@@ -106,9 +132,11 @@ async function connectWithRetry() {
       return;
     } catch (error) {
       attempt++;
-      logger.error(`MongoDB connection error (attempt ${attempt}): ${error.message}`);
+      logger.error(
+        `MongoDB connection error (attempt ${attempt}): ${error.message}`,
+      );
       if (attempt === MAX_RETRIES) process.exit(1);
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Wait before retrying
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait before retrying
     }
   }
 }
