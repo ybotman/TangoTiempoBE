@@ -1,8 +1,13 @@
-require("dotenv").config(); // Load environment variables
+require("dotenv").config();
 const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
 const winston = require("winston");
+
+// Configuration Settings
+const BATCH_SIZE = 1000; // Batch size for processing large collections
+const configPath = path.join(__dirname, "../public/updateModelsCollections.json");
+const mongoURI = process.env.MONGODB_URI;
 
 // Set up logger with Winston for better diagnostic output
 const logger = winston.createLogger({
@@ -11,17 +16,13 @@ const logger = winston.createLogger({
     winston.format.colorize(),
     winston.format.timestamp(),
     winston.format.printf(
-      ({ timestamp, level, message }) => `[${timestamp}] [${level}] ${message}`,
-    ),
+      ({ timestamp, level, message }) => `[${timestamp}] [${level}] ${message}`
+    )
   ),
   transports: [new winston.transports.Console()],
 });
 
-// Load JSON configuration file from public directory
-const configPath = path.join(
-  __dirname,
-  "../public/updateModelsCollections.json",
-);
+// Load JSON configuration file
 let config;
 try {
   config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
@@ -33,16 +34,16 @@ try {
 }
 
 // Function to save configuration back to file
-function saveConfig() {
+async function saveConfig() {
   try {
-    fs.writeFileSync(configPath, JSON.stringify(config, null, 2), "utf-8");
+    await fs.promises.writeFile(configPath, JSON.stringify(config, null, 2), "utf-8");
     logger.info("Configuration saved successfully.");
   } catch (error) {
     logger.error(`Error saving configuration: ${error.message}`);
   }
 }
 
-// Function to update each document with missing fields in a given collection
+// Function to update each document with missing fields in a given collection, using batching
 async function updateCollectionWithDefaults(collectionName) {
   try {
     const Model = require(`../models/${collectionName.toLowerCase()}`);
@@ -50,69 +51,75 @@ async function updateCollectionWithDefaults(collectionName) {
 
     const defaultDocument = new Model();
     const defaultValues = defaultDocument.toObject();
+    delete defaultValues._id; // Exclude _id from updates
 
-    const updateQuery = {
-      $set: Object.keys(defaultValues).reduce((acc, field) => {
-        if (field !== "_id") {
-          // Exclude _id from updates
-          acc[field] = defaultValues[field];
-        }
-        return acc;
-      }, {}),
-    };
+    let updatedCount = 0;
+    const cursor = Model.find({}).batchSize(BATCH_SIZE).cursor();
 
-    const result = await Model.updateMany(
-      {
-        $or: Object.keys(defaultValues).map((field) => ({
-          [field]: { $exists: false },
-        })),
-      },
-      updateQuery,
-    );
-
-    if (result.nModified > 0) {
-      logger.info(
-        `Updated ${result.nModified} documents in collection: ${collectionName}`,
+    for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
+      const result = await Model.updateOne(
+        { _id: doc._id },
+        { $setOnInsert: defaultValues },
+        { upsert: true }
       );
+      if (result.nModified > 0 || result.upserted) {
+        updatedCount++;
+      }
+    }
+
+    if (updatedCount > 0) {
+      logger.info(`Updated ${updatedCount} documents in collection: ${collectionName}`);
       config.updated.push(collectionName); // Track only modified collections
     } else {
       logger.info(`No updates needed for collection: ${collectionName}`);
     }
   } catch (error) {
-    logger.error(
-      `Error updating collection: ${collectionName}: ${error.message}`,
-    );
+    logger.error(`Error updating collection: ${collectionName}: ${error.message}`);
     config.error.push({ collection: collectionName, error: error.message });
   }
-  saveConfig(); // Save the updated config after each collection
+  await saveConfig(); // Save the updated config after each collection
 }
 
 // Main function to iterate over collections in the config file
 async function runUpdates() {
   logger.info("Starting updates...");
+  const updatedCollections = [];
 
   for (const collectionName of config.toRun) {
-    await updateCollectionWithDefaults(collectionName);
+    const updated = await updateCollectionWithDefaults(collectionName);
+    if (updated) updatedCollections.push(collectionName); // Track only if updated
   }
 
-  logger.info("Update process complete.");
+  logger.info(`Update process complete. Updated collections: ${updatedCollections.join(", ")}`);
   mongoose.connection.close();
 }
 
-// Connect to MongoDB and execute updates
+// MongoDB connection function with retry logic
+async function connectWithRetry() {
+  const MAX_RETRIES = 3;
+  let attempt = 0;
+
+  while (attempt < MAX_RETRIES) {
+    try {
+      await mongoose.connect(mongoURI);
+      logger.info("MongoDB connected successfully.");
+      return;
+    } catch (error) {
+      attempt++;
+      logger.error(`MongoDB connection error (attempt ${attempt}): ${error.message}`);
+      if (attempt === MAX_RETRIES) process.exit(1);
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Wait before retrying
+    }
+  }
+}
+
+// Execute updates
 (async () => {
-  const mongoURI = process.env.MONGODB_URI;
   if (!mongoURI) {
     logger.error("MongoDB URI not defined in environment variables.");
     process.exit(1);
   }
 
-  try {
-    await mongoose.connect(mongoURI);
-    logger.info("MongoDB connected successfully.");
-    await runUpdates();
-  } catch (error) {
-    logger.error(`MongoDB connection error: ${error.message}`);
-    process.exit(1);
-  }
+  await connectWithRetry();
+  await runUpdates();
 })();
