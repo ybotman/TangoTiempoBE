@@ -28,7 +28,18 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-
+      
+      - name: Verify MongoDB URI
+        run: |
+          if [ -z "$MONGODB_URI" ]; then
+            echo "MONGODB_URI is not set!"
+            exit 1
+          else
+            echo "MONGODB_URI is set."
+          fi
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          
       - name: Run MongoDB Update Script
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
