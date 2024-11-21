@@ -112,8 +112,10 @@ router.get("/", async (req, res) => {
   const { region, division, city, isActive, wantRender, isEnabled } = req.query;
 
   try {
+    console.warn("router.get orgs", req.query);
     let query = {};
 
+    // Construct query only if parameters are provided
     if (isActive !== undefined) query.isActive = isActive === "true";
     if (wantRender !== undefined) query.wantRender = wantRender === "true";
     if (isEnabled !== undefined) query.isEnabled = isEnabled === "true";
@@ -122,17 +124,24 @@ router.get("/", async (req, res) => {
     if (division) query.organizerDivision = division;
     if (city) query.organizerCity = city;
 
+    // Enforce at least one query parameter
+    if (Object.keys(query).length === 0) {
+      console.warn("No query parameters provided. Cannot fetch all organizers.");
+      return res.status(400).json({ message: "At least one filter parameter is required." });
+    }
+
     // Log the constructed query
     console.log("Constructed query:", query);
 
     const organizers = await Organizers.find(query);
-    console.log("Query result:", organizers); // Log the query result
     res.status(200).json(organizers);
   } catch (error) {
     console.error("Error fetching organizers with filters:", error);
     res.status(500).json({ message: "Error fetching organizers" });
   }
 });
+
+
 
 // PUT: Update an existing organizer by ID
 router.put("/:id", async (req, res) => {

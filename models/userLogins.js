@@ -51,7 +51,28 @@ const userLoginSchema = new mongoose.Schema({
     loginUserName: { type: String },
     firstName: { type: String },
     lastName: { type: String },
-
+    userDefaults: {
+    region: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Regions",
+      required: true,
+      default: new mongoose.Types.ObjectId("66c4d99042ec462ea22484bd"), // Default region ObjectId
+    },
+    division: {
+      type: mongoose.Schema.Types.Mixed, // Used for nested or custom structures
+      required: true,
+      default: {
+        _id: new mongoose.Types.ObjectId("6715f5b7f5342510489a6418"), // Default division ObjectId
+      },
+    },
+    city: {
+      type: mongoose.Schema.Types.Mixed, // Used for nested or custom structures
+      required: true,
+      default: {
+        _id: new mongoose.Types.ObjectId("6715f5b7f5342510489a6419"), // Default city ObjectId
+      },
+    },
+  },
     subscribedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Events" }],
     favoriteOrganizers: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Organizers" },

@@ -59,15 +59,39 @@ async function saveConfig() {
   }
 }
 
-// Function to update each document with missing fields in a given collection, using batching
 async function updateCollectionWithDefaults(collectionName) {
   try {
     const Model = require(`../models/${collectionName.toLowerCase()}`);
     logger.info(`Processing collection: ${collectionName}`);
 
+    // Create a default document and handle ObjectId defaults manually
     const defaultDocument = new Model();
     const defaultValues = defaultDocument.toObject();
     delete defaultValues._id; // Exclude _id from updates
+
+
+if (defaultValues.localUserInfo?.userDefaults) {
+  // Ensure valid ObjectId for region
+  if (defaultValues.localUserInfo.userDefaults.region) {
+    defaultValues.localUserInfo.userDefaults.region = new mongoose.Types.ObjectId(
+      defaultValues.localUserInfo.userDefaults.region
+    );
+  }
+  
+  // Ensure valid ObjectId for division._id
+  if (defaultValues.localUserInfo.userDefaults.division?._id) {
+    defaultValues.localUserInfo.userDefaults.division._id = new mongoose.Types.ObjectId(
+      defaultValues.localUserInfo.userDefaults.division._id
+    );
+  }
+  
+  // Ensure valid ObjectId for city._id
+  if (defaultValues.localUserInfo.userDefaults.city?._id) {
+    defaultValues.localUserInfo.userDefaults.city._id = new mongoose.Types.ObjectId(
+      defaultValues.localUserInfo.userDefaults.city._id
+    );
+  }
+}
 
     let updatedCount = 0;
     const cursor = Model.find({}).batchSize(BATCH_SIZE).cursor();
