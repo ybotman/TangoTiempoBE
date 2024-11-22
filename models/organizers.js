@@ -76,6 +76,14 @@ const organizerSchema = new mongoose.Schema({
     ref: "Cities",
     required: false,
   },
+  organizerTypes: {
+    isEventOrganizer: { type: Boolean, required: true, default: true },
+    isVenue: { type: Boolean, required: true, default: false },
+    isTeacher: { type: Boolean, required: true, default: false },
+    isMaestro: { type: Boolean, required: true, default: false },
+    isDJ: { type: Boolean, required: true, default: false },
+    isOrchestra: { type: Boolean, required: true, default: false },
+  },
 
   updatedAt: { type: Date, default: Date.now },
   lastEventActivityAsOrganizer: { type: Date, default: Date.now },

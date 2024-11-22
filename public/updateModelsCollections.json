@@ -7,35 +7,6 @@
     "userLogins",
     "locations"
   ],
-  "error": [
-    {
-      "collection": "organizers",
-      "error": "Performing an update on the path '_id' would modify the immutable field '_id'"
-    },
-    {
-      "collection": "userLogins",
-      "error": "Class constructor ObjectId cannot be invoked without 'new'"
-    },
-    {
-      "collection": "userLogins",
-      "error": "Class constructor ObjectId cannot be invoked without 'new'"
-    },
-    {
-      "collection": "userLogins",
-      "error": "Class constructor ObjectId cannot be invoked without 'new'"
-    },
-    {
-      "collection": "userLogins",
-      "error": "Class constructor ObjectId cannot be invoked without 'new'"
-    },
-    {
-      "collection": "userLogins",
-      "error": "Class constructor ObjectId cannot be invoked without 'new'"
-    },
-    {
-      "collection": "userLogins",
-      "error": "Class constructor ObjectId cannot be invoked without 'new'"
-    }
-  ],
+  "error": [],
   "updated": []
 }
