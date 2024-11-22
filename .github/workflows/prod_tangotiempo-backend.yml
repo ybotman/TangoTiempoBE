@@ -55,10 +55,10 @@ jobs:
       - name: "Unzip artifact for deployment"
         run: unzip release.zip
 
-      # Deploy to Azure Web App
+# Deploy to Azure Web App
       - name: "Deploy to Azure Web App"
         uses: azure/webapps-deploy@v3
         with:
           app-name: "TangoTiempo-PROD-Backend"
           slot-name: "Production"
-          package: .
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_PROD }}

@@ -5,11 +5,7 @@ const path = require("path");
 const winston = require("winston");
 
 // Configuration Settings
-const BATCH_SIZE = 1000; // Batch size for processing large collections
-const configPath = path.join(
-  __dirname,
-  "../public/updateModelsCollections.json",
-);
+const configPath = path.join(__dirname, "../public/updateModelsCollections.json");
 const mongoURI = process.env.MONGODB_URI;
 const shouldRunUpdateModels = process.env.RUN_UPDATE_MODELS === 'Yes';
 
@@ -28,9 +24,8 @@ const logger = winston.createLogger({
 
 if (!shouldRunUpdateModels) {
   logger.info(
-    "RUN_UPDATE_MODELS is not set to true. Exiting without updates.",
+    "RUN_UPDATE_MODELS is not set to 'Yes'. Exiting without updates.",
   );
-  console.log(shouldRunUpdateModels);
   process.exit(0);
 }
 
@@ -39,6 +34,7 @@ let config;
 try {
   config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
   config.updated = []; // Initialize `updated` to track modified collections
+  config.error = [];   // Initialize `error` to track any errors
   logger.info(`Loaded configuration: ${JSON.stringify(config, null, 2)}`);
 } catch (error) {
   logger.error(`Failed to load configuration file: ${error.message}`);
@@ -59,8 +55,8 @@ async function saveConfig() {
   }
 }
 
-
-async function updateCollectionWithDefaults(collectionName) {
+// Function to add `orderType` field using updateMany
+async function addOrderTypeField(collectionName, defaultValue = "defaultOrderType") {
   try {
     let Model;
     try {
@@ -76,58 +72,23 @@ async function updateCollectionWithDefaults(collectionName) {
       return; // Skip processing this collection
     }
 
-    logger.info(`Processing collection: ${collectionName}`);
+    logger.info(`Adding 'orderType' field to collection: ${collectionName}`);
 
-    const defaultDocument = new Model();
-    const defaultValues = defaultDocument.toObject();
-    delete defaultValues._id; // Exclude `_id` from updates
-    logger.info(`Default values for ${collectionName}: ${JSON.stringify(defaultValues)}`);
+    // Update all documents where 'orderType' does not exist
+    const result = await Model.updateMany(
+      { orderType: { $exists: false } },
+      { $set: { orderType: defaultValue } }
+    );
 
-    let updatedCount = 0;
-
-    // Find all documents in the collection
-    const cursor = Model.find({}).batchSize(BATCH_SIZE).cursor();
-
-    for (
-      let doc = await cursor.next();
-      doc != null;
-      doc = await cursor.next()
-    ) {
-      const updates = {};
-
-      // Add missing fields to the updates object
-      for (const [key, value] of Object.entries(defaultValues)) {
-        if (doc[key] === undefined || doc[key] === null) {
-          updates[key] = value;
-        } else if (typeof value === "object" && !Array.isArray(value)) {
-          // Handle nested objects
-          for (const [subKey, subValue] of Object.entries(value)) {
-            if (doc[key]?.[subKey] === undefined || doc[key][subKey] === null) {
-              updates[`${key}.${subKey}`] = subValue;
-            }
-          }
-        }
-      }
-
-      if (Object.keys(updates).length > 0) {
-        await Model.updateOne({ _id: doc._id }, { $set: updates });
-        updatedCount++;
-        logger.info(`Updated document ${doc._id} in ${collectionName} with updates: ${JSON.stringify(updates)}`);
-      } else {
-  //      logger.info(`No updates needed for document ${doc._id} in ${collectionName}`);
-        logger.info('.'); }
-    }
-
-    if (updatedCount > 0) {
-      //logger.info(`Updated ${updatedCount} documents in collection: ${collectionName}`);
-      logger.info('+');
+    if (result.nModified > 0) {
+      logger.info(`Added 'orderType' to ${result.nModified} documents in ${collectionName}`);
       config.updated.push({
         collectionName,
-        updatedCount,
+        updatedCount: result.nModified,
         timestamp: new Date().toISOString(),
       });
     } else {
-      logger.info(`No updates needed for collection: ${collectionName}`);
+      logger.info(`No documents needed updating in ${collectionName}`);
     }
   } catch (error) {
     logger.error(`Error updating collection: ${collectionName}: ${error.message}`);
@@ -140,19 +101,17 @@ async function updateCollectionWithDefaults(collectionName) {
   await saveConfig(); // Save the updated config after each collection
 }
 
-
 // Main function to iterate over collections in the config file
 async function runUpdates() {
   logger.info("Starting updates...");
   const updatedCollections = [];
 
   for (const collectionName of config.toRun) {
-    const updated = await updateCollectionWithDefaults(collectionName);
-    if (updated) updatedCollections.push(collectionName); // Track only if updated
+    await addOrderTypeField(collectionName);
   }
 
   logger.info(
-    `Update process complete. Updated collections: ${updatedCollections.join(", ")}`,
+    `Update process complete. Updated collections: ${config.updated.map(c => c.collectionName).join(", ")}`,
   );
   mongoose.connection.close();
 }
@@ -164,7 +123,10 @@ async function connectWithRetry() {
 
   while (attempt < MAX_RETRIES) {
     try {
-      await mongoose.connect(mongoURI);
+      await mongoose.connect(mongoURI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
       logger.info("MongoDB connected successfully.");
       return;
     } catch (error) {
