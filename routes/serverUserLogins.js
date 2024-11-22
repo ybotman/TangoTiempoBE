@@ -140,6 +140,7 @@ router.put("/updateUserInfo", async (req, res) => {
     firebaseUserId,
     firstName,
     lastName,
+    userDefaults,
     subscribedEvents,
     favoriteOrganizers,
     notificationPreference,
@@ -158,6 +159,7 @@ router.put("/updateUserInfo", async (req, res) => {
     // Update fields if they are provided in the request
     if (firstName) userLogin.localUserInfo.firstName = firstName;
     if (lastName) userLogin.localUserInfo.lastName = lastName;
+    if (userDefaults) userLogin.localUserInfo.userDefaults = userDefaults;
     if (subscribedEvents)
       userLogin.localUserInfo.subscribedEvents = subscribedEvents;
     if (favoriteOrganizers)
