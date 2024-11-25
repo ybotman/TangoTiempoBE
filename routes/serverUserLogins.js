@@ -71,13 +71,23 @@ router.get("/active", async (req, res) => {
   }
 });
 
+
 // GET /api/userlogins/firebase/:firebaseId - Fetch user login by Firebase ID
 router.get("/firebase/:firebaseId", async (req, res) => {
   const { firebaseId } = req.params;
   try {
     const userLogin = await UserLogins.findOne({
       firebaseUserId: firebaseId,
-    }).populate({ path: "roleIds", select: "roleName" });
+    })
+      .populate({ path: "roleIds", select: "roleName" })
+      .populate({
+        path: "localUserInfo.subscribedEvents",
+        select: "title",
+      })
+      .populate({
+        path: "localUserInfo.favoriteOrganizers",
+        select: "name",
+      });
 
     if (!userLogin) {
       return res.status(404).json({ message: "User login not found" });
@@ -100,6 +110,7 @@ router.get("/firebase/:firebaseId", async (req, res) => {
       .json({ message: "Error fetching user login by Firebase ID" });
   }
 });
+
 
 // POST /api/userlogins/ - Create a new user login
 router.post("/", async (req, res) => {

@@ -151,6 +151,27 @@ router.get("/owner/:ownerId", async (req, res) => {
   }
 });
 
+// GET: Search events by title
+router.get("/search", async (req, res) => {
+  const { q } = req.query;
+
+  if (!q || q.length < 1) {
+    return res.status(400).json({ message: "Query parameter 'q' is required." });
+  }
+
+  try {
+    const events = await Events.find({
+      title: { $regex: q, $options: "i" },
+    }).limit(10);
+    res.status(200).json(events);
+  } catch (error) {
+    console.error("Error searching events:", error);
+    res.status(500).json({ message: "Error searching events" });
+  }
+});
+
+module.exports = router;
+
 // Update an event
 router.put("/:eventId", async (req, res) => {
   const eventId = req.params.eventId;

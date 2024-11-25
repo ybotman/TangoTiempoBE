@@ -161,6 +161,26 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// GET: Search organizers by name
+router.get("/search", async (req, res) => {
+  const { q } = req.query;
+
+  if (!q || q.length < 1) {
+    return res.status(400).json({ message: "Query parameter 'q' is required." });
+  }
+
+  try {
+    const organizers = await Organizers.find({
+      name: { $regex: q, $options: "i" },
+    }).limit(10);
+    res.status(200).json(organizers);
+  } catch (error) {
+    console.error("Error searching organizers:", error);
+    res.status(500).json({ message: "Error searching organizers" });
+  }
+});
+
+
 // DELETE: Delete an organizer by ID
 router.delete("/:id", async (req, res) => {
   try {
