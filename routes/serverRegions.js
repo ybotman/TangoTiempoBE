@@ -2,6 +2,11 @@
 const express = require("express");
 const router = express.Router();
 const Regions = require("../models/regions");
+const rateLimiter = require('../middleware/rateLimiter');
+const logger = require('../utils/logger');
+// Apply rate limiter to all routes in this router
+router.use(rateLimiter);
+
 
 // GET all regions
 router.get("/", async (req, res) => {

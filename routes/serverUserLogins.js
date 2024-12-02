@@ -4,6 +4,18 @@ const router = express.Router();
 const UserLogins = require("../models/userLogins");
 const Roles = require("../models/roles");
 const admin = require("../lib/firebaseAdmin");
+const rateLimiter = require('../middleware/rateLimiter');
+const logger = require('../utils/logger');
+// Apply rate limiter to all routes in this router
+router.use(rateLimiter);
+
+// Logging middleware for POST, PUT, DELETE
+router.use((req, res, next) => {
+  if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
+    logger.info(`UserLogin ${req.method} request, URL: ${req.originalUrl}, Body: ${JSON.stringify(req.body)}, IP: ${req.ip}`);
+  }
+  next();
+});
 
 // GET /api/userlogins/all - Fetch all user logins with roles and organizer info populated
 router.get("/all", async (req, res) => {
@@ -104,6 +116,10 @@ router.get("/firebase/:firebaseId", async (req, res) => {
 // POST /api/userlogins/ - Create a new user login
 router.post("/", async (req, res) => {
   const { firebaseUserId } = req.body;
+
+  // Log the login attempt
+  logger.info(`New User for Firebase User ID: ${firebaseUserId}, IP: ${req.ip}`);
+
 
   try {
     // Check if the user already exists

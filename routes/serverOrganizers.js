@@ -19,6 +19,19 @@ const sharedKeyCredential = new StorageSharedKeyCredential(
   accountName,
   accountKey,
 );
+const rateLimiter = require('../middleware/rateLimiter');
+const logger = require('../utils/logger');
+// Apply rate limiter to all routes in this router
+router.use(rateLimiter);
+
+// Logging middleware for POST, PUT, DELETE
+router.use((req, res, next) => {
+  if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
+    logger.info(`Organizer ${req.method} request, URL: ${req.originalUrl}, Body: ${JSON.stringify(req.body)}, IP: ${req.ip}`);
+  }
+  next();
+});
+
 
 // POST: Generate a SAS token
 router.post("/generate-sas-token", async (req, res) => {

@@ -2,6 +2,20 @@
 const express = require("express");
 const router = express.Router();
 const Events = require("../models/events");
+const rateLimiter = require('../middleware/rateLimiter');
+const logger = require('../utils/logger');
+// Apply rate limiter to all routes in this router
+router.use(rateLimiter);
+
+
+// Logging middleware for POST, PUT, DELETE
+router.use((req, res, next) => {
+  if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
+    logger.info(`Event ${req.method} request, URL: ${req.originalUrl}, Body: ${JSON.stringify(req.body)}, IP: ${req.ip}`);
+  }
+  next();
+});
+
 
 // Get all events
 router.get("/all", async (req, res) => {
