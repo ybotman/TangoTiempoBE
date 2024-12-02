@@ -174,6 +174,21 @@ router.put("/updateUserInfo", async (req, res) => {
     if (userCommunicationSettings)
       userLogin.localUserInfo.userCommunicationSettings =
         userCommunicationSettings;
+    if (roleIds !== undefined) {
+      // Validate if all provided roleIds exist
+      const validRoles = await Roles.find({ _id: { $in: roleIds } });
+    if (validRoles.length !== roleIds.length) {
+        return res.status(400).json({ message: 'Some roleIds are invalid.' });
+      }
+      userLogin.roleIds = roleIds;
+    }
+
+    if (regionalOrganizerInfo !== undefined) {
+      userLogin.regionalOrganizerInfo = {
+        ...userLogin.regionalOrganizerInfo.toObject(),
+        ...regionalOrganizerInfo,
+      };
+    }
 
     await userLogin.save();
     res.status(200).json({ message: "User info updated successfully." });
