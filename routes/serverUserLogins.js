@@ -1,9 +1,11 @@
 // routes/serverUserLogin.js
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose"); // Add this line
 const UserLogins = require("../models/userLogins");
 const Roles = require("../models/roles");
 const admin = require("../lib/firebaseAdmin");
+const _ = require("lodash"); // Import lodash
 
 // GET /api/userlogins/all - Fetch all user logins with roles and organizer info populated
 router.get("/all", async (req, res) => {
@@ -40,14 +42,18 @@ router.get("/all", async (req, res) => {
   }
 });
 
+
 // GET /api/userlogins/active - Fetch active user logins
-router.get("/active", async (req, res) => {
+router.get("/availible", async (req, res) => {
   try {
-    const activeUserLogins = await UserLogins.find({ active: true })
-      .populate({ path: "organizerId", select: "name" })
+    const activeUserLogins = await UserLogins.find({
+      "localUserInfo.isApproved": true,
+      "localUserInfo.isEnabled": true,
+    })
+      .populate({ path: "localUserInfo.favoriteOrganizers", select: "name" })
       .populate({ path: "roleIds", select: "roleName" })
       .exec();
-
+    console.log("Should we be useing the /availible ?");
     // Fetch Firebase user info for each active user login
     const activeUsersWithFirebaseData = await Promise.all(
       activeUserLogins.map(async (userLogin) => {
@@ -61,7 +67,7 @@ router.get("/active", async (req, res) => {
             email: firebaseUserInfo.email,
           },
         };
-      }),
+      })
     );
 
     res.status(200).json(activeUsersWithFirebaseData);
@@ -71,13 +77,23 @@ router.get("/active", async (req, res) => {
   }
 });
 
-// GET /api/userlogins/firebase/:firebaseId - Fetch user login by Firebase ID
+
+// Updated population in GET /api/userlogins/firebase/:firebaseId
 router.get("/firebase/:firebaseId", async (req, res) => {
   const { firebaseId } = req.params;
   try {
     const userLogin = await UserLogins.findOne({
       firebaseUserId: firebaseId,
-    }).populate({ path: "roleIds", select: "roleName" });
+    })
+      .populate({ path: "roleIds", select: "roleName" })
+      .populate({
+        path: "localUserInfo.subscribedEvents",
+        select: "title",
+      })
+      .populate({
+        path: "localUserInfo.favoriteOrganizers",
+        select: "fullName name",
+      });
 
     if (!userLogin) {
       return res.status(404).json({ message: "User login not found" });
@@ -100,6 +116,7 @@ router.get("/firebase/:firebaseId", async (req, res) => {
       .json({ message: "Error fetching user login by Firebase ID" });
   }
 });
+
 
 // POST /api/userlogins/ - Create a new user login
 router.post("/", async (req, res) => {
@@ -134,69 +151,64 @@ router.post("/", async (req, res) => {
   }
 });
 
+
+
+// PUT /api/userlogins/updateUserInfo - Update user info
+
 // PUT /api/userlogins/updateUserInfo - Update user info
 router.put("/updateUserInfo", async (req, res) => {
-  const {
-    firebaseUserId,
-    firstName,
-    lastName,
-    userDefaults,
-    subscribedEvents,
-    favoriteOrganizers,
-    notificationPreference,
-    photo,
-    imageSharingLevel,
-    messagePrimaryMethod,
-    userCommunicationSettings,
-  } = req.body;
+  const { firebaseUserId, roleIds, ...otherFields } = req.body;
 
   try {
+    // Fetch the user login document
     const userLogin = await UserLogins.findOne({ firebaseUserId });
+
     if (!userLogin) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found." });
     }
 
-    // Update fields if they are provided in the request
-    if (firstName) userLogin.localUserInfo.firstName = firstName;
-    if (lastName) userLogin.localUserInfo.lastName = lastName;
-    if (userDefaults) userLogin.localUserInfo.userDefaults = userDefaults;
-    if (subscribedEvents)
-      userLogin.localUserInfo.subscribedEvents = subscribedEvents;
-    if (favoriteOrganizers)
-      userLogin.localUserInfo.favoriteOrganizers = favoriteOrganizers;
-    if (notificationPreference)
-      userLogin.localUserInfo.notificationPreference = notificationPreference;
-    if (photo) userLogin.localUserInfo.photo = photo;
-    if (imageSharingLevel)
-      userLogin.localUserInfo.imageSharingLevel = imageSharingLevel;
-    if (messagePrimaryMethod)
-      userLogin.localUserInfo.messagePrimaryMethod = messagePrimaryMethod;
-    if (userCommunicationSettings)
-      userLogin.localUserInfo.userCommunicationSettings =
-        userCommunicationSettings;
+    console.log("UserLogin Document Before Update:", userLogin);
+
+    // Validate and update roleIds
     if (roleIds !== undefined) {
-      // Validate if all provided roleIds exist
-      const validRoles = await Roles.find({ _id: { $in: roleIds } });
-    if (validRoles.length !== roleIds.length) {
-        return res.status(400).json({ message: 'Some roleIds are invalid.' });
+      const validRoleIds = roleIds.map((roleId) => {
+        if (
+          typeof roleId === "string" &&
+          mongoose.Types.ObjectId.isValid(roleId)
+        ) {
+          return new mongoose.Types.ObjectId(roleId);
+        }
+        throw new Error(`Invalid roleId: ${JSON.stringify(roleId)}`);
+      });
+
+      const validRoles = await Roles.find({ _id: { $in: validRoleIds } });
+
+      if (validRoles.length !== roleIds.length) {
+        return res.status(400).json({ message: "Some roleIds are invalid." });
       }
-      userLogin.roleIds = roleIds;
+
+      // Update user's roles
+      userLogin.roleIds = validRoleIds;
     }
 
-    if (regionalOrganizerInfo !== undefined) {
-      userLogin.regionalOrganizerInfo = {
-        ...userLogin.regionalOrganizerInfo.toObject(),
-        ...regionalOrganizerInfo,
-      };
+    // Merge other fields into userLogin
+    if (Object.keys(otherFields).length > 0) {
+      _.merge(userLogin, otherFields);
     }
 
+    // Save updated userLogin document
     await userLogin.save();
-    res.status(200).json({ message: "User info updated successfully." });
+
+    res.status(200).json({
+      message: "User updated successfully.",
+      updatedUser: userLogin,
+    });
   } catch (error) {
-    console.error("Error updating user info:", error);
-    res.status(500).json({ message: "Server error", error });
+    console.error("Error updating user info:", error.message);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 });
+
 
 // PUT /api/userlogins/:firebaseId/roles - Update the roles of a user
 router.put("/:firebaseId/roles", async (req, res) => {
