@@ -78,11 +78,7 @@ router.get("/availible", async (req, res) => {
 });
 
 
-<<<<<<< HEAD
 // Updated population in GET /api/userlogins/firebase/:firebaseId
-=======
-// GET /api/userlogins/firebase/:firebaseId - Fetch user login by Firebase ID
->>>>>>> 31d51a1d2a10faa0ae5666c6d655ccaa4504c345
 router.get("/firebase/:firebaseId", async (req, res) => {
   const { firebaseId } = req.params;
   try {
@@ -96,11 +92,7 @@ router.get("/firebase/:firebaseId", async (req, res) => {
       })
       .populate({
         path: "localUserInfo.favoriteOrganizers",
-<<<<<<< HEAD
         select: "fullName name",
-=======
-        select: "name",
->>>>>>> 31d51a1d2a10faa0ae5666c6d655ccaa4504c345
       });
 
     if (!userLogin) {
@@ -175,43 +167,7 @@ router.put("/updateUserInfo", async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
 
-<<<<<<< HEAD
     console.log("UserLogin Document Before Update:", userLogin);
-=======
-    // Update fields if they are provided in the request
-    if (firstName) userLogin.localUserInfo.firstName = firstName;
-    if (lastName) userLogin.localUserInfo.lastName = lastName;
-    if (userDefaults) userLogin.localUserInfo.userDefaults = userDefaults;
-    if (subscribedEvents)
-      userLogin.localUserInfo.subscribedEvents = subscribedEvents;
-    if (favoriteOrganizers)
-      userLogin.localUserInfo.favoriteOrganizers = favoriteOrganizers;
-    if (notificationPreference)
-      userLogin.localUserInfo.notificationPreference = notificationPreference;
-    if (photo) userLogin.localUserInfo.photo = photo;
-    if (imageSharingLevel)
-      userLogin.localUserInfo.imageSharingLevel = imageSharingLevel;
-    if (messagePrimaryMethod)
-      userLogin.localUserInfo.messagePrimaryMethod = messagePrimaryMethod;
-    if (userCommunicationSettings)
-      userLogin.localUserInfo.userCommunicationSettings =
-        userCommunicationSettings;
-    if (roleIds !== undefined) {
-      // Validate if all provided roleIds exist
-      const validRoles = await Roles.find({ _id: { $in: roleIds } });
-    if (validRoles.length !== roleIds.length) {
-        return res.status(400).json({ message: 'Some roleIds are invalid.' });
-      }
-      userLogin.roleIds = roleIds;
-    }
-
-    if (regionalOrganizerInfo !== undefined) {
-      userLogin.regionalOrganizerInfo = {
-        ...userLogin.regionalOrganizerInfo.toObject(),
-        ...regionalOrganizerInfo,
-      };
-    }
->>>>>>> 31d51a1d2a10faa0ae5666c6d655ccaa4504c345
 
     // Validate and update roleIds
     if (roleIds !== undefined) {
