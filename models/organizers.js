@@ -7,9 +7,9 @@ const organizerSchema = new mongoose.Schema({
     required: true,
   },
   firebaseUserId: { type: String, required: true, unique: true },
-  name: { type: String, required: true },
-  fullName: { type: String, required: true },
-  shortName: { type: String, required: true },
+  name: { type: String, required: true, default:'New Organzier'  },
+  fullName: { type: String, required: true, default : 'New Organzier' },
+  shortName: { type: String, required: true, default: 'CHANGE'},
   description: { type: String },
   publicContactInfo: {
     phone: { type: String },
