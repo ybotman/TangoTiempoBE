@@ -40,11 +40,14 @@ router.get("/byCalculatedLocations", async (req, res) => {
       active,
     } = req.query;
 
-    if (!calculatedRegionName || !start || !end || active === undefined) {
-      return res.status(400).json({
-        message: "Region, start date, end date, and active status are required",
-      });
-    }
+  if (!calculatedRegionName || !start || !end || active === undefined) {
+  console.error(
+    `Missing parameters: calculatedRegionName=${calculatedRegionName}, start=${start}, end=${end}, active=${active}`
+  );
+  return res.status(400).json({
+    message: "Region, start date, end date, and active status are required",
+  });
+}
 
     const startDate = new Date(start);
     const endDate = new Date(end);
