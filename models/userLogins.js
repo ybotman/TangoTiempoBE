@@ -101,7 +101,8 @@ const userLoginSchema = new mongoose.Schema({
   regionalOrganizerInfo: {
     organizerId: { type: mongoose.Schema.Types.ObjectId, ref: "Organizers" },
     isApproved: { type: Boolean, default: false },
-    isActive: { type: Boolean, default: true },
+    isEnabled: { type: Boolean, default: false },
+    isActive: { type: Boolean, default: false },
     ApprovalDate: { type: Date },
     allowedCities: [{ type: mongoose.Schema.Types.ObjectId, ref: "Cities" }],
     allowedDivisions: [
@@ -118,7 +119,8 @@ const userLoginSchema = new mongoose.Schema({
   },
   localAdminInfo: {
     isApproved: { type: Boolean, default: false },
-    isActive: { type: Boolean, default: true },
+    isEnabled: { type: Boolean, default: false },
+    isActive: { type: Boolean, default: false },
     ApprovalDate: { type: Date },
 
     adminRegions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Regions" }],
