@@ -5,9 +5,12 @@ const path = require("path");
 const winston = require("winston");
 
 // Configuration Settings
-const configPath = path.join(__dirname, "../public/updateModelsCollections.json");
+const configPath = path.join(
+  __dirname,
+  "../public/updateModelsCollections.json",
+);
 const mongoURI = process.env.MONGODB_URI;
-const shouldRunUpdateModels = process.env.RUN_UPDATE_MODELS === 'Yes';
+const shouldRunUpdateModels = process.env.RUN_UPDATE_MODELS === "Yes";
 
 // Set up logger with Winston for better diagnostic output
 const logger = winston.createLogger({
@@ -34,7 +37,7 @@ let config;
 try {
   config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
   config.updated = []; // Initialize `updated` to track modified collections
-  config.error = [];   // Initialize `error` to track any errors
+  config.error = []; // Initialize `error` to track any errors
   logger.info(`Loaded configuration: ${JSON.stringify(config, null, 2)}`);
 } catch (error) {
   logger.error(`Failed to load configuration file: ${error.message}`);
@@ -56,14 +59,21 @@ async function saveConfig() {
 }
 
 // Function to add `orderType` field using updateMany
-async function addOrderTypeField(collectionName, defaultValue = "defaultOrderType") {
+async function addOrderTypeField(
+  collectionName,
+  defaultValue = "defaultOrderType",
+) {
   try {
     let Model;
     try {
       Model = require(`../models/${collectionName.toLowerCase()}`);
-      logger.info(`Successfully loaded model for collection: ${collectionName}`);
+      logger.info(
+        `Successfully loaded model for collection: ${collectionName}`,
+      );
     } catch (error) {
-      logger.error(`Failed to load model for collection: ${collectionName} - ${error.message}`);
+      logger.error(
+        `Failed to load model for collection: ${collectionName} - ${error.message}`,
+      );
       config.error.push({
         collection: collectionName,
         error: error.message,
@@ -77,11 +87,13 @@ async function addOrderTypeField(collectionName, defaultValue = "defaultOrderTyp
     // Update all documents where 'orderType' does not exist
     const result = await Model.updateMany(
       { orderType: { $exists: false } },
-      { $set: { orderType: defaultValue } }
+      { $set: { orderType: defaultValue } },
     );
 
     if (result.nModified > 0) {
-      logger.info(`Added 'orderType' to ${result.nModified} documents in ${collectionName}`);
+      logger.info(
+        `Added 'orderType' to ${result.nModified} documents in ${collectionName}`,
+      );
       config.updated.push({
         collectionName,
         updatedCount: result.nModified,
@@ -91,7 +103,9 @@ async function addOrderTypeField(collectionName, defaultValue = "defaultOrderTyp
       logger.info(`No documents needed updating in ${collectionName}`);
     }
   } catch (error) {
-    logger.error(`Error updating collection: ${collectionName}: ${error.message}`);
+    logger.error(
+      `Error updating collection: ${collectionName}: ${error.message}`,
+    );
     config.error.push({
       collection: collectionName,
       error: error.message,
@@ -111,7 +125,7 @@ async function runUpdates() {
   }
 
   logger.info(
-    `Update process complete. Updated collections: ${config.updated.map(c => c.collectionName).join(", ")}`,
+    `Update process complete. Updated collections: ${config.updated.map((c) => c.collectionName).join(", ")}`,
   );
   mongoose.connection.close();
 }
