@@ -2,11 +2,10 @@
 const express = require("express");
 const router = express.Router();
 const Regions = require("../models/regions");
-const rateLimiter = require('../middleware/rateLimiter');
-const logger = require('../utils/logger');
+const rateLimiter = require("../middleware/rateLimiter");
+const logger = require("../utils/logger");
 // Apply rate limiter to all routes in this router
 router.use(rateLimiter);
-
 
 // GET all regions
 router.get("/", async (req, res) => {
@@ -80,15 +79,14 @@ router.get("/activeCities", async (req, res) => {
   }
 });
 
-
-
-
 // GET nearest city
 router.get("/nearestCity", async (req, res) => {
   const { longitude, latitude } = req.query;
 
   if (!longitude || !latitude) {
-    return res.status(400).json({ message: "Longitude and latitude are required" });
+    return res
+      .status(400)
+      .json({ message: "Longitude and latitude are required" });
   }
 
   try {
@@ -96,7 +94,9 @@ router.get("/nearestCity", async (req, res) => {
     const latitudeNum = parseFloat(latitude);
 
     if (isNaN(longitudeNum) || isNaN(latitudeNum)) {
-      return res.status(400).json({ message: "Longitude and latitude must be valid numbers" });
+      return res
+        .status(400)
+        .json({ message: "Longitude and latitude must be valid numbers" });
     }
 
     const nearest = await Regions.aggregate([
@@ -161,9 +161,6 @@ router.get("/nearestCity", async (req, res) => {
     res.status(500).json({ message: "Error fetching nearest city" });
   }
 });
-
-
-
 
 // PUT (update) active flag for a region
 router.put("/region/:regionId/active", async (req, res) => {

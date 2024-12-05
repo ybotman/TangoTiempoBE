@@ -20,9 +20,9 @@ const regionsSchema = new mongoose.Schema({
           location: {
             type: {
               type: String,
-              enum: ['Point'], // Ensure the type is always "Point" for GeoJSON
+              enum: ["Point"], // Ensure the type is always "Point" for GeoJSON
               required: true,
-              default: 'Point',
+              default: "Point",
             },
             coordinates: {
               type: [Number], // Format: [longitude, latitude]
@@ -31,7 +31,8 @@ const regionsSchema = new mongoose.Schema({
                 validator: function (value) {
                   return value.length === 2; // Ensure the coordinates array has exactly 2 elements
                 },
-                message: 'Coordinates must have exactly 2 elements: [longitude, latitude]',
+                message:
+                  "Coordinates must have exactly 2 elements: [longitude, latitude]",
               },
             },
           },

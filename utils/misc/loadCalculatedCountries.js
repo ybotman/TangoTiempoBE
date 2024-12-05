@@ -9,7 +9,11 @@ const mongoURI = process.env.MONGODB_URI;
 
 // Predefined list of countries with continent attributes
 const countries = [
-  { countryName: "United States", countryCode: "US", continent: "North America" },
+  {
+    countryName: "United States",
+    countryCode: "US",
+    continent: "North America",
+  },
   { countryName: "Canada", countryCode: "CA", continent: "North America" },
   { countryName: "Australia", countryCode: "AU", continent: "Australia" },
   { countryName: "New Zealand", countryCode: "NZ", continent: "Australia" },

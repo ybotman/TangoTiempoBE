@@ -19,19 +19,20 @@ const sharedKeyCredential = new StorageSharedKeyCredential(
   accountName,
   accountKey,
 );
-const rateLimiter = require('../middleware/rateLimiter');
-const logger = require('../utils/logger');
+const rateLimiter = require("../middleware/rateLimiter");
+const logger = require("../utils/logger");
 // Apply rate limiter to all routes in this router
 router.use(rateLimiter);
 
 // Logging middleware for POST, PUT, DELETE
 router.use((req, res, next) => {
-  if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
-    logger.info(`Organizer ${req.method} request, URL: ${req.originalUrl}, Body: ${JSON.stringify(req.body)}, IP: ${req.ip}`);
+  if (["POST", "PUT", "DELETE"].includes(req.method)) {
+    logger.info(
+      `Organizer ${req.method} request, URL: ${req.originalUrl}, Body: ${JSON.stringify(req.body)}, IP: ${req.ip}`,
+    );
   }
   next();
 });
-
 
 // POST: Generate a SAS token
 router.post("/generate-sas-token", async (req, res) => {
@@ -139,8 +140,12 @@ router.get("/", async (req, res) => {
 
     // Enforce at least one query parameter
     if (Object.keys(query).length === 0) {
-      console.warn("No query parameters provided. Cannot fetch all organizers.");
-      return res.status(400).json({ message: "At least one filter parameter is required." });
+      console.warn(
+        "No query parameters provided. Cannot fetch all organizers.",
+      );
+      return res
+        .status(400)
+        .json({ message: "At least one filter parameter is required." });
     }
 
     // Log the constructed query
@@ -153,8 +158,6 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Error fetching organizers" });
   }
 });
-
-
 
 // PUT: Update an existing organizer by ID
 router.put("/:id", async (req, res) => {

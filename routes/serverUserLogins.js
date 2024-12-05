@@ -4,16 +4,18 @@ const router = express.Router();
 const UserLogins = require("../models/userLogins");
 const Roles = require("../models/roles");
 const admin = require("../lib/firebaseAdmin");
-const rateLimiter = require('../middleware/rateLimiter');
-const logger = require('../utils/logger');
+const rateLimiter = require("../middleware/rateLimiter");
+const logger = require("../utils/logger");
 const mongoose = require("mongoose");
 // Apply rate limiter to all routes in this router
 router.use(rateLimiter);
 
 // Logging middleware for POST, PUT, DELETE
 router.use((req, res, next) => {
-  if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
-    logger.info(`UserLogins ${req.method} request, URL: ${req.originalUrl}, Body: ${JSON.stringify(req.body)}, IP: ${req.ip}`);
+  if (["POST", "PUT", "DELETE"].includes(req.method)) {
+    logger.info(
+      `UserLogins ${req.method} request, URL: ${req.originalUrl}, Body: ${JSON.stringify(req.body)}, IP: ${req.ip}`,
+    );
   }
   next();
 });
@@ -119,8 +121,9 @@ router.post("/", async (req, res) => {
   const { firebaseUserId } = req.body;
 
   // Log the login attempt
-  logger.info(`New User for Firebase User ID: ${firebaseUserId}, IP: ${req.ip}`);
-
+  logger.info(
+    `New User for Firebase User ID: ${firebaseUserId}, IP: ${req.ip}`,
+  );
 
   try {
     // Check if the user already exists
@@ -151,9 +154,8 @@ router.post("/", async (req, res) => {
   }
 });
 
-
 // PUT /api/userlogins/updateUserInfo - Update user info
-router.put('/updateUserInfo', async (req, res) => {
+router.put("/updateUserInfo", async (req, res) => {
   const {
     firebaseUserId,
     firstName,
@@ -173,7 +175,7 @@ router.put('/updateUserInfo', async (req, res) => {
   try {
     const userLogin = await UserLogins.findOne({ firebaseUserId });
     if (!userLogin) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     if (regionalOrganizerInfo !== undefined) {
@@ -188,25 +190,24 @@ router.put('/updateUserInfo', async (req, res) => {
       userLogin.roleIds = roleIds.map((role) =>
         mongoose.Types.ObjectId.isValid(role)
           ? new mongoose.Types.ObjectId(role)
-          : new mongoose.Types.ObjectId(role._id)
+          : new mongoose.Types.ObjectId(role._id),
       );
     }
 
     await userLogin.save();
 
     // Populate roleIds
-    await userLogin.populate('roleIds');
+    await userLogin.populate("roleIds");
 
     res.status(200).json({
-      message: 'User info updated successfully.',
+      message: "User info updated successfully.",
       updatedUser: userLogin,
     });
   } catch (error) {
-    console.error('Error updating user info:', error);
-    res.status(500).json({ message: 'Server error', error });
+    console.error("Error updating user info:", error);
+    res.status(500).json({ message: "Server error", error });
   }
 });
-
 
 // PUT /api/userlogins/:firebaseId/roles - Update the roles of a user
 router.put("/:firebaseId/roles", async (req, res) => {

@@ -1,5 +1,5 @@
 // models/CalculatedCity.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const calculatedCitySchema = new Schema({
@@ -8,7 +8,7 @@ const calculatedCitySchema = new Schema({
   latitude: { type: Number, required: true },
   longitude: { type: Number, required: true },
   location: {
-    type: { type: String, enum: ['Point'], required: true, default: 'Point' },
+    type: { type: String, enum: ["Point"], required: true, default: "Point" },
     coordinates: {
       type: [Number], // [longitude, latitude]
       required: true,
@@ -16,15 +16,20 @@ const calculatedCitySchema = new Schema({
         validator: function (value) {
           return value.length === 2;
         },
-        message: 'Coordinates must have exactly 2 elements: [longitude, latitude]',
+        message:
+          "Coordinates must have exactly 2 elements: [longitude, latitude]",
       },
     },
   },
   active: { type: Boolean, default: true },
-  calculatedDivisionId: { type: Schema.Types.ObjectId, ref: 'CalculatedDivision', required: true },
+  calculatedDivisionId: {
+    type: Schema.Types.ObjectId,
+    ref: "CalculatedDivision",
+    required: true,
+  },
 });
 
 // Create a 2dsphere index on the location field
-calculatedCitySchema.index({ location: '2dsphere' });
+calculatedCitySchema.index({ location: "2dsphere" });
 
-module.exports = mongoose.model('CalculatedCity', calculatedCitySchema);
+module.exports = mongoose.model("calculatedCity", calculatedCitySchema);

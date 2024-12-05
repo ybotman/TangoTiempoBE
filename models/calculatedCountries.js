@@ -1,7 +1,6 @@
 // models/CalculatedCountry.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
-
 const calculatedCountrySchema = new mongoose.Schema({
   countryName: { type: String, required: true },
   countryCode: { type: String, required: true },
@@ -9,5 +8,4 @@ const calculatedCountrySchema = new mongoose.Schema({
   active: { type: Boolean, default: true },
 });
 
-
-module.exports = mongoose.model('CalculatedCountry', calculatedCountrySchema);
+module.exports = mongoose.model("calculatedCountry", calculatedCountrySchema);

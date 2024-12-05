@@ -11,7 +11,7 @@ const configPath = path.join(
   "../public/updateModelsCollections.json",
 );
 const mongoURI = process.env.MONGODB_URI;
-const shouldRunUpdateModels = process.env.RUN_UPDATE_MODELS === 'Yes';
+const shouldRunUpdateModels = process.env.RUN_UPDATE_MODELS === "Yes";
 
 // Set up logger with Winston for better diagnostic output
 const logger = winston.createLogger({
@@ -27,9 +27,7 @@ const logger = winston.createLogger({
 });
 
 if (!shouldRunUpdateModels) {
-  logger.info(
-    "RUN_UPDATE_MODELS is not set to true. Exiting without updates.",
-  );
+  logger.info("RUN_UPDATE_MODELS is not set to true. Exiting without updates.");
   console.log(shouldRunUpdateModels);
   process.exit(0);
 }
@@ -59,15 +57,18 @@ async function saveConfig() {
   }
 }
 
-
 async function updateCollectionWithDefaults(collectionName) {
   try {
     let Model;
     try {
       Model = require(`../models/${collectionName.toLowerCase()}`);
-      logger.info(`Successfully loaded model for collection: ${collectionName}`);
+      logger.info(
+        `Successfully loaded model for collection: ${collectionName}`,
+      );
     } catch (error) {
-      logger.error(`Failed to load model for collection: ${collectionName} - ${error.message}`);
+      logger.error(
+        `Failed to load model for collection: ${collectionName} - ${error.message}`,
+      );
       config.error.push({
         collection: collectionName,
         error: error.message,
@@ -81,7 +82,9 @@ async function updateCollectionWithDefaults(collectionName) {
     const defaultDocument = new Model();
     const defaultValues = defaultDocument.toObject();
     delete defaultValues._id; // Exclude `_id` from updates
-    logger.info(`Default values for ${collectionName}: ${JSON.stringify(defaultValues)}`);
+    logger.info(
+      `Default values for ${collectionName}: ${JSON.stringify(defaultValues)}`,
+    );
 
     let updatedCount = 0;
 
@@ -112,15 +115,18 @@ async function updateCollectionWithDefaults(collectionName) {
       if (Object.keys(updates).length > 0) {
         await Model.updateOne({ _id: doc._id }, { $set: updates });
         updatedCount++;
-        logger.info(`Updated document ${doc._id} in ${collectionName} with updates: ${JSON.stringify(updates)}`);
+        logger.info(
+          `Updated document ${doc._id} in ${collectionName} with updates: ${JSON.stringify(updates)}`,
+        );
       } else {
-  //      logger.info(`No updates needed for document ${doc._id} in ${collectionName}`);
-        logger.info('.'); }
+        //      logger.info(`No updates needed for document ${doc._id} in ${collectionName}`);
+        logger.info(".");
+      }
     }
 
     if (updatedCount > 0) {
       //logger.info(`Updated ${updatedCount} documents in collection: ${collectionName}`);
-      logger.info('+');
+      logger.info("+");
       config.updated.push({
         collectionName,
         updatedCount,
@@ -130,7 +136,9 @@ async function updateCollectionWithDefaults(collectionName) {
       logger.info(`No updates needed for collection: ${collectionName}`);
     }
   } catch (error) {
-    logger.error(`Error updating collection: ${collectionName}: ${error.message}`);
+    logger.error(
+      `Error updating collection: ${collectionName}: ${error.message}`,
+    );
     config.error.push({
       collection: collectionName,
       error: error.message,
@@ -139,7 +147,6 @@ async function updateCollectionWithDefaults(collectionName) {
   }
   await saveConfig(); // Save the updated config after each collection
 }
-
 
 // Main function to iterate over collections in the config file
 async function runUpdates() {

@@ -58,6 +58,7 @@ const locationRoutes = require("./routes/serverLocations");
 const userLoginRoutes = require("./routes/serverUserLogins");
 const firebaseRoutes = require("./routes/serverFirebase");
 const roleRoutes = require("./routes/serverRoles");
+const calculatedLocationsRoutes = require("./routes/serverCalculatedLocations");
 
 // Use routes
 app.use("/api/events", eventRoutes);
@@ -68,6 +69,7 @@ app.use("/api/locations", locationRoutes);
 app.use("/api/userlogins", userLoginRoutes);
 app.use("/api/firebase", firebaseRoutes);
 app.use("/api/roles", roleRoutes);
+app.use("/api/calculatedLocations", calculatedLocationsRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 3001;
