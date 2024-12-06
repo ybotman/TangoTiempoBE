@@ -1,7 +1,7 @@
 // routes/serverCalculatedLocations.js
 const express = require("express");
 const router = express.Router();
-const calculatedCity = require("../models/calculatedCites");
+const calculatedCity = require("../models/calculatedCities");
 const mongoose = require("mongoose");
 const rateLimiter = require("../middleware/rateLimiter");
 
