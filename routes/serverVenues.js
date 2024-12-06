@@ -1,5 +1,3 @@
-// routes/serverVenues.js
-
 const express = require("express");
 const router = express.Router();
 const Venue = require("../models/venues");
@@ -10,14 +8,13 @@ const rateLimiter = require("../middleware/rateLimiter");
 // Apply rate limiter
 router.use(rateLimiter);
 
-// Utility function to check for duplicates within 100 meters (~0.1 km)
+// Utility function to check for duplicates within 100 meters
 async function isDuplicateVenue(latitude, longitude, excludeId = null) {
-  const maxDistance = 100 / 6371008.8; // 100m in radians (approx)
   const query = {
     geolocation: {
       $near: {
         $geometry: { type: "Point", coordinates: [longitude, latitude] },
-        $maxDistance: 100,
+        $maxDistance: 100, // meters
       },
     },
   };
@@ -28,7 +25,7 @@ async function isDuplicateVenue(latitude, longitude, excludeId = null) {
   return !!duplicate;
 }
 
-// Utility to find nearest calculatedCity (and possibly division/region/country)
+// Utility to find nearest calculatedCity
 async function findNearestCalculatedCity(latitude, longitude) {
   const pipeline = [
     {
@@ -93,15 +90,17 @@ async function findNearestCalculatedCity(latitude, longitude) {
   }
 }
 
-// GET /venues?cityId=&active= (optional filters)
+// GET /venues?cityId=&active=
 router.get("/", async (req, res) => {
   const { cityId, active } = req.query;
   const query = {};
-  if (cityId) query.cityId = new mongoose.Types.ObjectId(cityId);
+  if (cityId) query.calculatedCityId = new mongoose.Types.ObjectId(cityId);
   if (active !== undefined) query.active = active === "true";
 
   try {
-    const venues = await Venue.find(query).sort({ name: 1 });
+    const venues = await Venue.find(query)
+      .populate("calculatedCityId", "cityName")
+      .sort({ name: 1 });
     res.status(200).json(venues);
   } catch (error) {
     console.error("Error fetching venues:", error);
@@ -109,27 +108,36 @@ router.get("/", async (req, res) => {
   }
 });
 
-// POST /venues - Add a new venue
-// Expect: {name, shortName, address, cityName, ... optional cityId or we find nearest city}
+// POST /venues
+// Expect: {name, shortName, address1, address2, address3, city, state, zip, phone, comments, latitude, longitude}
+// If latitude/longitude provided, we find nearest city. If not active data is incomplete, can still save but not active.
 router.post("/", async (req, res) => {
-  const { name, shortName, address, latitude, longitude, cityName } = req.body;
-  if (!name || !shortName || !address || !cityName) {
-    return res
-      .status(400)
-      .json({
-        message: "Missing required fields: name, shortName, address, cityName",
-      });
+  const {
+    name,
+    shortName,
+    address1,
+    address2,
+    address3,
+    city,
+    state,
+    zip,
+    phone,
+    comments,
+    latitude,
+    longitude,
+  } = req.body;
+
+  if (!name || !shortName) {
+    return res.status(400).json({
+      message: "Missing required fields: name, shortName",
+    });
   }
 
-  // Ensure we have coordinates
-  if (typeof latitude !== "number" || typeof longitude !== "number") {
-    return res
-      .status(400)
-      .json({ message: "latitude and longitude must be numbers" });
-  }
+  let geoPoint = null;
+  let cityInfo = null;
 
-  try {
-    // Check duplicates within 100m
+  if (typeof latitude === "number" && typeof longitude === "number") {
+    // Check duplicates
     const isDup = await isDuplicateVenue(latitude, longitude);
     if (isDup) {
       return res
@@ -137,29 +145,39 @@ router.post("/", async (req, res) => {
         .json({ message: "A venue already exists within 100 meters." });
     }
 
-    const cityInfo = await findNearestCalculatedCity(latitude, longitude);
+    cityInfo = await findNearestCalculatedCity(latitude, longitude);
+    geoPoint = {
+      type: "Point",
+      coordinates: [longitude, latitude],
+    };
+  }
 
-    const newVenue = new Venue({
-      name,
-      shortName,
-      address1,
-      address2,
-      address3,
-      zip,
-      phone,
-      comments,
-      city,
-      state,
-      calculatedCityId: cityInfo?.cityId || null,
-      calculatedDivisionId: cityInfo?.divisionId || null,
-      calculatedRegionId: cityInfo?.regionId || null,
-      calculatedCountryId: cityInfo?.countryId || null,
-      latitude,
-      longitude,
-      geolocation: { type: "Point", coordinates: [longitude, latitude] },
-      active: true,
-    });
+  // Determine activeFlag based on if we have minimal required geo fields
+  // If we fail to find nearest city or lat/long not provided, we can still save but venue is not active
+  const active = !!(geoPoint && cityInfo && name && shortName);
 
+  const newVenue = new Venue({
+    name,
+    shortName,
+    address1: address1 || "",
+    address2: address2 || "",
+    address3: address3 || "",
+    city: city || "",
+    state: state || "",
+    zip: zip || "",
+    phone: phone || "",
+    comments: comments || "",
+    latitude: typeof latitude === "number" ? latitude : undefined,
+    longitude: typeof longitude === "number" ? longitude : undefined,
+    geolocation: geoPoint,
+    calculatedCityId: cityInfo?.cityId || null,
+    calculatedDivisionId: cityInfo?.divisionId || null,
+    calculatedRegionId: cityInfo?.regionId || null,
+    calculatedCountryId: cityInfo?.countryId || null,
+    active,
+  });
+
+  try {
     await newVenue.save();
     res.status(201).json(newVenue);
   } catch (error) {
@@ -168,54 +186,68 @@ router.post("/", async (req, res) => {
   }
 });
 
-// PUT /venues/:id - Edit a venue
-// Expect same fields as POST
+// PUT /venues/:id
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, shortName, address, cityName, latitude, longitude, active } =
-    req.body;
+  const {
+    name,
+    shortName,
+    address1,
+    address2,
+    address3,
+    city,
+    state,
+    zip,
+    phone,
+    comments,
+    latitude,
+    longitude,
+    active,
+  } = req.body;
+
+  let updateData = {};
+
+  if (name !== undefined) updateData.name = name;
+  if (shortName !== undefined) updateData.shortName = shortName;
+  if (address1 !== undefined) updateData.address1 = address1;
+  if (address2 !== undefined) updateData.address2 = address2;
+  if (address3 !== undefined) updateData.address3 = address3;
+  if (city !== undefined) updateData.city = city;
+  if (state !== undefined) updateData.state = state;
+  if (zip !== undefined) updateData.zip = zip;
+  if (phone !== undefined) updateData.phone = phone;
+  if (comments !== undefined) updateData.comments = comments;
+  if (active !== undefined) updateData.active = active;
+
+  if (typeof latitude === "number" && typeof longitude === "number") {
+    const isDup = await isDuplicateVenue(latitude, longitude, id);
+    if (isDup) {
+      return res.status(409).json({
+        message: "Another venue is within 100 meters of these coordinates.",
+      });
+    }
+    const cityInfo = await findNearestCalculatedCity(latitude, longitude);
+    updateData.latitude = latitude;
+    updateData.longitude = longitude;
+    updateData.geolocation = {
+      type: "Point",
+      coordinates: [longitude, latitude],
+    };
+    updateData.calculatedCityId = cityInfo?.cityId || null;
+    updateData.calculatedDivisionId = cityInfo?.divisionId || null;
+    updateData.calculatedRegionId = cityInfo?.regionId || null;
+    updateData.calculatedCountryId = cityInfo?.countryId || null;
+
+    // If we have lat/long and cityInfo, let's ensure active can be true if previously not set
+    if (cityInfo && name && shortName) {
+      updateData.active = true;
+    }
+  }
 
   try {
-    if (latitude && longitude) {
-      const isDup = await isDuplicateVenue(latitude, longitude, id);
-      if (isDup) {
-        return res
-          .status(409)
-          .json({
-            message: "Another venue is within 100 meters of these coordinates.",
-          });
-      }
-    }
-
-    let updateData = {};
-    if (name !== undefined) updateData.name = name;
-    if (shortName !== undefined) updateData.shortName = shortName;
-    if (address1 !== undefined) updateData.address1 = address;
-    if (address2 !== undefined) updateData.address2 = address;
-    if (address3 !== undefined) updateData.address3 = address;
-    if (city !== undefined) updateData.city = cityName;
-    if (state !== undefined) updateData.state = cityName;
-    if (phone !== undefined) updateData.phone = cityName;
-    if (comments !== undefined) updateData.comments = cityName;
-
-    if (typeof latitude === "number" && typeof longitude === "number") {
-      const cityInfo = await findNearestCalculatedCity(latitude, longitude);
-      updateData.latitude = latitude;
-      updateData.longitude = longitude;
-      updateData.geolocation = {
-        type: "Point",
-        coordinates: [longitude, latitude],
-      };
-      updateData.calculatedCityId = cityInfo?.cityId || null;
-      updateData.calculatedDivisionId = cityInfo?.divisionId || null;
-      updateData.calculatedRegionId = cityInfo?.regionId || null;
-      updateData.calculatedCountryId = cityInfo?.countryId || null;
-    }
-    if (active !== undefined) updateData.active = active;
-
     const updatedVenue = await Venue.findByIdAndUpdate(id, updateData, {
       new: true,
-    });
+    }).populate("calculatedCityId", "cityName");
     if (!updatedVenue) {
       return res.status(404).json({ message: "Venue not found" });
     }
