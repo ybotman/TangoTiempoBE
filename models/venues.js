@@ -1,3 +1,4 @@
+
 // models/Venue.js
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
@@ -17,27 +18,16 @@ const venueSchema = new Schema({
   longitude: { type: Number },
   geolocation: {
     type: { type: String, default: "Point", enum: ["Point"] },
-    coordinates: { type: [Number] }, // [lng, lat]
+    coordinates: { type: [Number] },
   },
-  calculatedCityId: {
-    type: Schema.Types.ObjectId,
-    ref: "calculatedCity",
-  },
-  calculatedDivisionId: {
-    type: Schema.Types.ObjectId,
-    ref: "calculatedDivision",
-  },
-  calculatedRegionId: {
-    type: Schema.Types.ObjectId,
-    ref: "calculatedRegion",
-  },
-  calculatedCountryId: {
-    type: Schema.Types.ObjectId,
-    ref: "calculatedCountry",
-  },
-  active: { type: Boolean, default: true },
+  calculatedCityId: { type: Schema.Types.ObjectId, ref: "calculatedCity" },
+  calculatedDivisionId: { type: Schema.Types.ObjectId, ref: "calculatedDivision" },
+  calculatedRegionId: { type: Schema.Types.ObjectId, ref: "calculatedRegion" },
+  calculatedCountryId: { type: Schema.Types.ObjectId, ref: "calculatedCountry" },
+  active: { type: Boolean, default: false },
 });
 
 venueSchema.index({ geolocation: "2dsphere" });
 
 module.exports = mongoose.model("Venue", venueSchema);
+

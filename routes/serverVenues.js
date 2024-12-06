@@ -1,20 +1,21 @@
+
+
+// routes/serverVenues.js
 const express = require("express");
 const router = express.Router();
 const Venue = require("../models/venues");
 const calculatedCity = require("../models/calculatedCities");
-const mongoose = require("mongoose");
 const rateLimiter = require("../middleware/rateLimiter");
+const mongoose = require("mongoose");
 
-// Apply rate limiter
 router.use(rateLimiter);
 
-// Utility function to check for duplicates within 100 meters
 async function isDuplicateVenue(latitude, longitude, excludeId = null) {
   const query = {
     geolocation: {
       $near: {
         $geometry: { type: "Point", coordinates: [longitude, latitude] },
-        $maxDistance: 100, // meters
+        $maxDistance: 100,
       },
     },
   };
@@ -25,7 +26,6 @@ async function isDuplicateVenue(latitude, longitude, excludeId = null) {
   return !!duplicate;
 }
 
-// Utility to find nearest calculatedCity
 async function findNearestCalculatedCity(latitude, longitude) {
   const pipeline = [
     {
@@ -109,8 +109,6 @@ router.get("/", async (req, res) => {
 });
 
 // POST /venues
-// Expect: {name, shortName, address1, address2, address3, city, state, zip, phone, comments, latitude, longitude}
-// If latitude/longitude provided, we find nearest city. If not active data is incomplete, can still save but not active.
 router.post("/", async (req, res) => {
   const {
     name,
@@ -135,26 +133,21 @@ router.post("/", async (req, res) => {
 
   let geoPoint = null;
   let cityInfo = null;
+  let isActive = false;
 
   if (typeof latitude === "number" && typeof longitude === "number") {
-    // Check duplicates
     const isDup = await isDuplicateVenue(latitude, longitude);
     if (isDup) {
-      return res
-        .status(409)
-        .json({ message: "A venue already exists within 100 meters." });
+      return res.status(409).json({ message: "A venue already exists within 100 meters." });
     }
 
     cityInfo = await findNearestCalculatedCity(latitude, longitude);
-    geoPoint = {
-      type: "Point",
-      coordinates: [longitude, latitude],
-    };
+    geoPoint = { type: "Point", coordinates: [longitude, latitude] };
   }
 
-  // Determine activeFlag based on if we have minimal required geo fields
-  // If we fail to find nearest city or lat/long not provided, we can still save but venue is not active
-  const active = !!(geoPoint && cityInfo && name && shortName);
+  if (geoPoint && cityInfo && name && shortName) {
+    isActive = true;
+  }
 
   const newVenue = new Venue({
     name,
@@ -174,7 +167,7 @@ router.post("/", async (req, res) => {
     calculatedDivisionId: cityInfo?.divisionId || null,
     calculatedRegionId: cityInfo?.regionId || null,
     calculatedCountryId: cityInfo?.countryId || null,
-    active,
+    active: isActive,
   });
 
   try {
@@ -222,9 +215,7 @@ router.put("/:id", async (req, res) => {
   if (typeof latitude === "number" && typeof longitude === "number") {
     const isDup = await isDuplicateVenue(latitude, longitude, id);
     if (isDup) {
-      return res.status(409).json({
-        message: "Another venue is within 100 meters of these coordinates.",
-      });
+      return res.status(409).json({ message: "Another venue is within 100 meters of these coordinates." });
     }
     const cityInfo = await findNearestCalculatedCity(latitude, longitude);
     updateData.latitude = latitude;
@@ -238,16 +229,20 @@ router.put("/:id", async (req, res) => {
     updateData.calculatedRegionId = cityInfo?.regionId || null;
     updateData.calculatedCountryId = cityInfo?.countryId || null;
 
-    // If we have lat/long and cityInfo, let's ensure active can be true if previously not set
     if (cityInfo && name && shortName) {
-      updateData.active = true;
+      // Ensure active can be true if we now have full data
+      if (updateData.active === undefined) updateData.active = true;
+    } else {
+      // If missing something, keep as is or set inactive
+      if (!cityInfo || !name || !shortName) {
+        updateData.active = false;
+      }
     }
   }
 
   try {
-    const updatedVenue = await Venue.findByIdAndUpdate(id, updateData, {
-      new: true,
-    }).populate("calculatedCityId", "cityName");
+    const updatedVenue = await Venue.findByIdAndUpdate(id, updateData, { new: true })
+      .populate("calculatedCityId", "cityName");
     if (!updatedVenue) {
       return res.status(404).json({ message: "Venue not found" });
     }
@@ -259,14 +254,14 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// DELETE /venues/:id - soft delete
+// DELETE /venues/:id
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const updatedVenue = await Venue.findByIdAndUpdate(
       id,
       { active: false },
-      { new: true },
+      { new: true }
     );
     if (!updatedVenue) {
       return res.status(404).json({ message: "Venue not found" });
