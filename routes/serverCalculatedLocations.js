@@ -1,4 +1,3 @@
-// routes/serverCalculatedLocations.js
 const express = require("express");
 const router = express.Router();
 const calculatedCity = require("../models/calculatedCities");
@@ -11,34 +10,30 @@ router.get("/nearestCity", async (req, res) => {
   const { longitude, latitude } = req.query;
 
   if (!longitude || !latitude) {
-    return res
-      .status(400)
-      .json({ message: "Longitude and latitude are required" });
+    console.error("Missing coordinates in request.");
+    return res.status(400).json({ message: "Longitude and latitude are required" });
   }
 
   const longitudeNum = parseFloat(longitude);
   const latitudeNum = parseFloat(latitude);
 
   if (isNaN(longitudeNum) || isNaN(latitudeNum)) {
-    return res
-      .status(400)
-      .json({ message: "Longitude and latitude must be valid numbers" });
+    console.error("Invalid coordinates provided.");
+    return res.status(400).json({ message: "Longitude and latitude must be valid numbers" });
   }
 
   try {
     const maxDistanceMeters = 482803; // ~300 miles
+    console.log(`Searching for nearest city with coordinates: (${latitude}, ${longitude})`);
 
     const pipeline = [
       {
         $geoNear: {
-          near: {
-            type: "Point",
-            coordinates: [longitudeNum, latitudeNum],
-          },
+          near: { type: "Point", coordinates: [longitudeNum, latitudeNum] },
           distanceField: "distance",
           spherical: true,
           maxDistance: maxDistanceMeters,
-          query: { active: true },
+          query: { isActive: true },
         },
       },
       {
@@ -49,7 +44,7 @@ router.get("/nearestCity", async (req, res) => {
           as: "division",
         },
       },
-      { $unwind: "$division" },
+      { $unwind: { path: "$division", preserveNullAndEmptyArrays: true } },
       {
         $lookup: {
           from: "calculatedregions",
@@ -58,7 +53,7 @@ router.get("/nearestCity", async (req, res) => {
           as: "region",
         },
       },
-      { $unwind: "$region" },
+      { $unwind: { path: "$region", preserveNullAndEmptyArrays: true } },
       {
         $lookup: {
           from: "calculatedcountries",
@@ -67,22 +62,14 @@ router.get("/nearestCity", async (req, res) => {
           as: "country",
         },
       },
-      { $unwind: "$country" },
+      { $unwind: { path: "$country", preserveNullAndEmptyArrays: true } },
       {
         $project: {
-          // Return IDs and names so frontend can store references
           cityId: "$_id",
           cityName: 1,
-          cityCode: 1,
-          divisionId: "$division._id",
           divisionName: "$division.divisionName",
-          divisionCode: "$division.divisionCode",
-          regionId: "$region._id",
           regionName: "$region.regionName",
-          regionCode: "$region.regionCode",
-          countryId: "$country._id",
           countryName: "$country.countryName",
-          countryCode: "$country.countryCode",
           distance: 1,
         },
       },
@@ -93,17 +80,12 @@ router.get("/nearestCity", async (req, res) => {
     const nearest = await calculatedCity.aggregate(pipeline);
 
     if (!nearest.length) {
-      return res
-        .status(404)
-        .json({ message: "No nearby city found within 300 miles" });
+      console.log("No nearby city found within 300 miles.");
+      return res.status(404).json({ message: "No nearby city found within 300 miles" });
     }
 
     const distanceInMiles = nearest[0].distance / 1609.34;
-    if (distanceInMiles > 300) {
-      return res
-        .status(404)
-        .json({ message: "No nearby city found within 300 miles" });
-    }
+    console.log("Nearest city found:", nearest[0], `Distance: ${distanceInMiles.toFixed(2)} miles`);
 
     const result = {
       ...nearest[0],
