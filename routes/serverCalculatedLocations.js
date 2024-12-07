@@ -5,12 +5,8 @@ const calculatedCity = require("../models/calculatedCities");
 const mongoose = require("mongoose");
 const rateLimiter = require("../middleware/rateLimiter");
 
-// Apply rate limiter to all routes in this router
 router.use(rateLimiter);
 
-// GET nearest city from calculatedCity collection
-// This endpoint returns the closest city within 300 miles (approx 482803 meters).
-// If not found or beyond 300 miles, it returns a "No nearby city found within 300 miles" message.
 router.get("/nearestCity", async (req, res) => {
   const { longitude, latitude } = req.query;
 
@@ -30,11 +26,8 @@ router.get("/nearestCity", async (req, res) => {
   }
 
   try {
-    // 300 miles in meters (~482803 m)
-    const maxDistanceMeters = 482803;
+    const maxDistanceMeters = 482803; // ~300 miles
 
-    // Use $geoNear to find the closest active city within 300 miles
-    // We also join division, region, country data via $lookup
     const pipeline = [
       {
         $geoNear: {
@@ -77,16 +70,20 @@ router.get("/nearestCity", async (req, res) => {
       { $unwind: "$country" },
       {
         $project: {
-          _id: 0,
+          // Return IDs and names so frontend can store references
+          cityId: "$_id",
           cityName: 1,
           cityCode: 1,
+          divisionId: "$division._id",
           divisionName: "$division.divisionName",
           divisionCode: "$division.divisionCode",
+          regionId: "$region._id",
           regionName: "$region.regionName",
           regionCode: "$region.regionCode",
+          countryId: "$country._id",
           countryName: "$country.countryName",
           countryCode: "$country.countryCode",
-          distance: 1, // distance in meters
+          distance: 1,
         },
       },
       { $sort: { distance: 1 } },
@@ -101,16 +98,13 @@ router.get("/nearestCity", async (req, res) => {
         .json({ message: "No nearby city found within 300 miles" });
     }
 
-    // Optional: Convert distance to miles
     const distanceInMiles = nearest[0].distance / 1609.34;
-    // Check if distance > 300 miles (just in case)
     if (distanceInMiles > 300) {
       return res
         .status(404)
         .json({ message: "No nearby city found within 300 miles" });
     }
 
-    // Include distance in miles for clarity
     const result = {
       ...nearest[0],
       distanceMiles: parseFloat(distanceInMiles.toFixed(2)),

@@ -1,5 +1,3 @@
-
-
 // routes/serverVenues.js
 const express = require("express");
 const router = express.Router();
@@ -33,7 +31,7 @@ async function findNearestCalculatedCity(latitude, longitude) {
         near: { type: "Point", coordinates: [longitude, latitude] },
         distanceField: "dist",
         spherical: true,
-        query: { active: true },
+        query: { active: true }, // If you have changed to isActive in calculatedCities, adjust similarly
         limit: 1,
       },
     },
@@ -90,12 +88,12 @@ async function findNearestCalculatedCity(latitude, longitude) {
   }
 }
 
-// GET /venues?cityId=&active=
+// GET /venues?cityId=&isActive=
 router.get("/", async (req, res) => {
-  const { cityId, active } = req.query;
+  const { cityId, isActive } = req.query;
   const query = {};
   if (cityId) query.calculatedCityId = new mongoose.Types.ObjectId(cityId);
-  if (active !== undefined) query.active = active === "true";
+  if (isActive !== undefined) query.isActive = isActive === "true";
 
   try {
     const venues = await Venue.find(query)
@@ -125,20 +123,24 @@ router.post("/", async (req, res) => {
     longitude,
   } = req.body;
 
-  if (!name || !shortName) {
-    return res.status(400).json({
-      message: "Missing required fields: name, shortName",
-    });
-  }
+  // Name and shortName are no longer required (default: ""), so no error if missing
+  // If you want them optional, remove the validation. If you still want them required, keep this check:
+  // if (!name || !shortName) {
+  //   return res.status(400).json({
+  //     message: "Missing required fields: name, shortName",
+  //   });
+  // }
 
   let geoPoint = null;
   let cityInfo = null;
-  let isActive = false;
+  let isActive = false; // default isActive = false
 
   if (typeof latitude === "number" && typeof longitude === "number") {
     const isDup = await isDuplicateVenue(latitude, longitude);
     if (isDup) {
-      return res.status(409).json({ message: "A venue already exists within 100 meters." });
+      return res
+        .status(409)
+        .json({ message: "A venue already exists within 100 meters." });
     }
 
     cityInfo = await findNearestCalculatedCity(latitude, longitude);
@@ -147,11 +149,14 @@ router.post("/", async (req, res) => {
 
   if (geoPoint && cityInfo && name && shortName) {
     isActive = true;
+  } else {
+    // If missing lat/long or city hierarchy or name/shortName,
+    // remains isActive = false
   }
 
   const newVenue = new Venue({
-    name,
-    shortName,
+    name: name || "",
+    shortName: shortName || "",
     address1: address1 || "",
     address2: address2 || "",
     address3: address3 || "",
@@ -167,7 +172,7 @@ router.post("/", async (req, res) => {
     calculatedDivisionId: cityInfo?.divisionId || null,
     calculatedRegionId: cityInfo?.regionId || null,
     calculatedCountryId: cityInfo?.countryId || null,
-    active: isActive,
+    isActive: isActive,
   });
 
   try {
@@ -195,7 +200,7 @@ router.put("/:id", async (req, res) => {
     comments,
     latitude,
     longitude,
-    active,
+    isActive,
   } = req.body;
 
   let updateData = {};
@@ -210,12 +215,16 @@ router.put("/:id", async (req, res) => {
   if (zip !== undefined) updateData.zip = zip;
   if (phone !== undefined) updateData.phone = phone;
   if (comments !== undefined) updateData.comments = comments;
-  if (active !== undefined) updateData.active = active;
+  if (isActive !== undefined) updateData.isActive = isActive;
 
   if (typeof latitude === "number" && typeof longitude === "number") {
     const isDup = await isDuplicateVenue(latitude, longitude, id);
     if (isDup) {
-      return res.status(409).json({ message: "Another venue is within 100 meters of these coordinates." });
+      return res
+        .status(409)
+        .json({
+          message: "Another venue is within 100 meters of these coordinates.",
+        });
     }
     const cityInfo = await findNearestCalculatedCity(latitude, longitude);
     updateData.latitude = latitude;
@@ -230,19 +239,18 @@ router.put("/:id", async (req, res) => {
     updateData.calculatedCountryId = cityInfo?.countryId || null;
 
     if (cityInfo && name && shortName) {
-      // Ensure active can be true if we now have full data
-      if (updateData.active === undefined) updateData.active = true;
+      if (isActive === undefined) updateData.isActive = true;
     } else {
-      // If missing something, keep as is or set inactive
       if (!cityInfo || !name || !shortName) {
-        updateData.active = false;
+        updateData.isActive = false;
       }
     }
   }
 
   try {
-    const updatedVenue = await Venue.findByIdAndUpdate(id, updateData, { new: true })
-      .populate("calculatedCityId", "cityName");
+    const updatedVenue = await Venue.findByIdAndUpdate(id, updateData, {
+      new: true,
+    }).populate("calculatedCityId", "cityName");
     if (!updatedVenue) {
       return res.status(404).json({ message: "Venue not found" });
     }
@@ -258,9 +266,10 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
+    // Soft delete sets isActive = false
     const updatedVenue = await Venue.findByIdAndUpdate(
       id,
-      { active: false },
+      { isActive: false },
       { new: true }
     );
     if (!updatedVenue) {

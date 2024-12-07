@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const venueSchema = new Schema({
-  name: { type: String, required: true },
-  shortName: { type: String, required: true },
+  name: { type: String, default: "" },
+  shortName: { type: String, default: ""},
   address1: { type: String, default: "" },
   address2: { type: String, default: "" },
   address3: { type: String, default: "" },
@@ -24,7 +24,7 @@ const venueSchema = new Schema({
   calculatedDivisionId: { type: Schema.Types.ObjectId, ref: "calculatedDivision" },
   calculatedRegionId: { type: Schema.Types.ObjectId, ref: "calculatedRegion" },
   calculatedCountryId: { type: Schema.Types.ObjectId, ref: "calculatedCountry" },
-  active: { type: Boolean, default: false },
+  isActive: { type: Boolean, default: false },
 });
 
 venueSchema.index({ geolocation: "2dsphere" });

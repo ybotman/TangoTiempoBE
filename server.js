@@ -14,7 +14,7 @@ const allowedOrigins = [
   "https://wonderful-glacier-03516880f.5.azurestaticapps.net", // official test
   "https://tangotiempo.com", // final production
   "https://www.tangotiempo.com", // final production
-  "http://witty-bay-08177ec0f.5.azurestaticapps.net", // alternative production link
+  "https://witty-bay-08177ec0f.5.azurestaticapps.net", // alternative production link
   "https://red-field-0006d060f.5.azurestaticapps.net", // integration
 ];
 
