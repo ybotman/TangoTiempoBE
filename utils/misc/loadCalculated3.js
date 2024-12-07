@@ -5,7 +5,7 @@ require("dotenv").config(); // Load environment variables from .env
 
 const CalculatedCountries = require("../../models/calculatedCountries");
 const CalculatedRegions = require("../../models/calculatedRegions");
-const CalculatedDivisions = require("../../models/calculatedDivsions");
+const CalculatedDivisions = require("../../models/calculatedDivisions");
 const CalculatedCities = require("../../models/calculatedCities");
 
 const mongoURI = process.env.MONGODB_URI; // Ensure this matches your .env file

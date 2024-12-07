@@ -1,101 +1,84 @@
+// routes/serverCalculatedLocations.js
 const express = require("express");
 const router = express.Router();
+const calculatedCountry = require("../models/calculatedCountries");
+const calculatedRegion = require("../models/calculatedRegions");
+const calculatedDivision = require("../models/calculatedDivisions");
 const calculatedCity = require("../models/calculatedCities");
-const mongoose = require("mongoose");
 const rateLimiter = require("../middleware/rateLimiter");
+const mongoose = require("mongoose");
 
 router.use(rateLimiter);
 
-router.get("/nearestCity", async (req, res) => {
-  const { longitude, latitude } = req.query;
-
-  if (!longitude || !latitude) {
-    console.error("Missing coordinates in request.");
-    return res.status(400).json({ message: "Longitude and latitude are required" });
-  }
-
-  const longitudeNum = parseFloat(longitude);
-  const latitudeNum = parseFloat(latitude);
-
-  if (isNaN(longitudeNum) || isNaN(latitudeNum)) {
-    console.error("Invalid coordinates provided.");
-    return res.status(400).json({ message: "Longitude and latitude must be valid numbers" });
-  }
+// GET /api/calculatedLocations/countries?isActive=true
+router.get("/countries", async (req, res) => {
+  const { isActive } = req.query;
+  const query = {};
+  if (isActive !== undefined) query.active = isActive === "true";
 
   try {
-    const maxDistanceMeters = 482803; // ~300 miles
-    console.log(`Searching for nearest city with coordinates: (${latitude}, ${longitude})`);
-
-    const pipeline = [
-      {
-        $geoNear: {
-          near: { type: "Point", coordinates: [longitudeNum, latitudeNum] },
-          distanceField: "distance",
-          spherical: true,
-          maxDistance: maxDistanceMeters,
-          query: { isActive: true },
-        },
-      },
-      {
-        $lookup: {
-          from: "calculateddivisions",
-          localField: "calculatedDivisionId",
-          foreignField: "_id",
-          as: "division",
-        },
-      },
-      { $unwind: { path: "$division", preserveNullAndEmptyArrays: true } },
-      {
-        $lookup: {
-          from: "calculatedregions",
-          localField: "division.calculatedRegionId",
-          foreignField: "_id",
-          as: "region",
-        },
-      },
-      { $unwind: { path: "$region", preserveNullAndEmptyArrays: true } },
-      {
-        $lookup: {
-          from: "calculatedcountries",
-          localField: "region.calculatedCountryId",
-          foreignField: "_id",
-          as: "country",
-        },
-      },
-      { $unwind: { path: "$country", preserveNullAndEmptyArrays: true } },
-      {
-        $project: {
-          cityId: "$_id",
-          cityName: 1,
-          divisionName: "$division.divisionName",
-          regionName: "$region.regionName",
-          countryName: "$country.countryName",
-          distance: 1,
-        },
-      },
-      { $sort: { distance: 1 } },
-      { $limit: 1 },
-    ];
-
-    const nearest = await calculatedCity.aggregate(pipeline);
-
-    if (!nearest.length) {
-      console.log("No nearby city found within 300 miles.");
-      return res.status(404).json({ message: "No nearby city found within 300 miles" });
-    }
-
-    const distanceInMiles = nearest[0].distance / 1609.34;
-    console.log("Nearest city found:", nearest[0], `Distance: ${distanceInMiles.toFixed(2)} miles`);
-
-    const result = {
-      ...nearest[0],
-      distanceMiles: parseFloat(distanceInMiles.toFixed(2)),
-    };
-
-    return res.status(200).json(result);
+    const countries = await calculatedCountry.find(query).sort({ countryName: 1 });
+    res.status(200).json(countries);
   } catch (error) {
-    console.error("Error fetching nearest city:", error);
-    return res.status(500).json({ message: "Error fetching nearest city" });
+    console.error("Error fetching countries:", error);
+    res.status(500).json({ message: "Error fetching countries" });
+  }
+});
+
+// GET /api/calculatedLocations/regions?countryId=&isActive=
+router.get("/regions", async (req, res) => {
+  const { countryId, isActive } = req.query;
+  if (!countryId) {
+    return res.status(400).json({ message: "countryId is required" });
+  }
+
+  const query = { calculatedCountryId: new mongoose.Types.ObjectId(countryId) };
+  if (isActive !== undefined) query.active = isActive === "true";
+
+  try {
+    const regions = await calculatedRegion.find(query).sort({ regionName: 1 });
+    res.status(200).json(regions);
+  } catch (error) {
+    console.error("Error fetching regions:", error);
+    res.status(500).json({ message: "Error fetching regions" });
+  }
+});
+
+// GET /api/calculatedLocations/divisions?regionId=&isActive=
+router.get("/divisions", async (req, res) => {
+  const { regionId, isActive } = req.query;
+  if (!regionId) {
+    return res.status(400).json({ message: "regionId is required" });
+  }
+
+  const query = { calculatedRegionId: new mongoose.Types.ObjectId(regionId) };
+  if (isActive !== undefined) query.active = isActive === "true";
+
+  try {
+    const divisions = await calculatedDivision.find(query).sort({ divisionName: 1 });
+    res.status(200).json(divisions);
+  } catch (error) {
+    console.error("Error fetching divisions:", error);
+    res.status(500).json({ message: "Error fetching divisions" });
+  }
+});
+
+// GET /api/calculatedLocations/cities?divisionId=&isActive=
+router.get("/cities", async (req, res) => {
+  const { divisionId, isActive } = req.query;
+  if (!divisionId) {
+    return res.status(400).json({ message: "divisionId is required" });
+  }
+
+  const query = { calculatedDivisionId: new mongoose.Types.ObjectId(divisionId) };
+  if (isActive !== undefined) query.active = isActive === "true";
+
+  try {
+    const cities = await calculatedCity.find(query).sort({ cityName: 1 });
+    res.status(200).json(cities);
+  } catch (error) {
+    console.error("Error fetching cities:", error);
+    res.status(500).json({ message: "Error fetching cities" });
   }
 });
 

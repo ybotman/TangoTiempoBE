@@ -14,4 +14,4 @@ const calculatedDivisionSchema = new Schema({
   states: { type: [String], required: true },
 });
 
-module.exports = mongoose.model("calculatedDivision", calculatedDivisionSchema);
+module.exports = mongoose.model("calculatedDivisions", calculatedDivisionSchema);
