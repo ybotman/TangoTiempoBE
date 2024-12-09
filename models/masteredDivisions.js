@@ -1,4 +1,4 @@
-// models/MasteredDivision.js
+// models/MasteredDivisions.js
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
@@ -14,4 +14,4 @@ const masteredDivisionSchema = new Schema({
   states: { type: [String], required: true },
 });
 
-module.exports = mongoose.model("masteredDivisions", masteredDivisionSchema);
+module.exports = mongoose.model("MasteredDivision", masteredDivisionSchema);

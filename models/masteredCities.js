@@ -1,4 +1,4 @@
-// models/MasteredCity.js
+// models/MasteredCities.js
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 

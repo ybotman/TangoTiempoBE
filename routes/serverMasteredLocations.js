@@ -10,6 +10,65 @@ const mongoose = require("mongoose");
 
 router.use(rateLimiter);
 
+
+// GET /api/masteredLocations/nearestCity?latitude=&longitude=&maxDistance=&isActive=
+router.get("/nearestCity", async (req, res) => {
+  const { latitude, longitude, maxDistance, isActive } = req.query;
+
+  if (!latitude || !longitude) {
+    return res.status(400).json({ message: "latitude and longitude are required" });
+  }
+
+  try {
+    const query = {
+      location: {
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [parseFloat(longitude), parseFloat(latitude)],
+          },
+          ...(maxDistance && { $maxDistance: parseFloat(maxDistance) }),
+        },
+      },
+    };
+
+    if (isActive !== undefined) {
+      query.active = isActive === "true";
+    }
+
+    const nearestCity = await masteredCity.findOne(query).populate({
+      path: "masteredDivisionId",
+      populate: {
+        path: "masteredRegionId",
+        populate: {
+          path: "masteredCountryId",
+        },
+      },
+    });
+
+    if (!nearestCity) {
+      return res.status(404).json({ message: "No nearby city found" });
+    }
+
+    const response = {
+      cityID: nearestCity._id,
+      cityName: nearestCity.cityName,
+      distance: nearestCity.distance || null, // Include distance if needed
+      regionID: nearestCity.masteredDivisionId.masteredRegionId._id,
+      regionName: nearestCity.masteredDivisionId.masteredRegionId.regionName,
+      divisionID: nearestCity.masteredDivisionId._id,
+      divisionName: nearestCity.masteredDivisionId.divisionName,
+      countryID: nearestCity.masteredDivisionId.masteredRegionId.masteredCountryId._id,
+      countryName: nearestCity.masteredDivisionId.masteredRegionId.masteredCountryId.countryName,
+    };
+
+    res.status(200).json(response);
+  } catch (error) {
+    console.error("Error fetching nearest city:", error);
+    res.status(500).json({ message: "Error fetching nearest city" });
+  }
+});
+
 // GET /api/masteredLocations/countries?isActive=true
 router.get("/countries", async (req, res) => {
   const { isActive } = req.query;

@@ -13,4 +13,4 @@ const masteredRegionSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("masteredRegion", masteredRegionSchema);
+module.exports = mongoose.model("MasteredRegion", masteredRegionSchema);
