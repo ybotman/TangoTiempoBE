@@ -124,9 +124,9 @@ async function migrateLocations() {
           type: "Point",
           coordinates: [venue.longitude || 0, venue.latitude || 0], // Ensuring valid numeric values
         },
-        calculatedRegion: defaultRegion,
-        calculatedDivision: defaultDivision,
-        calculatedCity: defaultCity,
+        masteredRegion: defaultRegion,
+        masteredDivision: defaultDivision,
+        masteredCity: defaultCity,
         activeFlag: true,
         lastUsed: new Date(), // Set to the current date
       };

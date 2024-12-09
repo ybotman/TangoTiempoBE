@@ -3,10 +3,10 @@ const path = require("path");
 const mongoose = require("mongoose");
 require("dotenv").config(); // Load environment variables from .env
 
-const CalculatedCountries = require("../../models/calculatedCountries");
-const CalculatedRegions = require("../../models/calculatedRegions");
-const CalculatedDivisions = require("../../models/calculatedDivisions");
-const CalculatedCities = require("../../models/calculatedCities");
+const MasteredCountries = require("../../models/masteredCountries");
+const MasteredRegions = require("../../models/masteredRegions");
+const MasteredDivisions = require("../../models/masteredDivisions");
+const MasteredCities = require("../../models/masteredCities");
 
 const mongoURI = process.env.MONGODB_URI; // Ensure this matches your .env file
 
@@ -27,9 +27,9 @@ async function clearExistingData() {
   try {
     console.log("Clearing existing calculated data...");
     await Promise.all([
-      CalculatedRegions.deleteMany({}),
-      CalculatedDivisions.deleteMany({}),
-      CalculatedCities.deleteMany({}),
+      MasteredRegions.deleteMany({}),
+      MasteredDivisions.deleteMany({}),
+      MasteredCities.deleteMany({}),
     ]);
     console.log("Existing data cleared successfully");
   } catch (err) {
@@ -40,12 +40,12 @@ async function clearExistingData() {
 
 async function getCountryId() {
   try {
-    const country = await CalculatedCountries.findOne({
+    const country = await MasteredCountries.findOne({
       countryName: "United States",
     });
     if (!country) {
       throw new Error(
-        "United States not found in CalculatedCountries collection.",
+        "United States not found in MasteredCountries collection.",
       );
     }
     return country._id;
@@ -71,9 +71,9 @@ async function insertRegions(regionData, countryId) {
     regionName: region.regionName,
     regionCode: region.regionCode,
     active: region.active,
-    calculatedCountryId: countryId,
+    masteredCountryId: countryId,
   }));
-  return await CalculatedRegions.insertMany(regions);
+  return await MasteredRegions.insertMany(regions);
 }
 
 async function insertDivisions(regionData, regionsMap) {
@@ -83,10 +83,10 @@ async function insertDivisions(regionData, regionsMap) {
       divisionCode: division.divisionCode,
       active: division.active,
       states: division.states,
-      calculatedRegionId: regionsMap[region.regionCode],
+      masteredRegionId: regionsMap[region.regionCode],
     })),
   );
-  return await CalculatedDivisions.insertMany(divisions);
+  return await MasteredDivisions.insertMany(divisions);
 }
 
 async function insertCities(regionData, divisionsMap) {
@@ -102,11 +102,11 @@ async function insertCities(regionData, divisionsMap) {
           coordinates: [city.longitude, city.latitude],
         },
         active: city.active,
-        calculatedDivisionId: divisionsMap[division.divisionCode],
+        masteredDivisionId: divisionsMap[division.divisionCode],
       })),
     ),
   );
-  return await CalculatedCities.insertMany(cities);
+  return await MasteredCities.insertMany(cities);
 }
 
 async function loadCalculatedData() {

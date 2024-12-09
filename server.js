@@ -58,7 +58,7 @@ const locationRoutes = require("./routes/serverLocations");
 const userLoginRoutes = require("./routes/serverUserLogins");
 const firebaseRoutes = require("./routes/serverFirebase");
 const roleRoutes = require("./routes/serverRoles");
-const calculatedLocationsRoutes = require("./routes/serverCalculatedLocations");
+const masteredLocationsRoutes = require("./routes/serverMasteredLocations");
 const venuesRoutes = require("./routes/serverVenues"); // NEW
 
 // Use routes
@@ -70,7 +70,7 @@ app.use("/api/locations", locationRoutes);
 app.use("/api/userlogins", userLoginRoutes);
 app.use("/api/firebase", firebaseRoutes);
 app.use("/api/roles", roleRoutes);
-app.use("/api/calculatedLocations", calculatedLocationsRoutes);
+app.use("/api/masteredLocations", masteredLocationsRoutes);
 app.use("/api/venues", venuesRoutes);
 
 // Start the server

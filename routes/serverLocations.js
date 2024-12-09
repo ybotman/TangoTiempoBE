@@ -52,9 +52,9 @@ async function findClosestCalculatedFields(lat, lng) {
     });
 
     return {
-      calculatedCity: closestCity._id,
-      calculatedDivision: closestDivision._id,
-      calculatedRegion: closestRegion._id,
+      masteredCity: closestCity._id,
+      masteredDivision: closestDivision._id,
+      masteredRegion: closestRegion._id,
     };
   } catch (error) {
     console.error("Error finding closest calculated fields:", error);
@@ -70,14 +70,14 @@ router.get("/", async (req, res) => {
   try {
     let query = { activeFlag: true }; // Base query for active locations
 
-    // If a region is provided, filter by calculatedRegion
-    if (region) query.calculatedRegion = region;
+    // If a region is provided, filter by masteredRegion
+    if (region) query.masteredRegion = region;
 
-    // If a division is provided, filter by calculatedDivision
-    if (division) query.calculatedDivision = division;
+    // If a division is provided, filter by masteredDivision
+    if (division) query.masteredDivision = division;
 
-    // If a city is provided, filter by calculatedCity
-    if (city) query.calculatedCity = city;
+    // If a city is provided, filter by masteredCity
+    if (city) query.masteredCity = city;
 
     const locations = await Locations.find(query);
     res.status(200).json(locations);
@@ -155,7 +155,7 @@ router.post("/", async (req, res) => {
       await geocodeAddress(fullAddress);
 
     // Find the closest calculated city, division, and region
-    const { calculatedCity, calculatedDivision, calculatedRegion } =
+    const { masteredCity, masteredDivision, masteredRegion } =
       await findClosestCalculatedFields(latitude, longitude);
 
     // Create the new location object with the cleaned address
@@ -172,9 +172,9 @@ router.post("/", async (req, res) => {
         type: "Point",
         coordinates: [longitude, latitude],
       },
-      calculatedCity,
-      calculatedDivision,
-      calculatedRegion,
+      masteredCity,
+      masteredDivision,
+      masteredRegion,
       lastUsed: new Date(), // Set the last used date to now
     });
 

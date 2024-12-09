@@ -20,10 +20,10 @@ const venueSchema = new Schema({
     type: { type: String, default: "Point", enum: ["Point"] },
     coordinates: { type: [Number] },
   },
-  calculatedCityId: { type: Schema.Types.ObjectId, ref: "calculatedCity" },
-  calculatedDivisionId: { type: Schema.Types.ObjectId, ref: "calculatedDivision" },
-  calculatedRegionId: { type: Schema.Types.ObjectId, ref: "calculatedRegion" },
-  calculatedCountryId: { type: Schema.Types.ObjectId, ref: "calculatedCountry" },
+  masteredCityId: { type: Schema.Types.ObjectId, ref: "masteredCity" },
+  masteredDivisionId: { type: Schema.Types.ObjectId, ref: "masteredDivision" },
+  masteredRegionId: { type: Schema.Types.ObjectId, ref: "masteredRegion" },
+  masteredCountryId: { type: Schema.Types.ObjectId, ref: "masteredCountry" },
   isActive: { type: Boolean, default: false },
 });
 

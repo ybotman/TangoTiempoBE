@@ -169,9 +169,9 @@ async function migrateEvents() {
           locationID: location._id,
           locationName: location.name,
           eventImage: event.image?.url || null,
-          calculatedRegionName: "Northeast",
-          calculatedDivisionName: "New England",
-          calculatedCityName: "Boston",
+          masteredRegionName: "Northeast",
+          masteredDivisionName: "New England",
+          masteredCityName: "Boston",
           tmpMix,
         };
 

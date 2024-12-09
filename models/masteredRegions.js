@@ -1,16 +1,16 @@
-// models/CalculatedRegion.js
+// models/MasteredRegion.js
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const calculatedRegionSchema = new Schema({
+const masteredRegionSchema = new Schema({
   regionName: { type: String, required: true },
   regionCode: { type: String, required: true },
   active: { type: Boolean, default: true },
-  calculatedCountryId: {
+  masteredCountryId: {
     type: Schema.Types.ObjectId,
-    ref: "CalculatedCountry",
+    ref: "MasteredCountry",
     required: true,
   },
 });
 
-module.exports = mongoose.model("calculatedRegion", calculatedRegionSchema);
+module.exports = mongoose.model("masteredRegion", masteredRegionSchema);

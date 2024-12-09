@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const CalculatedCountry = require("../../models/calculatedCountries");
+const MasteredCountry = require("../../models/masteredCountries");
 
 // Ensure this matches your .env file
 const mongoURI = process.env.MONGODB_URI;
@@ -41,11 +41,11 @@ mongoose
 async function loadCountries() {
   try {
     // Remove all existing countries
-    await CalculatedCountry.deleteMany({});
+    await MasteredCountry.deleteMany({});
     console.log("All existing countries removed");
 
     // Insert the new countries
-    await CalculatedCountry.insertMany(countries);
+    await MasteredCountry.insertMany(countries);
     console.log("New countries inserted");
 
     // Close the connection

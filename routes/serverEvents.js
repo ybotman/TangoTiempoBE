@@ -29,20 +29,20 @@ router.get("/all", async (req, res) => {
 });
 
 // Get events by calculated locations
-router.get("/byCalculatedLocations", async (req, res) => {
+router.get("/byMasteredLocations", async (req, res) => {
   try {
     const {
-      calculatedRegionName,
-      calculatedDivisionName,
-      calculatedCityName,
+      masteredRegionName,
+      masteredDivisionName,
+      masteredCityName,
       start,
       end,
       active,
     } = req.query;
 
-    if (!calculatedRegionName || !start || !end || active === undefined) {
+    if (!masteredRegionName || !start || !end || active === undefined) {
       console.error(
-        `Missing parameters: calculatedRegionName=${calculatedRegionName}, start=${start}, end=${end}, active=${active}`,
+        `Missing parameters: masteredRegionName=${masteredRegionName}, start=${start}, end=${end}, active=${active}`,
       );
       return res.status(400).json({
         message: "Region, start date, end date, and active status are required",
@@ -54,17 +54,17 @@ router.get("/byCalculatedLocations", async (req, res) => {
     const isActive = active === "true";
 
     const query = {
-      calculatedRegionName,
+      masteredRegionName,
       startDate: { $gte: startDate, $lte: endDate },
       active: isActive,
     };
 
-    if (calculatedDivisionName) {
-      query.calculatedDivisionName = calculatedDivisionName;
+    if (masteredDivisionName) {
+      query.masteredDivisionName = masteredDivisionName;
     }
 
-    if (calculatedCityName) {
-      query.calculatedCityName = calculatedCityName;
+    if (masteredCityName) {
+      query.masteredCityName = masteredCityName;
     }
 
     const events = await Events.find(query).sort({ startDate: 1 });
@@ -79,9 +79,9 @@ router.get("/byCalculatedLocations", async (req, res) => {
 router.get("/byRegionAndCategory", async (req, res) => {
   try {
     const {
-      calculatedRegionName,
-      calculatedDivisionName,
-      calculatedCityName,
+      masteredRegionName,
+      masteredDivisionName,
+      masteredCityName,
       start,
       end,
       active,
@@ -89,7 +89,7 @@ router.get("/byRegionAndCategory", async (req, res) => {
     } = req.query;
 
     if (
-      !calculatedRegionName ||
+      !masteredRegionName ||
       !start ||
       !end ||
       active === undefined ||
@@ -106,18 +106,18 @@ router.get("/byRegionAndCategory", async (req, res) => {
     const isActive = active === "true";
 
     const query = {
-      calculatedRegionName,
+      masteredRegionName,
       startDate: { $gte: startDate, $lte: endDate },
       active: isActive,
       category, // Filter by category (event type)
     };
 
-    if (calculatedDivisionName) {
-      query.calculatedDivisionName = calculatedDivisionName;
+    if (masteredDivisionName) {
+      query.masteredDivisionName = masteredDivisionName;
     }
 
-    if (calculatedCityName) {
-      query.calculatedCityName = calculatedCityName;
+    if (masteredCityName) {
+      query.masteredCityName = masteredCityName;
     }
 
     const events = await Events.find(query).sort({ startDate: 1 });

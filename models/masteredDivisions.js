@@ -1,17 +1,17 @@
-// models/CalculatedDivision.js
+// models/MasteredDivision.js
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const calculatedDivisionSchema = new Schema({
+const masteredDivisionSchema = new Schema({
   divisionName: { type: String, required: true },
   divisionCode: { type: String, required: true },
   active: { type: Boolean, default: true },
-  calculatedRegionId: {
+  masteredRegionId: {
     type: Schema.Types.ObjectId,
-    ref: "CalculatedRegion",
+    ref: "MasteredRegion",
     required: true,
   },
   states: { type: [String], required: true },
 });
 
-module.exports = mongoose.model("calculatedDivisions", calculatedDivisionSchema);
+module.exports = mongoose.model("masteredDivisions", masteredDivisionSchema);
