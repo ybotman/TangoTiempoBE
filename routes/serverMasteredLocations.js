@@ -10,14 +10,13 @@ const mongoose = require("mongoose");
 
 router.use(rateLimiter);
 
-router.get("/nearestCity", async (req, res) => {
+router.get("/nearestMastered", async (req, res) => {
   const { latitude, longitude, maxDistance, isActive } = req.query;
 
   if (!latitude || !longitude) {
     console.error("Missing latitude or longitude in request:", req.query);
     return res.status(400).json({ message: "Latitude and longitude are required" });
   }
-
   try {
     const query = {
       location: {

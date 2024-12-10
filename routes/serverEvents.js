@@ -29,6 +29,7 @@ router.get("/all", async (req, res) => {
 });
 
 // Get events by calculated locations
+// Get events by mastered locations
 router.get("/byMasteredLocations", async (req, res) => {
   try {
     const {
@@ -40,33 +41,48 @@ router.get("/byMasteredLocations", async (req, res) => {
       active,
     } = req.query;
 
-    if (!masteredRegionName || !start || !end || active === undefined) {
+    // Validate required parameters
+    if ((!masteredRegionName && !masteredDivisionName && !masteredCityName) || !start || !end) {
       console.error(
-        `Missing parameters: masteredRegionName=${masteredRegionName}, start=${start}, end=${end}, active=${active}`,
+        `Missing parameters: masteredRegionName=${masteredRegionName}, masteredDivisionName=${masteredDivisionName}, masteredCityName=${masteredCityName}, start=${start}, end=${end}`
       );
       return res.status(400).json({
-        message: "Region, start date, end date, and active status are required",
+        message:
+          "At least one of masteredRegionName, masteredDivisionName, or masteredCityName is required. Start date and end date are also required.",
       });
     }
 
+    // Parse and validate date range
     const startDate = new Date(start);
     const endDate = new Date(end);
-    const isActive = active === "true";
+    if (isNaN(startDate) || isNaN(endDate)) {
+      console.error(`Invalid date range: start=${start}, end=${end}`);
+      return res.status(400).json({ message: "Invalid start or end date format." });
+    }
 
+    // Parse active flag (default to true if not provided)
+    const isActive = active === undefined || active === "true";
+
+    // Build query
     const query = {
-      masteredRegionName,
       startDate: { $gte: startDate, $lte: endDate },
       active: isActive,
     };
 
+    // Add location filters if provided
+    if (masteredRegionName) {
+      query.masteredRegionName = masteredRegionName;
+    }
     if (masteredDivisionName) {
       query.masteredDivisionName = masteredDivisionName;
     }
-
     if (masteredCityName) {
       query.masteredCityName = masteredCityName;
     }
 
+    console.log("Querying events with:", query);
+
+    // Fetch events
     const events = await Events.find(query).sort({ startDate: 1 });
 
     res.status(200).json(events);
@@ -75,6 +91,8 @@ router.get("/byMasteredLocations", async (req, res) => {
     res.status(500).json({ message: "Error fetching events" });
   }
 });
+
+
 // Get events by region and category (event type)
 router.get("/byRegionAndCategory", async (req, res) => {
   try {
