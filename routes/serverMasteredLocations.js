@@ -10,13 +10,12 @@ const mongoose = require("mongoose");
 
 router.use(rateLimiter);
 
-
-// GET /api/masteredLocations/nearestCity?latitude=&longitude=&maxDistance=&isActive=
 router.get("/nearestCity", async (req, res) => {
   const { latitude, longitude, maxDistance, isActive } = req.query;
 
   if (!latitude || !longitude) {
-    return res.status(400).json({ message: "latitude and longitude are required" });
+    console.error("Missing latitude or longitude in request:", req.query);
+    return res.status(400).json({ message: "Latitude and longitude are required" });
   }
 
   try {
@@ -32,9 +31,7 @@ router.get("/nearestCity", async (req, res) => {
       },
     };
 
-    if (isActive !== undefined) {
-      query.active = isActive === "true";
-    }
+    if (isActive !== undefined) query.active = isActive === "true";
 
     const nearestCity = await masteredCity.findOne(query).populate({
       path: "masteredDivisionId",
@@ -47,13 +44,14 @@ router.get("/nearestCity", async (req, res) => {
     });
 
     if (!nearestCity) {
+      console.warn("No nearby city found for query:", query);
       return res.status(404).json({ message: "No nearby city found" });
     }
 
     const response = {
       cityID: nearestCity._id,
       cityName: nearestCity.cityName,
-      distance: nearestCity.distance || null, // Include distance if needed
+      distance: nearestCity.distance || null,
       regionID: nearestCity.masteredDivisionId.masteredRegionId._id,
       regionName: nearestCity.masteredDivisionId.masteredRegionId.regionName,
       divisionID: nearestCity.masteredDivisionId._id,
@@ -62,13 +60,15 @@ router.get("/nearestCity", async (req, res) => {
       countryName: nearestCity.masteredDivisionId.masteredRegionId.masteredCountryId.countryName,
     };
 
+    console.log("Nearest city response:", response);
     res.status(200).json(response);
   } catch (error) {
     console.error("Error fetching nearest city:", error);
-    res.status(500).json({ message: "Error fetching nearest city" });
+    res.status(500).json({ message: "Internal server error", error: error.message });
   }
 });
 
+ 
 // GET /api/masteredLocations/countries?isActive=true
 router.get("/countries", async (req, res) => {
   const { isActive } = req.query;

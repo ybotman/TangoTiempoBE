@@ -59,7 +59,7 @@ const userLoginRoutes = require("./routes/serverUserLogins");
 const firebaseRoutes = require("./routes/serverFirebase");
 const roleRoutes = require("./routes/serverRoles");
 const masteredLocationsRoutes = require("./routes/serverMasteredLocations");
-const venuesRoutes = require("./routes/serverVenues"); // NEW
+const venuesRoutes = require("./routes/serverVenues"); 
 
 // Use routes
 app.use("/api/events", eventRoutes);
