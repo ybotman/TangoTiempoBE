@@ -80,7 +80,7 @@ router.get("/byMasteredLocations", async (req, res) => {
       query.masteredCityName = masteredCityName;
     }
 
-    console.log("Querying events with:", query);
+    console.log("BE: byMasteredLocations--> Querying events with:", query);
 
     // Fetch events
     const events = await Events.find(query).sort({ startDate: 1 });
