@@ -1,8 +1,8 @@
-// models/CalculatedCity.js
+// models/MasteredCities.js
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const calculatedCitySchema = new Schema({
+const masteredCitySchema = new Schema({
   cityName: { type: String, required: true },
   cityCode: { type: String, required: true },
   latitude: { type: Number, required: true },
@@ -22,14 +22,14 @@ const calculatedCitySchema = new Schema({
     },
   },
   active: { type: Boolean, default: true },
-  calculatedDivisionId: {
+  masteredDivisionId: {
     type: Schema.Types.ObjectId,
-    ref: "CalculatedDivision",
+    ref: "MasteredDivision",
     required: true,
   },
 });
 
 // Create a 2dsphere index on the location field
-calculatedCitySchema.index({ location: "2dsphere" });
+masteredCitySchema.index({ location: "2dsphere" });
 
-module.exports = mongoose.model("calculatedCity", calculatedCitySchema);
+module.exports = mongoose.model("masteredCity", masteredCitySchema);

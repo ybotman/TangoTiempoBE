@@ -29,44 +29,60 @@ router.get("/all", async (req, res) => {
 });
 
 // Get events by calculated locations
-router.get("/byCalculatedLocations", async (req, res) => {
+// Get events by mastered locations
+router.get("/byMasteredLocations", async (req, res) => {
   try {
     const {
-      calculatedRegionName,
-      calculatedDivisionName,
-      calculatedCityName,
+      masteredRegionName,
+      masteredDivisionName,
+      masteredCityName,
       start,
       end,
       active,
     } = req.query;
 
-    if (!calculatedRegionName || !start || !end || active === undefined) {
+    // Validate required parameters
+    if ((!masteredRegionName && !masteredDivisionName && !masteredCityName) || !start || !end) {
       console.error(
-        `Missing parameters: calculatedRegionName=${calculatedRegionName}, start=${start}, end=${end}, active=${active}`,
+        `Missing parameters: masteredRegionName=${masteredRegionName}, masteredDivisionName=${masteredDivisionName}, masteredCityName=${masteredCityName}, start=${start}, end=${end}`
       );
       return res.status(400).json({
-        message: "Region, start date, end date, and active status are required",
+        message:
+          "At least one of masteredRegionName, masteredDivisionName, or masteredCityName is required. Start date and end date are also required.",
       });
     }
 
+    // Parse and validate date range
     const startDate = new Date(start);
     const endDate = new Date(end);
-    const isActive = active === "true";
+    if (isNaN(startDate) || isNaN(endDate)) {
+      console.error(`Invalid date range: start=${start}, end=${end}`);
+      return res.status(400).json({ message: "Invalid start or end date format." });
+    }
 
+    // Parse active flag (default to true if not provided)
+    const isActive = active === undefined || active === "true";
+
+    // Build query
     const query = {
-      calculatedRegionName,
       startDate: { $gte: startDate, $lte: endDate },
       active: isActive,
     };
 
-    if (calculatedDivisionName) {
-      query.calculatedDivisionName = calculatedDivisionName;
+    // Add location filters if provided
+    if (masteredRegionName) {
+      query.masteredRegionName = masteredRegionName;
+    }
+    if (masteredDivisionName) {
+      query.masteredDivisionName = masteredDivisionName;
+    }
+    if (masteredCityName) {
+      query.masteredCityName = masteredCityName;
     }
 
-    if (calculatedCityName) {
-      query.calculatedCityName = calculatedCityName;
-    }
+    console.log("BE: byMasteredLocations--> Querying events with:", query);
 
+    // Fetch events
     const events = await Events.find(query).sort({ startDate: 1 });
 
     res.status(200).json(events);
@@ -75,13 +91,15 @@ router.get("/byCalculatedLocations", async (req, res) => {
     res.status(500).json({ message: "Error fetching events" });
   }
 });
+
+
 // Get events by region and category (event type)
 router.get("/byRegionAndCategory", async (req, res) => {
   try {
     const {
-      calculatedRegionName,
-      calculatedDivisionName,
-      calculatedCityName,
+      masteredRegionName,
+      masteredDivisionName,
+      masteredCityName,
       start,
       end,
       active,
@@ -89,7 +107,7 @@ router.get("/byRegionAndCategory", async (req, res) => {
     } = req.query;
 
     if (
-      !calculatedRegionName ||
+      !masteredRegionName ||
       !start ||
       !end ||
       active === undefined ||
@@ -106,18 +124,18 @@ router.get("/byRegionAndCategory", async (req, res) => {
     const isActive = active === "true";
 
     const query = {
-      calculatedRegionName,
+      masteredRegionName,
       startDate: { $gte: startDate, $lte: endDate },
       active: isActive,
       category, // Filter by category (event type)
     };
 
-    if (calculatedDivisionName) {
-      query.calculatedDivisionName = calculatedDivisionName;
+    if (masteredDivisionName) {
+      query.masteredDivisionName = masteredDivisionName;
     }
 
-    if (calculatedCityName) {
-      query.calculatedCityName = calculatedCityName;
+    if (masteredCityName) {
+      query.masteredCityName = masteredCityName;
     }
 
     const events = await Events.find(query).sort({ startDate: 1 });
