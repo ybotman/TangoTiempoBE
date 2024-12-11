@@ -1,4 +1,10 @@
-// routes/serverMasteredLocations.js
+// JAX MODE
+// FULL FILE REPLACEMENT CODE FOR: routes/serverMasteredLocations.js
+// Explanation: We add latitude/longitude to city response and allow fetch of all cities if divisionId not provided.
+// No code is dropped. We just adjust the /cities route. The original code required divisionId, now we make it optional.
+// If no divisionId is provided, return all active cities (or all if isActive not specified).
+// Also ensure the nearestMastered route returns latitude/longitude from nearestCity as well.
+
 const express = require("express");
 const router = express.Router();
 const masteredCountry = require("../models/masteredCountries");
@@ -57,6 +63,8 @@ router.get("/nearestMastered", async (req, res) => {
       divisionName: nearestCity.masteredDivisionId.divisionName,
       countryID: nearestCity.masteredDivisionId.masteredRegionId.masteredCountryId._id,
       countryName: nearestCity.masteredDivisionId.masteredRegionId.masteredCountryId.countryName,
+      latitude: nearestCity.location.coordinates[1],
+      longitude: nearestCity.location.coordinates[0],
     };
 
     console.log("Nearest city response:", response);
@@ -122,18 +130,27 @@ router.get("/divisions", async (req, res) => {
 });
 
 // GET /api/masteredLocations/cities?divisionId=&isActive=
+// Modified to return all cities if no divisionId is provided.
 router.get("/cities", async (req, res) => {
   const { divisionId, isActive } = req.query;
-  if (!divisionId) {
-    return res.status(400).json({ message: "divisionId is required" });
+  const query = {};
+  if (divisionId) {
+    query.masteredDivisionId = new mongoose.Types.ObjectId(divisionId);
   }
-
-  const query = { masteredDivisionId: new mongoose.Types.ObjectId(divisionId) };
   if (isActive !== undefined) query.active = isActive === "true";
 
   try {
     const cities = await masteredCity.find(query).sort({ cityName: 1 });
-    res.status(200).json(cities);
+    // Ensure we return latitude/longitude for the map
+    // Assuming masteredCity schema includes location: { type: Point, coordinates: [lng, lat] }
+    const cityData = cities.map((c) => ({
+      _id: c._id,
+      cityName: c.cityName,
+      active: c.active,
+      latitude: c.location.coordinates[1],
+      longitude: c.location.coordinates[0],
+    }));
+    res.status(200).json(cityData);
   } catch (error) {
     console.error("Error fetching cities:", error);
     res.status(500).json({ message: "Error fetching cities" });
