@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Roles = require("../models/roles");
-const rateLimiter = require('../middleware/rateLimiter');
-const logger = require('../utils/logger');
+const rateLimiter = require("../middleware/rateLimiter");
+const logger = require("../utils/logger");
 // Apply rate limiter to all routes in this router
 router.use(rateLimiter);
 

@@ -14,7 +14,7 @@ const allowedOrigins = [
   "https://wonderful-glacier-03516880f.5.azurestaticapps.net", // official test
   "https://tangotiempo.com", // final production
   "https://www.tangotiempo.com", // final production
-  "http://witty-bay-08177ec0f.5.azurestaticapps.net", // alternative production link
+  "https://witty-bay-08177ec0f.5.azurestaticapps.net", // alternative production link
   "https://red-field-0006d060f.5.azurestaticapps.net", // integration
 ];
 
@@ -58,6 +58,8 @@ const locationRoutes = require("./routes/serverLocations");
 const userLoginRoutes = require("./routes/serverUserLogins");
 const firebaseRoutes = require("./routes/serverFirebase");
 const roleRoutes = require("./routes/serverRoles");
+const masteredLocationsRoutes = require("./routes/serverMasteredLocations");
+const venuesRoutes = require("./routes/serverVenues"); 
 
 // Use routes
 app.use("/api/events", eventRoutes);
@@ -68,6 +70,8 @@ app.use("/api/locations", locationRoutes);
 app.use("/api/userlogins", userLoginRoutes);
 app.use("/api/firebase", firebaseRoutes);
 app.use("/api/roles", roleRoutes);
+app.use("/api/masteredLocations", masteredLocationsRoutes);
+app.use("/api/venues", venuesRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 3001;

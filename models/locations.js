@@ -18,17 +18,17 @@ const locationSchema = new mongoose.Schema({
   },
   activeFlag: { type: Boolean, default: false }, // New active flag field
   lastUsed: { type: Date }, // New last used date field
-  calculatedRegion: {
+  masteredRegion: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Regions",
     required: true,
   }, // New calculated region field
-  calculatedDivision: {
+  masteredDivision: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Divisions",
     required: true,
   }, // New calculated division field
-  calculatedCity: {
+  masteredCity: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Cities",
     required: true,

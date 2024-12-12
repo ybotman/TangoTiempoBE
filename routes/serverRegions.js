@@ -2,11 +2,10 @@
 const express = require("express");
 const router = express.Router();
 const Regions = require("../models/regions");
-const rateLimiter = require('../middleware/rateLimiter');
-const logger = require('../utils/logger');
+const rateLimiter = require("../middleware/rateLimiter");
+const logger = require("../utils/logger");
 // Apply rate limiter to all routes in this router
 router.use(rateLimiter);
-
 
 // GET all regions
 router.get("/", async (req, res) => {
@@ -79,6 +78,7 @@ router.get("/activeCities", async (req, res) => {
     res.status(500).json({ message: "Error fetching active cities" });
   }
 });
+
 
 // PUT (update) active flag for a region
 router.put("/region/:regionId/active", async (req, res) => {
