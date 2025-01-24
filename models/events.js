@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const eventSchema = new mongoose.Schema({
   title: { type: String, required: true },
   standardsTitle: { type: String, required: false },
+  shortTitle: { type: String, required: false },
   description: { type: String, required: false },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
@@ -10,11 +11,6 @@ const eventSchema = new mongoose.Schema({
   categorySecond: { type: String, required: false },
   categoryThird: { type: String, required: false },
   regionName: { type: String, required: true },
-  regionID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Regions",
-    required: true,
-  },
   ownerOrganizerID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Organizers",
@@ -38,23 +34,26 @@ const eventSchema = new mongoose.Schema({
   bannerImage: { type: String, required: false },
   featuredImage: { type: String, required: false },
   seriesImages: [{ type: String, required: false }],
-  locationID: {
+  venueID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Location",
-    required: true,
+    ref: "Venue",
+    required: false,
   },
-  locationName: { type: String, required: false },
+  venueGeolocation: {
+    type: { type: String, default: "Point", enum: ["Point"] },
+    coordinates: { type: [Number] },
+  },
   recurrenceRule: { type: String, required: false },
-  active: { type: Boolean, required: true, default: true },
-  featured: { type: Boolean, required: false, default: false },
-  canceled: { type: Boolean, required: false, default: false },
+  isDiscovered: { type: Boolean, required: true, default: true },
+  isOwnerManaged: { type: Boolean, required: true, default: true },
+  isActive: { type: Boolean, required: true, default: true },
+  isFeatured: { type: Boolean, required: false, default: false },
+  isCanceled: { type: Boolean, required: false, default: false },
+  discoveredLastDate: { type: Date, required: false },
+  discoveredFirstDate: { type: Date, required: false },
+  discoveredComments: { type: String, required: false },
   cost: { type: String, required: false },
   expiresAt: { type: Date, required: true },
-  tmpCreator: { type: String, required: false },
-  tmpVenueId: { type: String, required: false },
-  tmpEventOrgId: { type: String, required: false },
-  tmpUrl: { type: String, required: false },
-  tmpMix: { type: mongoose.Schema.Types.Mixed, required: false },
 });
 
 // Add indexes for performance optimization

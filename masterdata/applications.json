@@ -1,0 +1,22 @@
+{
+  "applications": [
+    {
+      "AppId" : "1", 
+      "AppName": "Tango Tiempo",
+      "Domain": "www.tangotiempo.com",
+      "Metadata": ["a", "b"]
+    },
+    {
+      "AppId" : "2", 
+      "AppName": "HarmonyWorld",
+      "Domain": "www.HarmonyWorld.com",
+      "Metadata": ["a", "b"]
+    },
+    {
+        "AppId" : "3",
+      "AppName": "MusicStream",
+      "Domain": "www.musicstream.com",
+      "Metadata": ["a", "b"]
+    }
+  ]
+}
